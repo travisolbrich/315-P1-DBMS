@@ -16,6 +16,8 @@ int main(int argc, char const *argv[])
 
 	cout << tokenzier->getQuery();
 
+	tokenzier->split();
+
 	return 0;
 }
 
