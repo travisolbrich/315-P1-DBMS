@@ -20,6 +20,7 @@ class SqlTokenizer
 		SqlTokenizer(string query) : query(query) {};
 		string getQuery() {	return query; }
 		void split();
+		string readAhead(int);
 };
 
 #endif

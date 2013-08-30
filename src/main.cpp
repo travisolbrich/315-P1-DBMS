@@ -8,15 +8,20 @@ void getSymbol();
 
 int main(int argc, char const *argv[])
 {
-	string query = "SHOW <- TABLE <= << symbols_everywhere >>= = ==";
+	string query = "SHOW <- TABLE <= <23< symbols_everywhere\"Here's a literal\"3>\"cat\"\"dog\" >>= 443 ====";
 
 	cout << "Query: " << query << "\n";
 
 	SqlTokenizer* tokenzier = new SqlTokenizer(query);
 
-	cout << tokenzier->getQuery();
-
-	tokenzier->split();
+	try 
+	{
+		tokenzier->split();
+	}
+	catch (exception& e)
+	{
+		cout << e.what() << "\n";
+	}
 
 	return 0;
 }
