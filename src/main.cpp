@@ -8,7 +8,7 @@ void getSymbol();
 
 int main(int argc, char const *argv[])
 {
-	string query = "SHOW <- TABLE <= <23< symbols_everywhere\"Here's a literal\"3>\"cat\"\"dog\" >>= 443 ====";
+	string query = "SHOW <- TABLE <= <23< symbols_ev3rywhere\"Here's a <literal>\"3>\"cat\"\"dog\" >>= 443 ====";
 
 	cout << "Query: " << query << "\n";
 

@@ -18,17 +18,17 @@ void SqlTokenizer::split()
 			iterator++;
 		}
 
-		// Grab words (allow underscores)
+		// Grab identifier (allow underscores)
 		else if (isalpha(*iterator))
 		{
 			string text;
-			while(iterator != query.end() && (isalpha(*iterator) || *iterator == '_'))
+			while(iterator != query.end() && (isalpha(*iterator) || isdigit(*iterator) || *iterator == '_'))
 			{
 				text += *iterator;
 				iterator++;
 			}
 
-			cout<<"Text: "<<text<<'\n';
+			cout<<"Identifier: "<<text<<'\n';
 		}
 
 		// Grab numbers
@@ -82,7 +82,7 @@ void SqlTokenizer::split()
 			}
 			else
 			{
-				iterator++;
+				iterator++; 
 			}
 
 			cout<<"Literal: "<<text<<'\n';
