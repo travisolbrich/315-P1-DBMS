@@ -41,6 +41,17 @@ This process will result in values that the Core Engine can then use to determin
 #### File I/O
 This module knows where the ASCII files are located that have the appropriate relations. The files are executed as scripts and the results are then handed back to the Core Engine, and then back to the DML Interface.
 
+## Database App
+
+### User I/O
+A command line based menu system will be created to allow employees to manage data in the system through an intuitive interface.
+
+### Business Logic
+This process will compute earnings totals and carry out other calculations based on the data in the database.
+
+### DBMS
+See above.
+
 ## Benefits, Assumptions, and Risks
 A major foreseen benefit is simplicity. We will be implementing the DBMS by making use of relational algebra instead of more complicated and robust systems. By using relational algebra we also avoid the possibility of NULL values and duplicated tuples. This is a huge simplification when considering the table structure and overall code design. The assumption is that there are only six primitives which does yield a simpler code design, but queries will be more strict and verbose. This trade off is necessary in order to be able to produce the project in the desired timeline. As mentioned above we will be using six primitives. Listed below are the six and their functional description. (These descriptions are found in the project description under the Relational Algebra section)
 
