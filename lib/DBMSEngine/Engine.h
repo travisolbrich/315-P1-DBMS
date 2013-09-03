@@ -12,35 +12,37 @@ using namespace std;
 class Relations {
 
 private:
-	int _id[];
-	string table_name;
-	string _attributes[];
-	vector<array> tuple;		//Most likely highly erronious definition
+	int id[];
+	string tableName;
+	string attributes[];
+	vector<vector<string>> tuple;		//Most likely highly erronious definition
 
 public:
-	Create_Table (string i, string j[] ) {
-		table_build(i, j);	
+	createTable (string i, string j[] ) 
+	{
+		tableBuild(i, j);	
 	}
 
-	void table_build(string i, string j[]) {
-		table_name = i;
-		_attributes[] = {j};
+	void tableBuild(string i, string j[]) 
+	{
+		tableName = i;
+		attributes[] = {j};
 	}
 
 	open_ (string i) {
-		datafile.open(i);
+		dataFile.open(i);
 	}
 
 	close_ (string i) {
-		datafile.close(i);
+		dataFile.close(i);
 	}
 
 	write_ (string i) {
-		ofstream datafile(i);
+		ofstream dataFile(i);
 	}
 
 	show_ (string i) {
-		ifstream datafile(i);
+		ifstream dataFile(i);
 	}
 
 	update_ {}
