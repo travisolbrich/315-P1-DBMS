@@ -10,6 +10,7 @@ For the Database Management System, the system is designed for use by a heavily 
 ### DBMS 
 
 ![DBMS high-level organization](img/DBMS.png)
+Each of the four major components of the DB Engine comprise the high level overview and will be discussed in the following section. They will be discussed in the order in which a typicall query will be processed. The DML Interface module will handle the interface between the DB Engine and the the DB App. Its main function is to provide a way to request and format input and output to and from the user. From the DML Interface the query is passed into the Core Engine. This module's task is to interpret whether it has received a valid request and whether the next step is to send that information to the Parser Module, File I/O or return results to the DML Interface. Think of the Core Engine as a traffic cop. The Parser module's job is to take input and determine the grammar used and what the arguments are. This process will result in values that the Core Engine can then use to determine what and where the results for the query are. The File I/O module is where the table script files are organized and stored. This module knows where the ASCII files are located that have the appropriate relations. The files are executed as scripts and the results are then handed back to the Core Engine.
 
 ### DB App
 
