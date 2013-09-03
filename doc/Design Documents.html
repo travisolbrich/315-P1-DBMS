@@ -34,11 +34,11 @@
 
 <h4>Core Engine</h4>
 
-<p>This module's purpose is to process requests and determine whether the next step is to send that information to the Parser Module, File I/O or return results to the DML Interface.</p>
+<p>This module's purpose is to process requests and determine whether the next step is to send that information to the Parser Module, File I/O or return results to the DML Interface. It will manage the database relations that have been loaded into memory and do operations on them.</p>
 
 <h4>Parser</h4>
 
-<p>This process will result in values that the Core Engine can then use to determine what and where the results for the query are.</p>
+<p>This process will result in values that the Core Engine can then use to determine what and where the results for the query are. A recursive descent parser will be used to parse the input statements according to the given grammar.</p>
 
 <h4>File I/O</h4>
 

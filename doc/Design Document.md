@@ -33,10 +33,10 @@ One location has many earning reports submitted for it. Many employees are emplo
 This is the first of four major modules that make up the DBMS engine. This focus in the design of this module is to implement an interface for query through the DB App as well as a way to directly interact with the database itself. Therefore its main function is to provide a way to request and format input and output to and from the user. From the DML Interface the query is passed into the Core Engine.
 
 #### Core Engine
-This module's purpose is to process requests and determine whether the next step is to send that information to the Parser Module, File I/O or return results to the DML Interface.
+This module's purpose is to process requests and determine whether the next step is to send that information to the Parser Module, File I/O or return results to the DML Interface. It will manage the database relations that have been loaded into memory and do operations on them.
 
 #### Parser
-This process will result in values that the Core Engine can then use to determine what and where the results for the query are.
+This process will result in values that the Core Engine can then use to determine what and where the results for the query are. A recursive descent parser will be used to parse the input statements according to the given grammar.
 
 #### File I/O
 This is the fourth major module in the DBMS engine. The focus in the design of this module is to provide a way to interact with the ASCII files which house the commands to generate the various tables and reports. Specific design considerations include portability and simplicity. This module knows where the ASCII files are located that have the appropriate relations. The files are executed as scripts and the results are then handed back to the Core Engine, and then back to the DML Interface.
