@@ -11,7 +11,11 @@ For the Database Management System, the system is designed for use by a heavily 
 
 ![DBMS high-level organization](img/DBMS.png)
 
+
+
 ### DB App
+
+![DB App high-level organization](img/DB App.png)
 
 ## Low Level Design
 
