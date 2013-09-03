@@ -1,4 +1,5 @@
-//Engine Header
+#ifndef DBMSEngine_Engine_H_
+#define DBMSEngine_Engine_H_
 
 #include <string>
 #include <vector>
@@ -26,19 +27,29 @@ public:
 		_attributes[] = {j};
 	}
 
-	open_ {}
+	open_ (string i) {
+		datafile.open(i);
+	}
 
-	close_ {}
+	close_ (string i) {
+		datafile.close(i);
+	}
 
-	write_ {}
+	write_ (string i) {
+		ofstream datafile(i);
+	}
 
-	exit_ {}
-
-	show_ {}
+	show_ (string i) {
+		ifstream datafile(i);
+	}
 
 	update_ {}
 
 	insert_ {}
 
 	delete_ {}
-}
+
+	exit_ {}
+};
+
+#endif
