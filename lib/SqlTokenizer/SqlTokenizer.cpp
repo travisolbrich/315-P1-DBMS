@@ -2,6 +2,8 @@ using namespace std;
 
 #include "SqlTokenizer.h"
 #include "InvalidSymbolException.h"
+#include "Token.h"
+
 #include <iostream>
 #include <sstream>
 #include <algorithm>
