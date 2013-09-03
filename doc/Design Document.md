@@ -7,6 +7,8 @@ Design Document
 
 ### DBMS 
 
+![DBMS high-level organization](img/DBMS.png)
+
 ### DB App
 
 ## Low Level Design
