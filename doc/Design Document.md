@@ -30,7 +30,7 @@ One location has many earning reports submitted for it. Many employees are emplo
 ### DBMS
 
 #### DML Interface
-This is the first of four major modules that make up the DBMS engine. This focus in the design of this module is to implement an inteface for query through the DB App as well as a way to directly interact with the database itself. Therefore its main function is to provide a way to request and format input and output to and from the user. From the DML Interface the query is passed into the Core Engine.
+This is the first of four major modules that make up the DBMS engine. This focus in the design of this module is to implement an interface for query through the DB App as well as a way to directly interact with the database itself. Therefore its main function is to provide a way to request and format input and output to and from the user. From the DML Interface the query is passed into the Core Engine.
 
 #### Core Engine
 This module's purpose is to process requests and determine whether the next step is to send that information to the Parser Module, File I/O or return results to the DML Interface.
