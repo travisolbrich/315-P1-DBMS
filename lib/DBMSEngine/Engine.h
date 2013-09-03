@@ -40,7 +40,7 @@ public:
 		dataFile.close(i);
 	}
 
-	writeTableName (string i) 
+	writeTable (string i) 
 	{
 		ofstream dataFile(i);
 	}
