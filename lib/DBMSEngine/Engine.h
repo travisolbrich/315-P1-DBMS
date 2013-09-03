@@ -1,4 +1,5 @@
-//Engine Header
+#ifndef DBMSEngine_Engine_H_
+#define DBMSEngine_Engine_H_
 
 #include <string>
 #include <vector>
@@ -8,37 +9,67 @@
 
 using namespace std;
 
-class Relations {
+class Relations 
+{
 
 private:
-	int _id[];
-	string table_name;
-	string _attributes[];
-	vector<array> tuple;		//Most likely highly erronious definition
+	int id[];
+	string tableName;
+	string attributes[];
+	vector<vector<string>> tuples;		//Most likely highly erronious definition
 
 public:
-	Create_Table (string i, string j[] ) {
-		table_build(i, j);	
+	createTable (string i, string j[] ) 
+	{
+		tableBuild(i, j);	
 	}
 
-	void table_build(string i, string j[]) {
-		table_name = i;
-		_attributes[] = {j};
+	void tableBuild(string i, string j[]) 
+	{
+		tableName = i;
+		attributes[] = {j};
 	}
 
-	open_ {}
+	openTable (string i) 
+	{
+		dataFile.open(i);
+	}
 
-	close_ {}
+	closeTable (string i) 
+	{
+		dataFile.close(i);
+	}
 
-	write_ {}
+	writeTable (string i) 
+	{
+		ofstream dataFile(i);
+	}
 
-	exit_ {}
+	showView (string i) 
+	{
+		ifstream dataFile(i);
+	}
 
-	show_ {}
+	updateTable() 
+	{
 
-	update_ {}
+	}
 
-	insert_ {}
+	insertToTable() 
+	{
 
-	delete_ {}
-}
+	}
+
+	deleteFromTable() 
+	{
+
+	}
+	
+	exitTable ()
+	{
+
+
+	}
+};
+
+#endif
