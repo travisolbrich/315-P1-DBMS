@@ -17,6 +17,7 @@ class Token
 						  FROM, SEMICOLON };
 
 		Token(TokenTypes type, string value) : type(type), value(value) {};
+		Token() {};
 		TokenTypes getType() { return type; }
 		string getValue() {	return value; }
 		string getTypeName();

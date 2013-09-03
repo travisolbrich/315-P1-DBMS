@@ -3,13 +3,14 @@ using namespace std;
 #include <iostream>
 #include "../lib/SqlTokenizer/SqlTokenizer.h"
 #include "../lib/SqlTokenizer/Token.h"
+#include "../lib/SqlParser/SqlParser.h"
 
 void program();
 void getSymbol();
 
 int main(int argc, char const *argv[])
 {
-	string query = "SHOW <- TABLE <= <23< symbols_ev3rywhere\"Here's a <literal>\"3>\"cat\"\"dog\" >>= 443 ====;";
+	string query = "OPEN SELECT people;";
 
 	cout << "Query: " << query << "\n";
 
@@ -24,13 +25,15 @@ int main(int argc, char const *argv[])
 		{
 			cout<<"RECOGNIZED: "<<tokens[i].getTypeName()<<"\n            "<<tokens[i].getValue()<<"\n\n";
 		}
+
+		SqlParser* parser = new SqlParser(tokens);
+
+		parser->parse();
 	}
 	catch (exception& e)
 	{
 		cout << e.what() << "\n";
 	}
-
-
 
 	return 0;
 }
