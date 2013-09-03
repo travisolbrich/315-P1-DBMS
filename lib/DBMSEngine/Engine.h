@@ -49,7 +49,9 @@ public:
 
 	delete_ {}
 
-	exit_ {}
+	exit_ {
+		
+	}
 };
 
 #endif
