@@ -9,8 +9,9 @@ For the Database Management System, the system is designed for use by a heavily 
 
 ### DBMS 
 
-![DBMS high-level organization ](img/DBMS.png)
-Each of the four major components of the DB Engine comprise the high level overview and will be discussed in the following section. They will be discussed in the order in which a typical query will be processed. The DML Interface module will handle the interface between the DB Engine and the the DB App. Its main function is to provide a way to request and format input and output to and from the user. From the DML Interface the query is passed into the Core Engine. This module's task is to interpret whether it has received a valid request and whether the next step is to send that information to the Parser Module, File I/O or return results to the DML Interface. Think of the Core Engine as a traffic cop. The Parser module's job is to take input and determine the grammar used and what the arguments are. This process will result in values that the Core Engine can then use to determine what and where the results for the query are. The File I/O module is where the table script files are organized and stored. This module knows where the ASCII files are located that have the appropriate relations. The files are executed as scripts and the results are then handed back to the Core Engine.
+![DBMS high-level organization](img/DBMS.png)
+
+Each of the four major components of the DB Engine comprise the high level overview and will be discussed in the following section. They will be discussed in the order in which a typical query will be processed. The DML Interface module will handle the interface between the DB Engine and the the DB App. The Core Engine module's task is to interpret whether it has received a valid input, think of the Core Engine as a traffic cop. The Parser module's job is to take input and determine the grammar used and what the arguments are.  The File I/O module is where the table script files are organized and stored. 
 
 ### DB App
 
@@ -20,9 +21,17 @@ Each of the four major components of the DB Engine comprise the high level overv
 
 ### DBMS
 
-#### Entity 1
+#### DML Interface
+Its main function is to provide a way to request and format input and output to and from the user. From the DML Interface the query is passed into the Core Engine.
 
-#### Entity 2
+#### Core Engine
+This module's purpose is to process requests and determine whether the next step is to send that information to the Parser Module, File I/O or return results to the DML Interface.
+
+#### Parser
+This process will result in values that the Core Engine can then use to determine what and where the results for the query are.
+
+#### File I/O
+This module knows where the ASCII files are located that have the appropriate relations. The files are executed as scripts and the results are then handed back to the Core Engine, and then back to the DML Interface.
 
 ### DB App
 
@@ -52,3 +61,9 @@ Another benefit is that the relations are stored in plain ASCII text files. This
 For the DB App the assumption is that the interface will be implemented by way of CLI (Command Line Interface). The benefit is that this will allow for increased flexibility across platforms and simplicity. Although this requires a higher level of understanding of the system in order to work with, the highly expanded file and data access over a GUI (Graphical User Interface) provides a distinct benefit in this situation. As well as giving far greater speed to the user as the system runs at a much lower level.
 
 Being able to layer the DB App directly on top of the engine will be a benefit due to how tightly the interface can be implemented for queries. 
+
+The risks involved are discussed in the following paragraphs.
+
+Implementing a DBMS system in general can be quite expensive and time consuming to design and implement a DBMS system especially if dealing with large projects. A second risk would be complexity. DBMS are complex pieces of software that use highly complex algorithms developed over decades as noted in the project description. Of course, in this project we will be simplifying so this won't be that big of a issue but still cost a time-consuming issue. A third risk would be Integrity. As many users can access the same data at the same time so it is a threat to data integrity. So any mechanism is necessary to ensure the safety of data. Any damage to the DBMS system will be reflected to all files and application programs within. Security would also be a very important risk to any DB engine. In a DBMS system, users have access to all the files, not just a few and so if an unauthorized users were to infiltrate the DBMS system, it could pose privacy threats. Since we will be using vectors and arrays for rows and columns, out of bounds errors could be possible  and thus will need to be handled if information is to be retrieved accurately.  
+
+Risks of the DB App would be user input, since we will be using command line interface, the user could accidentally press random keys and symbols so error catching is essential. Corruption in the app itself could potentially corrupt the DB engine and vice-versa. 
