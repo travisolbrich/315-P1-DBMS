@@ -9,13 +9,14 @@
 
 using namespace std;
 
-class Relations {
+class Relations 
+{
 
 private:
 	int id[];
 	string tableName;
 	string attributes[];
-	vector<vector<string>> tuple;		//Most likely highly erronious definition
+	vector<vector<string>> tuples;		//Most likely highly erronious definition
 
 public:
 	createTable (string i, string j[] ) 
@@ -29,29 +30,45 @@ public:
 		attributes[] = {j};
 	}
 
-	open_ (string i) {
+	openTable (string i) 
+	{
 		dataFile.open(i);
 	}
 
-	close_ (string i) {
+	closeTable (string i) 
+	{
 		dataFile.close(i);
 	}
 
-	write_ (string i) {
+	writeTableName (string i) 
+	{
 		ofstream dataFile(i);
 	}
 
-	show_ (string i) {
+	showView (string i) 
+	{
 		ifstream dataFile(i);
 	}
 
-	update_ {}
+	updateTable() 
+	{
 
-	insert_ {}
+	}
 
-	delete_ {}
+	insertToTable() 
+	{
 
-	exit_ {}
+	}
+
+	deleteFromTable() 
+	{
+
+	}
+
+	exitTable ()
+	{
+
+	}
 };
 
 #endif
