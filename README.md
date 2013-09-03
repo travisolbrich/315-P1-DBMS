@@ -15,6 +15,7 @@ To build the project, simply run `make`. The compiled code will be in `bin/`.
 
 Please see the [Commit Log](https://github.com/travisolbrich/315-P1-DBMS/commits/master) for the most up-to-date and detailed development log. The below log will summarize major developments.
 
+* 2013-09-03 Travis finished out the tokenizer.
 * 2013-09-03 Shane added notes from the discussion about the DB engine 
 * 2013-09-02 Travis worked on the tokenizer
 * 2013-09-02 Travis, Shane, John, and Adam met to complete the [Design Document](doc/Design Document.md)

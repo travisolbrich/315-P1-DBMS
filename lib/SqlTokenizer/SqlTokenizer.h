@@ -14,14 +14,15 @@ class SqlTokenizer
 	public:
 		SqlTokenizer(string query) : query(query) {};
 		string getQuery() {	return query; }
-		void split();
+		vector<Token> split();
 		string readAhead(int);
+		Token recognize(string text);
 
 	private: 
 		string query;
 		string::iterator iterator;
 	    vector<Token> tokens;
-	    string singleSymbols[7] = {"<", ">", "{", "}", "+", "-", "*"};
+	    string singleSymbols[8] = {"<", ">", "{", "}", "+", "-", "*", ";"};
 		string doubleSymbols[7] = {"==", "!=", "<=", ">=", "<-", "||", "&&"};
 };
 
