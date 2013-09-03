@@ -46,6 +46,6 @@
 #include <array>
 #include <iostream>
 
-using namespace std
+using namespace std;
  
-class Relations
+class Relations { 

@@ -3,25 +3,42 @@
 #include <string>
 #include <vector>
 #include <iostream>
+#include <fstream>
 #include <array>
+
+using namespace std;
 
 class Relations {
 
-	Create_Table {};
+private:
+	int _id[];
+	string table_name;
+	string _attributes[];
+	vector<array> tuple;		//Most likely highly erronious definition
 
-	open_ {};
+public:
+	Create_Table (string i, string j[] ) {
+		table_build(i, j);	
+	}
 
-	close_ {};
+	void table_build(string i, string j[]) {
+		table_name = i;
+		_attributes[] = {j};
+	}
 
-	write_ {};
+	open_ {}
 
-	exit_ {};
+	close_ {}
 
-	show_ {};
+	write_ {}
 
-	update_ {};
+	exit_ {}
 
-	insert_ {};
+	show_ {}
 
-	delete_ {};
+	update_ {}
+
+	insert_ {}
+
+	delete_ {}
 }
