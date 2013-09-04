@@ -13,17 +13,17 @@ void Engine::create()
 
 void Engine::open() 
 {
-		throw runtime_error("File I/O is not yet implemented as parser is incomplete.");
+		throw runtime_error("File I/O is not yet implemented as the parser is incomplete.");
 }
 
 void Engine::close() 
 {
-	throw runtime_error("File I/O is not yet implemented as parser is incomplete.");
+	throw runtime_error("File I/O is not yet implemented as the parser is incomplete.");
 }
 
 void Engine::write() 
 {
-	throw runtime_error("File I/O is not yet implemented as parser is incomplete.");
+	throw runtime_error("File I/O is not yet implemented as the parser is incomplete.");
 }
 
 void Engine::show() 
