@@ -4,6 +4,7 @@ using namespace std;
 #include "../lib/SqlTokenizer/SqlTokenizer.h"
 #include "../lib/SqlTokenizer/Token.h"
 #include "../lib/SqlParser/SqlParser.h"
+#include "../lib/DBMSEngine/Relation.h"
 
 void program();
 void getSymbol();
@@ -34,6 +35,26 @@ int main(int argc, char const *argv[])
 	{
 		cout << e.what() << "\n";
 	}
+
+	Tuple* tuple = new Tuple();
+
+	vector<string> values;
+	values.push_back("1");
+	values.push_back("Hello");
+	tuple->setValues(values);
+
+	vector<Attribute> attributes;
+	attributes.push_back(Attribute(Attribute::INTEGER, "ID"));
+	attributes.push_back(Attribute(Attribute::VARCHAR, "Sentence"));
+
+	vector<Tuple> tuples;
+	tuples.push_back(Tuple(values));
+
+	Relation* relation = new Relation("Senteces", attributes, tuples);
+
+	cout << relation->getName();
+	cout << endl << relation->getTuples().size();
+	cout << endl << relation->getAttributes().size();
 
 	return 0;
 }
