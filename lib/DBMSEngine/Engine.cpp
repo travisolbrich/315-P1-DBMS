@@ -1,44 +1,3 @@
-/**
-  * Start for DB Engine
-  * Pseudocode previously used for now
-  */
-
-/**
-  *class table
-  *  -> array of attributes
-  *  -> vector of tuple
-  *     -> tuple is array of values
-  */
-  
-/////////////////////////////////////////////////////////////////////////
-
-/**
-  *   table ||    people
-  *   id    ||   f_name   ||   l_name
-  *   -------------------------------------------------------------------------
-  *   0     ||   travis   ||   olbrich
-  *   1     ||   john     ||   leslie
-  *   -------------------------------------------------------------------------
-  */
-  
-/////////////////////////////////////////////////////////////////////////
-
-/**
-  *class table
-  *   table name = people
-  *   array attributes = {
-  *       [int id]
-  *       [str f_name]
-  *       [str l_name] 
-  *   }
-  *   vector tuple = {
-  *       array {0, "travis", "olbrich"}
-  *       array {1, "john", "leslie"}
-  *   }
-  */
-
-//////////////////////////////////////////////////////////////////////////
-
 #include "Engine.h"
 
 #include <vector>
@@ -48,24 +7,58 @@
 
 using namespace std;
  
-try
+void Engine::create() 
 {
-  bool exit_var = false;
-  while(exit_var = false)
-  {
+}
 
-    //print some message "welcome to DBMS" etc.
-    //listen for input
-    //throw exceptions for invalid input
-
-  }
-
-} 
-catch (exception& e)
+void Engine::open() 
 {
-  //catch exceptions for invalid input
-  //catch exceptions for various errors
-  //do we need try blocks around the function statements in the header file?
-  cerr << e.what() << "\n";
+		throw runtime_error("File I/O is not yet implemented as parser is incomplete.");
+}
 
+void Engine::close() 
+{
+	throw runtime_error("File I/O is not yet implemented as parser is incomplete.");
+}
+
+void Engine::write() 
+{
+	throw runtime_error("File I/O is not yet implemented as parser is incomplete.");
+}
+
+void Engine::show() 
+{
+	//Do Me Tenth
+	//are views any stored Query result?
+	//do we need to be able to list the views that are availible to see?
+}
+
+void Engine::update() 
+{
+	//Do Me Eighth
+	//changes existing entry
+	//need error checking to ensure entry exists
+	//be able to take input stream and rectify valid inputs. should be able to handle all primitives? ie. int's shouldn't be in a firstName block (unecessary?)
+}
+
+void Engine::insert() 
+{
+	//Do Me Seventh
+	//inserts a NEW entry
+	//need error checking to ensure entry does NOT yet exist
+
+}
+
+void Engine::deleteTuple() 
+{
+	//Do Me Nineth
+	//removes an existing entry
+	//need error checking to ensure entry exists
+}
+
+void Engine::exit (/* Pass 'exit_var' current state*/)
+{
+	//Do Me First
+	//set 'exit_var=true' to exit the while loop in try block in Engine.cpp
+	//we will need the state of exit_var for error checking (I think)
 }
