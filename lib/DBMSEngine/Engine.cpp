@@ -48,4 +48,24 @@
 
 using namespace std;
  
-class Relations { 
+try
+{
+  bool exit_var = false;
+  while(exit_var = false)
+  {
+
+    //print some message "welcome to DBMS" etc.
+    //listen for input
+    //throw exceptions for invalid input
+
+  }
+
+} 
+catch (exception& e)
+{
+  //catch exceptions for invalid input
+  //catch exceptions for various errors
+  //do we need try blocks around the function statements in the header file?
+  cerr << e.what() << "\n";
+
+}
