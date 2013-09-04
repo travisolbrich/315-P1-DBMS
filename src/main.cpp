@@ -5,6 +5,7 @@ using namespace std;
 #include "../lib/SqlTokenizer/Token.h"
 #include "../lib/SqlParser/SqlParser.h"
 #include "../lib/DBMSEngine/Relation.h"
+#include "../lib/DBMSEngine/Engine.h"
 
 void program();
 void getSymbol();
@@ -36,12 +37,12 @@ int main(int argc, char const *argv[])
 		cout << e.what() << "\n";
 	}
 
-	Tuple* tuple = new Tuple();
 
 	vector<string> values;
 	values.push_back("1");
 	values.push_back("Hello");
-	tuple->setValues(values);
+	
+	Tuple* tuple = new Tuple(values);
 
 	vector<Attribute> attributes;
 	attributes.push_back(Attribute(Attribute::INTEGER, "ID"));
