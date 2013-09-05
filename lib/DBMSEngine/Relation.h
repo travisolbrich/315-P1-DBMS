@@ -20,6 +20,7 @@ class Relation
 		string getName() { return name; }
 		vector<Attribute> getAttributes() { return attributes; }
 		vector<Tuple> getTuples() { return tuples; }
+		Tuple* getTuple(int id) { return &tuples[id]; }
 
 		void setAttributes(vector<Attribute> inAttributes) { attributes = inAttributes; };
 		void setTuples(vector<Tuple> inTuples) { tuples = inTuples; };

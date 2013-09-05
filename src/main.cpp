@@ -52,6 +52,15 @@ int main(int argc, char const *argv[])
 		engine->create("Sentences", attributes);
 		engine->insert("Sentences", values);
 		engine->insert("Sentences", second);
+
+		vector<int> update;
+		update.push_back(1);
+
+		vector<pair<int, string>> toset;
+		toset.push_back(make_pair(1, string("Yup.")));
+
+		engine->show("Sentences");
+		engine->update("Sentences", toset, update);
 		engine->show("Sentences");
 	}
 	catch (exception& e)

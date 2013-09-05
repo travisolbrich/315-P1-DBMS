@@ -20,7 +20,7 @@ public:
 	void write();
 	void show(string relationName);
 	void create(string relationName, vector<Attribute> attributes);
-	void update();
+	void update(string relationName, vector<pair<int, string>> values, vector<int> tuples);
 	void insert(string relationName, Tuple tuple);
 	void deleteTuple();
 	void exit();

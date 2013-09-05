@@ -4,6 +4,7 @@
 #include <string>
 #include <array>
 #include <iostream>
+#include <utility>
 
 using namespace std;
  
@@ -67,12 +68,27 @@ void Engine::insert(string relationName, Tuple tuple)
 	relation->addTuple(tuple);
 }
 
-void Engine::update() 
+/**
+  * Take the relation name, a vector of pair<attributeID, newValue>, and a vector of the tupleIDs to update.
+  */
+void Engine::update(string relationName, vector<pair<int, string>> newValues, vector<int> tupleIDs) 
 {
-	//Do Me Eighth
-	//changes existing entry
-	//need error checking to ensure entry exists
-	//be able to take input stream and rectify valid inputs. should be able to handle all primitives? ie. int's shouldn't be in a firstName block (unecessary?)
+	Relation* relation = getRelation(relationName);
+
+	// For each tupleID, set values
+	for(int i=0; i < tupleIDs.size(); i++)
+	{
+		Tuple *tuple = relation->getTuple(tupleIDs[i]);
+		vector<string> values = tuple->getValues();
+
+		// For each <id, value> pair, update the tuple
+		for(int y=0; y < newValues.size(); y++)
+		{
+			values[newValues[y].first] = newValues[y].second;
+		}
+
+		tuple->setValues(values);
+	}
 }
 
 
