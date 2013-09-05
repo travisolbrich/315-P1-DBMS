@@ -14,6 +14,7 @@ class Relation
 {
 	public:
 		Relation(string name, vector<Attribute> attributes, vector<Tuple> tuples) : name(name), attributes(attributes), tuples(tuples) {};
+		Relation(string name, vector<Attribute> attributes) : name(name), attributes(attributes) {};
 		Relation() {};
 
 		string getName() { return name; }

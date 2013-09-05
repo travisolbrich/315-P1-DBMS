@@ -12,15 +12,16 @@ class Engine
 
 public:
 	Engine(Relation relation) { relations.push_back(relation); };
+	Engine(vector<Relation> relations) : relations(relations) {};
 	Engine() {};
 
-	void create();
 	void open();
 	void close();
 	void write();
 	void show(string relationName);
+	void create(string relationName, vector<Attribute> attributes);
 	void update();
-	void insert();
+	void insert(Tuple tuple);
 	void deleteTuple();
 	void exit();
 

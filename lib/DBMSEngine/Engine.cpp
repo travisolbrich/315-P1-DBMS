@@ -7,9 +7,6 @@
 
 using namespace std;
  
-void Engine::create() 
-{
-}
 
 void Engine::open() 
 {
@@ -29,6 +26,7 @@ void Engine::write()
 void Engine::show(string relationName) 
 {
 	Relation* relation = getRelation(relationName);
+
 	cout << "==== Relation: " << relation->getName() << endl;
 
 	for (int i=0; i < relation->getTuples().size(); i++)
@@ -41,9 +39,24 @@ void Engine::show(string relationName)
 
 			cout << attribute.getTypeName() << " " << attribute.getValue() << ": " << tuple.getValues()[x] << endl;
 		}
-
+		
 		cout << endl;
 	}
+}
+
+void Engine::create(string relationName, vector<Attribute> attributes) 
+{
+	Relation* relation = new Relation(relationName, attributes);
+
+	relations.push_back(*relation);
+}
+
+void Engine::insert() 
+{
+	//Do Me Seventh
+	//inserts a NEW entry
+	//need error checking to ensure entry does NOT yet exist
+
 }
 
 void Engine::update() 
@@ -54,13 +67,6 @@ void Engine::update()
 	//be able to take input stream and rectify valid inputs. should be able to handle all primitives? ie. int's shouldn't be in a firstName block (unecessary?)
 }
 
-void Engine::insert() 
-{
-	//Do Me Seventh
-	//inserts a NEW entry
-	//need error checking to ensure entry does NOT yet exist
-
-}
 
 void Engine::deleteTuple() 
 {

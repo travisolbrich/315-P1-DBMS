@@ -56,15 +56,10 @@ int main(int argc, char const *argv[])
 	tuples.push_back(Tuple(values));
 	tuples.push_back(Tuple(second));
 
-	Relation* relation = new Relation("Sentences", attributes, tuples);
+	
 
-	cout << relation->getName();
-	cout << endl << relation->getTuples().size();
-	cout << endl << relation->getAttributes().size();
-
-	cout << endl;
-
-	Engine* engine = new Engine(*relation);
+	Engine* engine = new Engine();
+	engine->create("Sentences", attributes);
 	engine->show("Sentences");
 
 	return 0;

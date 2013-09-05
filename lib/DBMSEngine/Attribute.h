@@ -15,6 +15,7 @@ class Attribute
     Attribute(Type type, string value, bool primary) : type(type), value(value), primary(primary) {};
     Attribute(Type type, string value) : type(type), value(value), primary(false) {};
     Attribute() {};
+    
     Type getType() { return type; }
     string getValue() { return value; }
     bool isPrimary() { return primary; }
