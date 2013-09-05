@@ -18,6 +18,7 @@ class Attribute
     Type getType() { return type; }
     string getValue() { return value; }
     bool isPrimary() { return primary; }
+    string getTypeName() { return (type == VARCHAR) ? "VARCHAR" : "INTEGER"; }
 
     void setType(Type inType) { type = inType; }
     void setValue(string inValue) { value = inValue; }

@@ -11,13 +11,14 @@ class Engine
 {
 
 public:
+	Engine(Relation relation) { relations.push_back(relation); };
 	Engine() {};
 
 	void create();
 	void open();
 	void close();
 	void write();
-	void show();
+	void show(string relationName);
 	void update();
 	void insert();
 	void deleteTuple();
@@ -25,6 +26,7 @@ public:
 
 private:
 	vector<Relation> relations;
+	Relation *getRelation(string relationName);
 };
 
 #endif

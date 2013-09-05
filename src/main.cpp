@@ -41,6 +41,10 @@ int main(int argc, char const *argv[])
 	vector<string> values;
 	values.push_back("1");
 	values.push_back("Hello");
+
+	vector<string> second;
+	second.push_back("2");
+	second.push_back("This is cool");
 	
 	Tuple* tuple = new Tuple(values);
 
@@ -50,12 +54,18 @@ int main(int argc, char const *argv[])
 
 	vector<Tuple> tuples;
 	tuples.push_back(Tuple(values));
+	tuples.push_back(Tuple(second));
 
-	Relation* relation = new Relation("Senteces", attributes, tuples);
+	Relation* relation = new Relation("Sentences", attributes, tuples);
 
 	cout << relation->getName();
 	cout << endl << relation->getTuples().size();
 	cout << endl << relation->getAttributes().size();
+
+	cout << endl;
+
+	Engine* engine = new Engine(*relation);
+	engine->show("Sentences");
 
 	return 0;
 }
