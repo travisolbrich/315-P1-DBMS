@@ -31,12 +31,12 @@ void Engine::show(string relationName)
 	cout << "===== SHOW Relation: " << relation->getName() << endl;
 
 	// Loop over the many tuples
-	for (int i=0; i < relation->getTuples()->size(); i++)
+	for (int i=0; i < relation->getTuples().size(); i++)
 	{
-		Tuple* tuple = relation->getTuple(i);
+		Tuple tuple = relation->getTuples()[i];
 
 		// Loop over each value in the tuple
-		for (int x=0; x < tuple->getValues().size(); x++)
+		for (int x=0; x < tuple.getValues().size(); x++)
 		{
 			Attribute attribute = relation->getAttributes()[x];
 
@@ -48,7 +48,7 @@ void Engine::show(string relationName)
 			{
 				cout << "      ";
 			}
-			cout << attribute.getTypeName() << " " << attribute.getValue() << ": " << tuple->getValues()[x] << endl;
+			cout << attribute.getTypeName() << " " << attribute.getValue() << ": " << tuple.getValues()[x] << endl;
 		}
 		
 		cout << endl;
@@ -74,6 +74,39 @@ void Engine::insert(string relationName, Tuple tuple)
 void Engine::update(string relationName, vector<pair<int, string>> newValues, vector<int> tupleIDs) 
 {
 	Relation* relation = getRelation(relationName);
+
+	// Check integerID type
+/*	attribute = relation->getAttribute(attributeID);
+	if( attribute.getType() == Attribute::INTEGER)
+	{
+		for( int i=0; i<newValues.size(); i++ )
+		{
+			string attributeName = newValues[i].second;
+			int Result;
+
+			if(newValues[i].second == Attribute::STRING)
+			{
+				iterator = attributeName.begin();
+				
+				while(iterator != attributeName.end() && isdigit(*iterator))
+				{
+					iterator++;
+					if(iterator == attributeName.size())
+						return iterator;
+				}
+
+				if(iterator)
+				{
+					stringstream convert(attributeName);
+				}
+				else throw runtime_error("Attribute not an INTEGER");
+			}
+
+			else throw runtime_error("Attribute not a STRING");
+		}
+	}
+	else throw runtime_error("Attribute improper type");
+*/
 
 	// For each tupleID, set values
 	for(int i=0; i < tupleIDs.size(); i++)
