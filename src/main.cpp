@@ -62,6 +62,8 @@ int main(int argc, char const *argv[])
 		engine->show("Sentences");
 		engine->update("Sentences", toset, update);
 		engine->show("Sentences");
+
+		engine->exit();
 	}
 	catch (exception& e)
 	{

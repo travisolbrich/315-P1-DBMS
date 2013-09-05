@@ -101,9 +101,7 @@ void Engine::deleteTuple()
 
 void Engine::exit (/* Pass 'exit_var' current state*/)
 {
-	//Do Me First
-	//set 'exit_var=true' to exit the while loop in try block in Engine.cpp
-	//we will need the state of exit_var for error checking (I think)
+	throw runtime_error("Goodbye, cruel world...");
 }
 
 /**
