@@ -27,16 +27,26 @@ void Engine::show(string relationName)
 {
 	Relation* relation = getRelation(relationName);
 
-	cout << "==== Relation: " << relation->getName() << endl;
+	cout << "===== SHOW Relation: " << relation->getName() << endl;
 
+	// Loop over the many tuples
 	for (int i=0; i < relation->getTuples().size(); i++)
 	{
 		Tuple tuple = relation->getTuples()[i];
 
+		// Loop over each value in the tuple
 		for (int x=0; x < tuple.getValues().size(); x++)
 		{
 			Attribute attribute = relation->getAttributes()[x];
 
+			if (attribute.isPrimary())
+			{
+				cout << "[KEY] ";
+			}
+			else
+			{
+				cout << "      ";
+			}
 			cout << attribute.getTypeName() << " " << attribute.getValue() << ": " << tuple.getValues()[x] << endl;
 		}
 		
@@ -51,12 +61,10 @@ void Engine::create(string relationName, vector<Attribute> attributes)
 	relations.push_back(*relation);
 }
 
-void Engine::insert() 
+void Engine::insert(string relationName, Tuple tuple) 
 {
-	//Do Me Seventh
-	//inserts a NEW entry
-	//need error checking to ensure entry does NOT yet exist
-
+	Relation* relation = getRelation(relationName);
+	relation->addTuple(tuple);
 }
 
 void Engine::update() 

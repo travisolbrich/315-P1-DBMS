@@ -21,7 +21,7 @@ public:
 	void show(string relationName);
 	void create(string relationName, vector<Attribute> attributes);
 	void update();
-	void insert(Tuple tuple);
+	void insert(string relationName, Tuple tuple);
 	void deleteTuple();
 	void exit();
 

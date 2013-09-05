@@ -31,36 +31,33 @@ int main(int argc, char const *argv[])
 		SqlParser* parser = new SqlParser(tokens);
 
 		parser->parse();
+		
+		cout << endl << "==============================" << endl;
+		cout << "Engine" << endl;
+		cout << "==============================" << endl;
+
+		vector<string> values;
+		values.push_back("1");
+		values.push_back("Hello");
+
+		vector<string> second;
+		second.push_back("2");
+		second.push_back("This is cool");
+
+		vector<Attribute> attributes;
+		attributes.push_back(Attribute(Attribute::INTEGER, "ID", true));
+		attributes.push_back(Attribute(Attribute::VARCHAR, "Sentence"));
+
+		Engine* engine = new Engine();
+		engine->create("Sentences", attributes);
+		engine->insert("Sentences", values);
+		engine->insert("Sentences", second);
+		engine->show("Sentences");
 	}
 	catch (exception& e)
 	{
-		cout << e.what() << "\n";
+		cout << "Exception: " <<  e.what() << "\n";
 	}
-
-
-	vector<string> values;
-	values.push_back("1");
-	values.push_back("Hello");
-
-	vector<string> second;
-	second.push_back("2");
-	second.push_back("This is cool");
-	
-	Tuple* tuple = new Tuple(values);
-
-	vector<Attribute> attributes;
-	attributes.push_back(Attribute(Attribute::INTEGER, "ID"));
-	attributes.push_back(Attribute(Attribute::VARCHAR, "Sentence"));
-
-	vector<Tuple> tuples;
-	tuples.push_back(Tuple(values));
-	tuples.push_back(Tuple(second));
-
-	
-
-	Engine* engine = new Engine();
-	engine->create("Sentences", attributes);
-	engine->show("Sentences");
 
 	return 0;
 }

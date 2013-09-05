@@ -23,6 +23,7 @@ class Relation
 
 		void setAttributes(vector<Attribute> inAttributes) { attributes = inAttributes; };
 		void setTuples(vector<Tuple> inTuples) { tuples = inTuples; };
+		void addTuple(Tuple tuple) { tuples.push_back(tuple); }
 		void setName(string inName) { name = inName; }
 
 	private: 
