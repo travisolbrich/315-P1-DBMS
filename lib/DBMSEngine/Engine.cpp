@@ -5,6 +5,7 @@
 #include <array>
 #include <iostream>
 #include <utility>
+#include <algorithm>
 
 using namespace std;
  
@@ -92,11 +93,19 @@ void Engine::update(string relationName, vector<pair<int, string>> newValues, ve
 }
 
 
-void Engine::deleteTuple() 
+void Engine::deleteTuples(string relationName, vector<int> tupleIDs) 
 {
-	//Do Me Nineth
-	//removes an existing entry
-	//need error checking to ensure entry exists
+	Relation* relation = getRelation(relationName);
+
+	// Sort tuples. If we delete the last index first, then other indexes are preserved
+	sort(tupleIDs.rbegin(), tupleIDs.rend());
+
+	vector<Tuple>* tuples = relation->getTuples();
+
+	for(int i=tupleIDs.size()-1; i >= 0; i--)
+	{
+		tuples->erase(tuples->begin() + tupleIDs[i]);
+	}
 }
 
 void Engine::exit (/* Pass 'exit_var' current state*/)

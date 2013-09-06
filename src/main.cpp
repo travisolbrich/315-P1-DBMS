@@ -59,8 +59,13 @@ int main(int argc, char const *argv[])
 		vector<pair<int, string>> toset;
 		toset.push_back(make_pair(1, string("Yup.")));
 
+		vector<int> deletions;
+		deletions.push_back(1);
+
 		engine->show("Sentences");
 		engine->update("Sentences", toset, update);
+		engine->show("Sentences");
+		engine->deleteTuples("Sentences", deletions); 
 		engine->show("Sentences");
 
 		engine->exit();
