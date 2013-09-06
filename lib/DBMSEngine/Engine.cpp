@@ -66,6 +66,15 @@ void Engine::create(string relationName, vector<Attribute> attributes)
 void Engine::insert(string relationName, Tuple tuple) 
 {
 	Relation* relation = getRelation(relationName);
+
+	vector<string> values = tuple.getValues();
+	
+	for(int i=0; i<values.size(); i++)
+	{
+		Attribute* attribute = relation->getAttribute(i);
+		checkType(attribute, values[i]);
+	}
+
 	relation->addTuple(tuple);
 }
 
@@ -82,18 +91,7 @@ void Engine::update(string relationName, vector<pair<int, string>> newValues, ve
 		Attribute* attribute = relation->getAttribute(newValues[i].first);
 		string value = newValues[i].second;
 
-		if(attribute->getType() == Attribute::INTEGER)
-		{
-			string::iterator iterator = value.begin();
-			while(iterator != value.end())
-			{
-				if( ! isdigit(*iterator)) 
-				{
-					throw runtime_error("Trying to put a string into an INTEGER");
-					iterator++;
-				}
-			}
-		}
+		checkType(attribute, value);
 	}
 
 	// For each tupleID, set values
@@ -145,4 +143,20 @@ Relation *Engine::getRelation(string relationName)
 	}
 
 	throw runtime_error("Relation not found.");
+}
+
+void Engine::checkType(Attribute* attribute, string value)
+{
+	if(attribute->getType() == Attribute::INTEGER)
+		{
+			string::iterator iterator = value.begin();
+			while(iterator != value.end())
+			{
+				if( ! isdigit(*iterator)) 
+				{
+					throw runtime_error("Trying to put a string into an INTEGER");
+				}
+				iterator++;
+			}
+		}
 }

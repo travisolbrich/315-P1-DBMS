@@ -23,6 +23,7 @@ public:
 	void update(string relationName, vector<pair<int, string>> values, vector<int> tuples);
 	void insert(string relationName, Tuple tuple);
 	void deleteTuples(string relationName, vector<int> tupleIDs);
+	void checkType(Attribute* attribute, string value);
 	void exit();
 
 private:
