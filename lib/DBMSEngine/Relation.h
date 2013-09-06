@@ -18,8 +18,8 @@ class Relation
 		Relation() {};
 
 		string getName() { return name; }
-		vector<Attribute> getAttributes() { return attributes; }
-		Attribute getAttribute(int i) { return attributes[i]; }
+		vector<Attribute>* getAttributes() { return &attributes; }
+		Attribute* getAttribute(int i) { return &attributes[i]; }
 		vector<Tuple>* getTuples() { return &tuples; }
 		Tuple* getTuple(int id) { return &tuples[id]; }
 

@@ -39,9 +39,9 @@ void Engine::show(string relationName)
 		// Loop over each value in the tuple
 		for (int x=0; x < tuple->getValues().size(); x++)
 		{
-			Attribute attribute = relation->getAttributes()[x];
+			Attribute* attribute = relation->getAttribute(x);
 
-			if (attribute.isPrimary())
+			if (attribute->isPrimary())
 			{
 				cout << "[KEY] ";
 			}
@@ -49,7 +49,7 @@ void Engine::show(string relationName)
 			{
 				cout << "      ";
 			}
-			cout << attribute.getTypeName() << " " << attribute.getValue() << ": " << tuple->getValues()[x] << endl;
+			cout << attribute->getTypeName() << " " << attribute->getValue() << ": " << tuple->getValues()[x] << endl;
 		}
 		
 		cout << endl;
@@ -76,38 +76,25 @@ void Engine::update(string relationName, vector<pair<int, string>> newValues, ve
 {
 	Relation* relation = getRelation(relationName);
 
-	// Check integerID type
-/*	attribute = relation->getAttribute(attributeID);
-	if( attribute.getType() == Attribute::INTEGER)
+	// Check attribute/value pairs
+	for ( int i=0; i<newValues.size(); i++)
 	{
-		for( int i=0; i<newValues.size(); i++ )
+		Attribute* attribute = relation->getAttribute(newValues[i].first);
+		string value = newValues[i].second;
+
+		if(attribute->getType() == Attribute::INTEGER)
 		{
-			string attributeName = newValues[i].second;
-			int Result;
-
-			if(newValues[i].second == Attribute::STRING)
+			string::iterator iterator = value.begin();
+			while(iterator != value.end())
 			{
-				iterator = attributeName.begin();
-				
-				while(iterator != attributeName.end() && isdigit(*iterator))
+				if( ! isdigit(*iterator)) 
 				{
+					throw runtime_error("Trying to put a string into an INTEGER");
 					iterator++;
-					if(iterator == attributeName.size())
-						return iterator;
 				}
-
-				if(iterator)
-				{
-					stringstream convert(attributeName);
-				}
-				else throw runtime_error("Attribute not an INTEGER");
 			}
-
-			else throw runtime_error("Attribute not a STRING");
 		}
 	}
-	else throw runtime_error("Attribute improper type");
-*/
 
 	// For each tupleID, set values
 	for(int i=0; i < tupleIDs.size(); i++)
