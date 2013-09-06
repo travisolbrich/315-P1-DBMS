@@ -1,4 +1,4 @@
-using namespace std;
+	using namespace std;
 
 #include <iostream>
 #include "../lib/SqlTokenizer/SqlTokenizer.h"
@@ -67,7 +67,6 @@ int main(int argc, char const *argv[])
 		engine->show("Sentences");
 		engine->deleteTuples("Sentences", deletions); 
 		engine->show("Sentences");
-
 		
 		engine->exit();
 	}

@@ -175,16 +175,14 @@ Relation Engine::exprUnion(Relation* a, Relation* b)
 
 bool Engine::isUnionCompatible(Relation* a, Relation* b)
 {
-	if(a->getAttributes()->size() != b->getAttributes()->size())
-	{
-		return false;
-	}
+
+	if(a->getAttributes()->size() != b->getAttributes()->size()) return false; // Fail on different sizes
 
 	for (int i=0; i<a->getAttributes()->size(); i++)
 	{
-		if(a->getAttribute(i)->getType() != b->getAttribute(i)->getType()) return false;
-		if(a->getAttribute(i)->getValue() != b->getAttribute(i)->getValue()) return false;
-		if(a->getAttribute(i)->isPrimary() != b->getAttribute(i)->isPrimary()) return false;
+		if(a->getAttribute(i)->getType() 		!= b->getAttribute(i)->getType()) 	return false; // Fail on incorrect type
+		if(a->getAttribute(i)->getValue()		!= b->getAttribute(i)->getValue()) 	return false; // Fail on different value
+		if(a->getAttribute(i)->isPrimary() 	!= b->getAttribute(i)->isPrimary()) return false; // Fail on different primary value
 	}
 
 	return true;
