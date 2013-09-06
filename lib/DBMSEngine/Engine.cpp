@@ -32,12 +32,12 @@ void Engine::show(string relationName)
 	cout << "===== SHOW Relation: " << relation->getName() << endl;
 
 	// Loop over the many tuples
-	for (int i=0; i < relation->getTuples().size(); i++)
+	for (int i=0; i < relation->getTuples()->size(); i++)
 	{
-		Tuple tuple = relation->getTuples()[i];
+		Tuple* tuple = relation->getTuple(i);
 
 		// Loop over each value in the tuple
-		for (int x=0; x < tuple.getValues().size(); x++)
+		for (int x=0; x < tuple->getValues().size(); x++)
 		{
 			Attribute attribute = relation->getAttributes()[x];
 
@@ -49,7 +49,7 @@ void Engine::show(string relationName)
 			{
 				cout << "      ";
 			}
-			cout << attribute.getTypeName() << " " << attribute.getValue() << ": " << tuple.getValues()[x] << endl;
+			cout << attribute.getTypeName() << " " << attribute.getValue() << ": " << tuple->getValues()[x] << endl;
 		}
 		
 		cout << endl;
