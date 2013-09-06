@@ -18,17 +18,23 @@ public:
 	void open();
 	void close();
 	void write();
+
 	void show(string relationName);
 	void create(string relationName, vector<Attribute> attributes);
 	void update(string relationName, vector<pair<int, string>> values, vector<int> tuples);
 	void insert(string relationName, Tuple tuple);
 	void deleteTuples(string relationName, vector<int> tupleIDs);
 	void checkType(Attribute* attribute, string value);
+
+	Relation *getRelation(string relationName);
+	Relation exprUnion(Relation* a, Relation* b);
+	
+	bool isUnionCompatible(Relation* a, Relation* b);
+
 	void exit();
 
 private:
 	vector<Relation> relations;
-	Relation *getRelation(string relationName);
 };
 
 #endif

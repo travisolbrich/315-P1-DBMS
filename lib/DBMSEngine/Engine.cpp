@@ -74,7 +74,7 @@ void Engine::insert(string relationName, Tuple tuple)
 		Attribute* attribute = relation->getAttribute(i);
 		checkType(attribute, values[i]);
 	}
-
+	exprUnion(relation, relation);
 	relation->addTuple(tuple);
 }
 
@@ -159,4 +159,33 @@ void Engine::checkType(Attribute* attribute, string value)
 				iterator++;
 			}
 		}
+}
+
+
+Relation Engine::exprUnion(Relation* a, Relation* b)
+{
+	// Ensure that the relations are union-compatible
+	if ( ! isUnionCompatible(a,b))
+	{
+		throw runtime_error("Trying to take the union of non-union-compatible relations.");
+	}
+
+	return Relation();
+}
+
+bool Engine::isUnionCompatible(Relation* a, Relation* b)
+{
+	if(a->getAttributes()->size() != b->getAttributes()->size())
+	{
+		return false;
+	}
+
+	for (int i=0; i<a->getAttributes()->size(); i++)
+	{
+		if(a->getAttribute(i)->getType() != b->getAttribute(i)->getType()) return false;
+		if(a->getAttribute(i)->getValue() != b->getAttribute(i)->getValue()) return false;
+		if(a->getAttribute(i)->isPrimary() != b->getAttribute(i)->isPrimary()) return false;
+	}
+
+	return true;
 }

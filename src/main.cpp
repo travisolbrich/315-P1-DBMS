@@ -68,6 +68,7 @@ int main(int argc, char const *argv[])
 		engine->deleteTuples("Sentences", deletions); 
 		engine->show("Sentences");
 
+		
 		engine->exit();
 	}
 	catch (exception& e)
