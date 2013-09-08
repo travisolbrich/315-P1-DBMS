@@ -96,7 +96,17 @@ int main(int argc, char const *argv[])
 		cout << "\nDIFFERENCES OF UNION AND MOST RECENT SENTENCES\n";
 
 		engine->show("difference");
-		
+
+		engine->show("Sentences");
+
+		Relation product = engine->exprProduct(engine->getRelation("union"), engine->getRelation("originalSentences"));
+		product.setName("product");
+		engine->addRelation(product);
+
+		cout << "\nPRODUCT OF UNION AND MOST ORIGINAL SENTENCES\n";
+
+		engine->show("product");
+
 		engine->show("Sentences");
 
 		engine->exit();

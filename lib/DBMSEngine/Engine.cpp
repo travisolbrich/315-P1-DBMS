@@ -210,6 +210,52 @@ Relation Engine::exprDifference(Relation* a, Relation* b)
 	return differenceRelation;
 }
 
+Relation Engine::exprProduct(Relation* a, Relation* b)
+{
+	//Build the product relation
+	Relation productRelation = Relation();
+
+	vector<Attribute> attributes;
+
+	// Rename attributes
+	for(int i=0; i < a->getAttributes()->size(); i++)
+	{
+		Attribute attribute = *a->getAttribute(i);
+		attribute.setValue(a->getName() + "." + attribute.getValue());
+
+		attributes.push_back(attribute);
+	}
+
+	for(int i=0; i < b->getAttributes()->size(); i++)
+	{
+		Attribute attribute = *b->getAttribute(i);
+		attribute.setValue(b->getName() + "." + attribute.getValue());
+
+		attributes.push_back(attribute);
+	}
+
+	productRelation.setAttributes(attributes);
+
+	//Build the product
+	for(int i=0; i < b->getTuples()->size(); i++)
+	{
+		for(int y=0; y < a->getTuples()->size(); y++)
+		{
+			vector<string> values = a->getTuple(y)->getValues();			
+			vector<string> toAdd = b->getTuple(i)->getValues();
+
+			for(int i=0; i<toAdd.size(); i++)
+			{
+				values.push_back(toAdd[i]);
+			}
+
+			productRelation.addTuple(values);
+		}
+	}
+
+	return productRelation;
+}
+
 bool Engine::isUnionCompatible(Relation* a, Relation* b)
 {
 
