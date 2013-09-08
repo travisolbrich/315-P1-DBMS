@@ -87,6 +87,17 @@ int main(int argc, char const *argv[])
 		cout << "\nUNION OF ORIGINAL SENTENCES AND MOST RECENT SENTENCES\n";
 
 		engine->show("union");
+		engine->show("Sentences");
+
+		Relation diff = engine->exprDifference(engine->getRelation("union"), engine->getRelation("Sentences"));
+		diff.setName("difference");
+		engine->addRelation(diff);
+
+		cout << "\nDIFFERENCES OF UNION AND MOST RECENT SENTENCES\n";
+
+		engine->show("difference");
+		
+		engine->show("Sentences");
 
 		engine->exit();
 	}

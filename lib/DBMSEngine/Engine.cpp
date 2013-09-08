@@ -170,20 +170,44 @@ Relation Engine::exprUnion(Relation* a, Relation* b)
 		throw runtime_error("Trying to take the union of non-union-compatible relations.");
 	}
 
-	// Union will be everything in a combinded with everything in b not in a
-	Relation* unionRelation = a;
+	// Union will be everything in a combined with everything in b not in a
+	Relation unionRelation = *a;
 
 	for(int i=0; i < b->getTuples()->size(); i++)
 	{
 		Tuple* tuple = b->getTuple(i);
 
-		if( ! exists(unionRelation, tuple))
+		if( ! exists(&unionRelation, tuple))
 		{
-			unionRelation->addTuple(*tuple);
+			unionRelation.addTuple(*tuple);
 		} 
 	}
 
-	return *unionRelation;
+	return unionRelation;
+}
+
+Relation Engine::exprDifference(Relation* a, Relation* b)
+{
+	// Ensure that the relations are union-compatible
+	if ( ! isUnionCompatible(a,b))
+	{
+		throw runtime_error("Trying to take the difference of non-union-compatible relations.");
+	}
+
+	// Difference will be everything in a that is not in b
+	Relation differenceRelation = Relation();
+	differenceRelation.setAttributes(*a->getAttributes());
+
+	for(int i=0; i < a->getTuples()->size(); i++)
+	{
+		Tuple* tuple = a->getTuple(i);
+		if( ! exists(b, tuple))
+		{
+			differenceRelation.addTuple(*tuple);
+		} 
+	}
+
+	return differenceRelation;
 }
 
 bool Engine::isUnionCompatible(Relation* a, Relation* b)
