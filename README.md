@@ -15,6 +15,7 @@ To build the project, simply run `make`. The compiled code will be in `bin/`.
 
 Please see the [Commit Log](https://github.com/travisolbrich/315-P1-DBMS/commits/master) for the most up-to-date and detailed development log. The below log will summarize major developments.
 
+* 2013-09-07 Travis finished up union, difference, and product.
 * 2013-09-04 Travis created the Relation data structure.
 * 2013-09-03 Travis started work on the parser.
 * 2013-09-03 Travis finished out the tokenizer.
