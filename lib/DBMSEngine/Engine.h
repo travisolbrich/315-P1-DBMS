@@ -25,11 +25,13 @@ public:
 	void insert(string relationName, Tuple tuple);
 	void deleteTuples(string relationName, vector<int> tupleIDs);
 	void checkType(Attribute* attribute, string value);
+	void addRelation(Relation relation) { relations.push_back(relation); }
 
 	Relation *getRelation(string relationName);
 	Relation exprUnion(Relation* a, Relation* b);
 	
 	bool isUnionCompatible(Relation* a, Relation* b);
+	bool exists(Relation* haystack, Tuple* needle);
 
 	void exit();
 

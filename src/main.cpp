@@ -60,14 +60,34 @@ int main(int argc, char const *argv[])
 		toset.push_back(make_pair(1, string("Yup.")));
 
 		vector<int> deletions;
-		deletions.push_back(1);
+		deletions.push_back(0);
+
+		Relation copy = *engine->getRelation("Sentences");
+		copy.setName("originalSentences");
+		engine->addRelation(copy);
 
 		engine->show("Sentences");
 		engine->update("Sentences", toset, update);
+
+		
+		cout << "\nUPDATED SENTENCES\n";
+
 		engine->show("Sentences");
 		engine->deleteTuples("Sentences", deletions); 
+
+		cout << "\nDELETED FROM SENTENCES\n";
+
 		engine->show("Sentences");
-		
+
+
+		Relation merge = engine->exprUnion(engine->getRelation("Sentences"), engine->getRelation("originalSentences"));
+		merge.setName("union");
+		engine->addRelation(merge);
+
+		cout << "\nUNION OF ORIGINAL SENTENCES AND MOST RECENT SENTENCES\n";
+
+		engine->show("union");
+
 		engine->exit();
 	}
 	catch (exception& e)

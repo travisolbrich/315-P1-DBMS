@@ -170,7 +170,20 @@ Relation Engine::exprUnion(Relation* a, Relation* b)
 		throw runtime_error("Trying to take the union of non-union-compatible relations.");
 	}
 
-	return Relation();
+	// Union will be everything in a combinded with everything in b not in a
+	Relation* unionRelation = a;
+
+	for(int i=0; i < b->getTuples()->size(); i++)
+	{
+		Tuple* tuple = b->getTuple(i);
+
+		if( ! exists(unionRelation, tuple))
+		{
+			unionRelation->addTuple(*tuple);
+		} 
+	}
+
+	return *unionRelation;
 }
 
 bool Engine::isUnionCompatible(Relation* a, Relation* b)
@@ -186,4 +199,16 @@ bool Engine::isUnionCompatible(Relation* a, Relation* b)
 	}
 
 	return true;
+}
+
+bool Engine::exists(Relation* haystack, Tuple* needle)
+{
+	//Iterate each tuple in haystack
+	for(int i=0; i<haystack->getTuples()->size(); i++)
+	{
+		Tuple* check = haystack->getTuple(i);
+		
+		if(check->getValues() == needle->getValues()) return true;
+	}
+	return false;
 }
