@@ -108,6 +108,25 @@ int main(int argc, char const *argv[])
 		engine->show("product");
 
 		engine->show("Sentences");
+		//renaming testing 
+		vector<string> renaming ={"NEWID","NEWSENTENCE"};
+		Relation newName = engine->exprRenaming(engine->getRelation("Sentences"), renaming);
+		newName.setName("NEWRelation");
+		engine->addRelation(newName);
+
+		engine->show("NEWRelation");
+		engine->show("Sentences"); 
+		
+		//Exiting
+		vector<int> selectTest;
+		selectTest.push_back(1);
+		selectTest.push_back(4);
+		selectTest.push_back(2);
+
+		Relation select = engine->select(&product, selectTest);
+		select.setName("selectProduct");
+		engine->addRelation(select);
+		engine->show("selectProduct");
 
 		engine->exit();
 	}
