@@ -27,6 +27,8 @@ public:
 	void checkType(Attribute* attribute, string value);
 	void addRelation(Relation relation) { relations.push_back(relation); }
 
+	Relation exprProject(Relation* a, vector<string> attributeName);
+	Relation *getAttributeName(string attributeName);
 	Relation *getRelation(string relationName);
 	Relation exprUnion(Relation* a, Relation* b);
 	Relation exprDifference(Relation* a, Relation* b);

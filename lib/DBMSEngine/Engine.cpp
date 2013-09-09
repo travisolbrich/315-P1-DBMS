@@ -282,3 +282,42 @@ bool Engine::exists(Relation* haystack, Tuple* needle)
 	}
 	return false;
 }
+
+Relation Engine::exprProject(Relation* a, vector<string> attributeName)
+{
+	Relation projectRelation = Relation();
+
+	vector<Attribute> attributes;
+	vector<int> attributeIDs;
+
+	for(int i=0; i<attributeName.size(); i++)
+	{
+		for(int j=0; j<a->getAttributes()->size(); j++)
+		{
+			Attribute attribute = *a->getAttribute(j);
+
+			if(attributeName[i] == attribute.getValue())
+			{
+				attributes.push_back(attribute);
+				attributeIDs.push_back(j);		
+			}
+		}
+	}
+
+	projectRelation.setAttributes(attributes);
+
+	for(int i=0; i<a->getTuples()->size(); i++)
+	{
+		vector<string> oldValues = *a->getTuple(i)->getValues();
+		vector<string> newValues;
+
+		for(int j=0; j<attributeIDs.size(); j++)
+		{
+			newValues.push_back(oldValues[attributeIDs[i]]);
+		}
+
+		projectRelation.addTuple(newValues);
+	}
+
+	return projectRelation;
+}
