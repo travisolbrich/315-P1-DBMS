@@ -1,126 +1,126 @@
-'''
-==============================
-Engine
-==============================
-!!! 'Names' relation created
+# Output from the engine test
 
-!!! Tuples inserted into 'Names'
+      ==============================
+      Engine
+      ==============================
+      !!! 'Names' relation created
 
-!!! Showing 'Names'
+      !!! Tuples inserted into 'Names'
 
-===== SHOW Relation: Names
-[KEY] INTEGER ID: 1
-      VARCHAR first_name: Bill
-      VARCHAR last_name: Nye
+      !!! Showing 'Names'
 
-[KEY] INTEGER ID: 2
-      VARCHAR first_name: Carll
-      VARCHAR last_name: Sagan
+      ===== SHOW Relation: Names
+      [KEY] INTEGER ID: 1
+            VARCHAR first_name: Bill
+            VARCHAR last_name: Nye
 
-!!! Updated 'Names'. Set 'first_name' to 'Carl' on tupleID 1
+      [KEY] INTEGER ID: 2
+            VARCHAR first_name: Carll
+            VARCHAR last_name: Sagan
 
-===== SHOW Relation: Names
-[KEY] INTEGER ID: 1
-      VARCHAR first_name: Bill
-      VARCHAR last_name: Nye
+      !!! Updated 'Names'. Set 'first_name' to 'Carl' on tupleID 1
 
-[KEY] INTEGER ID: 2
-      VARCHAR first_name: Carl
-      VARCHAR last_name: Sagan
+      ===== SHOW Relation: Names
+      [KEY] INTEGER ID: 1
+            VARCHAR first_name: Bill
+            VARCHAR last_name: Nye
 
-!!! Deleted tuple 0 from 'Names'
+      [KEY] INTEGER ID: 2
+            VARCHAR first_name: Carl
+            VARCHAR last_name: Sagan
 
-===== SHOW Relation: Names
-[KEY] INTEGER ID: 1
-      VARCHAR first_name: Bill
-      VARCHAR last_name: Nye
+      !!! Deleted tuple 0 from 'Names'
 
-!!! Created a 'other' relation (using Select) and added a tuple to this relation and 'names'
+      ===== SHOW Relation: Names
+      [KEY] INTEGER ID: 1
+            VARCHAR first_name: Bill
+            VARCHAR last_name: Nye
 
-===== SHOW Relation: Names
-[KEY] INTEGER ID: 1
-      VARCHAR first_name: Bill
-      VARCHAR last_name: Nye
+      !!! Created a 'other' relation (using Select) and added a tuple to this relation and 'names'
 
-[KEY] INTEGER ID: 4
-      VARCHAR first_name: Neil
-      VARCHAR last_name: Tyson
+      ===== SHOW Relation: Names
+      [KEY] INTEGER ID: 1
+            VARCHAR first_name: Bill
+            VARCHAR last_name: Nye
 
-===== SHOW Relation: Other
-[KEY] INTEGER ID: 1
-      VARCHAR first_name: Bill
-      VARCHAR last_name: Nye
+      [KEY] INTEGER ID: 4
+            VARCHAR first_name: Neil
+            VARCHAR last_name: Tyson
 
-[KEY] INTEGER ID: 2
-      VARCHAR first_name: Carll
-      VARCHAR last_name: Sagan
+      ===== SHOW Relation: Other
+      [KEY] INTEGER ID: 1
+            VARCHAR first_name: Bill
+            VARCHAR last_name: Nye
 
-!!! Computed union of 'Names' and 'Other'
+      [KEY] INTEGER ID: 2
+            VARCHAR first_name: Carll
+            VARCHAR last_name: Sagan
 
-===== SHOW Relation: Union of 'Names' and 'Other'
-[KEY] INTEGER ID: 1
-      VARCHAR first_name: Bill
-      VARCHAR last_name: Nye
+      !!! Computed union of 'Names' and 'Other'
 
-[KEY] INTEGER ID: 4
-      VARCHAR first_name: Neil
-      VARCHAR last_name: Tyson
+      ===== SHOW Relation: Union of 'Names' and 'Other'
+      [KEY] INTEGER ID: 1
+            VARCHAR first_name: Bill
+            VARCHAR last_name: Nye
 
-[KEY] INTEGER ID: 2
-      VARCHAR first_name: Carll
-      VARCHAR last_name: Sagan
+      [KEY] INTEGER ID: 4
+            VARCHAR first_name: Neil
+            VARCHAR last_name: Tyson
 
-!!! Computed union of 'Names' and 'Other'
+      [KEY] INTEGER ID: 2
+            VARCHAR first_name: Carll
+            VARCHAR last_name: Sagan
 
-===== SHOW Relation: Difference of 'Names' and 'Other'
-[KEY] INTEGER ID: 4
-      VARCHAR first_name: Neil
-      VARCHAR last_name: Tyson
+      !!! Computed union of 'Names' and 'Other'
 
-!!! Computed product of 'Names' and 'Other'
+      ===== SHOW Relation: Difference of 'Names' and 'Other'
+      [KEY] INTEGER ID: 4
+            VARCHAR first_name: Neil
+            VARCHAR last_name: Tyson
 
-===== SHOW Relation: Product of 'Names' and 'Other'
-[KEY] INTEGER Names.ID: 1
-      VARCHAR Names.first_name: Bill
-      VARCHAR Names.last_name: Nye
-[KEY] INTEGER Other.ID: 1
-      VARCHAR Other.first_name: Bill
-      VARCHAR Other.last_name: Nye
+      !!! Computed product of 'Names' and 'Other'
 
-[KEY] INTEGER Names.ID: 4
-      VARCHAR Names.first_name: Neil
-      VARCHAR Names.last_name: Tyson
-[KEY] INTEGER Other.ID: 1
-      VARCHAR Other.first_name: Bill
-      VARCHAR Other.last_name: Nye
+      ===== SHOW Relation: Product of 'Names' and 'Other'
+      [KEY] INTEGER Names.ID: 1
+            VARCHAR Names.first_name: Bill
+            VARCHAR Names.last_name: Nye
+      [KEY] INTEGER Other.ID: 1
+            VARCHAR Other.first_name: Bill
+            VARCHAR Other.last_name: Nye
 
-[KEY] INTEGER Names.ID: 1
-      VARCHAR Names.first_name: Bill
-      VARCHAR Names.last_name: Nye
-[KEY] INTEGER Other.ID: 2
-      VARCHAR Other.first_name: Carll
-      VARCHAR Other.last_name: Sagan
+      [KEY] INTEGER Names.ID: 4
+            VARCHAR Names.first_name: Neil
+            VARCHAR Names.last_name: Tyson
+      [KEY] INTEGER Other.ID: 1
+            VARCHAR Other.first_name: Bill
+            VARCHAR Other.last_name: Nye
 
-[KEY] INTEGER Names.ID: 4
-      VARCHAR Names.first_name: Neil
-      VARCHAR Names.last_name: Tyson
-[KEY] INTEGER Other.ID: 2
-      VARCHAR Other.first_name: Carll
-      VARCHAR Other.last_name: Sagan
+      [KEY] INTEGER Names.ID: 1
+            VARCHAR Names.first_name: Bill
+            VARCHAR Names.last_name: Nye
+      [KEY] INTEGER Other.ID: 2
+            VARCHAR Other.first_name: Carll
+            VARCHAR Other.last_name: Sagan
 
-!!! Computed Projection of 'Names'
+      [KEY] INTEGER Names.ID: 4
+            VARCHAR Names.first_name: Neil
+            VARCHAR Names.last_name: Tyson
+      [KEY] INTEGER Other.ID: 2
+            VARCHAR Other.first_name: Carll
+            VARCHAR Other.last_name: Sagan
 
-===== SHOW Relation: Projection of 'Names'
-      VARCHAR first_name: Bill
+      !!! Computed Projection of 'Names'
 
-      VARCHAR first_name: Neil
+      ===== SHOW Relation: Projection of 'Names'
+            VARCHAR first_name: Bill
 
-!!! Computed Renaming of 'Projection of 'Names''
+            VARCHAR first_name: Neil
 
-===== SHOW Relation: Renaming of 'Projection of 'Names''
-      VARCHAR first: Bill
+      !!! Computed Renaming of 'Projection of 'Names''
 
-      VARCHAR first: Neil
+      ===== SHOW Relation: Renaming of 'Projection of 'Names''
+            VARCHAR first: Bill
 
-!!! Exiting program...
-'''
+            VARCHAR first: Neil
+
+      !!! Exiting program...
