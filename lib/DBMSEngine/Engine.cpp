@@ -347,21 +347,20 @@ Relation Engine::exprProject(Relation* a, vector<string> attributeName)
 			}
 		}
 	}
-
 	projectRelation.setAttributes(attributes);
 
 	for(int i=0; i<a->getTuples()->size(); i++)
 	{
-		vector<string> oldValues = *a->getTuple(i)->getValues();
+		vector<string> oldValues = a->getTuple(i)->getValues();
 		vector<string> newValues;
 
 		for(int j=0; j<attributeIDs.size(); j++)
 		{
-			newValues.push_back(oldValues[attributeIDs[i]]);
+			newValues.push_back(oldValues[attributeIDs[j]]);
 		}
 
 		projectRelation.addTuple(newValues);
 	}
-
 	return projectRelation;
+
 }

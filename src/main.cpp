@@ -117,7 +117,6 @@ int main(int argc, char const *argv[])
 		engine->show("NEWRelation");
 		engine->show("Sentences"); 
 		
-		//Exiting
 		vector<int> selectTest;
 		selectTest.push_back(1);
 		selectTest.push_back(4);
@@ -128,6 +127,15 @@ int main(int argc, char const *argv[])
 		engine->addRelation(select);
 		engine->show("selectProduct");
 
+		vector<string> toProject = { "originalSentences.Sentence", "union.ID" };
+		Relation projected = engine->exprProject(engine->getRelation("selectProduct"), toProject);
+		projected.setName("projected");
+		engine->addRelation(projected);
+		engine->show("projected");
+
+		engine->show("selectProduct");
+
+		//Exiting
 		engine->exit();
 	}
 	catch (exception& e)
