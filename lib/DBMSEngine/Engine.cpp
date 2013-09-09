@@ -256,6 +256,37 @@ Relation Engine::exprProduct(Relation* a, Relation* b)
 	return productRelation;
 }
 
+Relation Engine::exprProjection(string relationName,string attributeName)
+{
+	Relation* relation = getRelation(relationName);
+	
+	for(int i=0; i<relation->getAttributes()->size(); i++)
+	{
+		if(relation->getAttribute(i)->getValue() != attributeName)
+		{
+			throw runtime_error("No such Attribute exists."); 
+		}
+	}
+
+}
+
+Relation Engine::exprRenaming(Relation *a, vector<string> newAttributes)
+{
+	Relation renamedRelation = *a;	
+
+	 for(int i=0; i < renamedRelation.getAttributes()->size(); i++) 
+        {
+                Attribute *attribute = renamedRelation.getAttribute(i);
+                attribute->setValue(newAttributes[i]);
+         
+             // a->setAttributes(newAttributes )
+        }
+
+	//renamedRelation.setAttributes(newAttributes);
+	return renamedRelation; 
+	
+}
+
 bool Engine::isUnionCompatible(Relation* a, Relation* b)
 {
 

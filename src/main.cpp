@@ -109,6 +109,17 @@ int main(int argc, char const *argv[])
 
 		engine->show("Sentences");
 
+		//renaming testing 
+		vector<string> renaming ={"NEWID","NEWSENTENCE"};
+		Relation newName = engine->exprRenaming(engine->getRelation("Sentences"), renaming);
+		newName.setName("NEWRelation");
+		engine->addRelation(newName);
+
+		engine->show("NEWRelation");
+		engine->show("Sentences"); 
+		
+		//Exiting
+
 		engine->exit();
 	}
 	catch (exception& e)
