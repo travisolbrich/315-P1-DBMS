@@ -12,14 +12,16 @@ void getSymbol();
 
 int main(int argc, char const *argv[])
 {
-	string query = "OPEN SELECT people;";
-
-	cout << "Query: " << query << "\n";
-
-	SqlTokenizer* tokenzier = new SqlTokenizer(query);
 
 	try 
 	{
+		/** Skip the parser for now.
+		string query = "OPEN SELECT people;";
+
+		cout << "Query: " << query << "\n";
+
+		SqlTokenizer* tokenzier = new SqlTokenizer(query);
+
 		vector<Token> tokens = tokenzier->split();
 		cout<<tokens.size()<<" tokens have been collected:\n\n";
 
@@ -31,115 +33,139 @@ int main(int argc, char const *argv[])
 		SqlParser* parser = new SqlParser(tokens);
 
 		parser->parse();
-		
-		cout << endl << "==============================" << endl;
+		**/
+		cout << "==============================" << endl;
 		cout << "Engine" << endl;
 		cout << "==============================" << endl;
-
-		vector<string> values;
-		values.push_back("1");
-		values.push_back("Hello");
-
-		vector<string> second;
-		second.push_back("2");
-		second.push_back("This is cool");
-
-		vector<Attribute> attributes;
-		attributes.push_back(Attribute(Attribute::INTEGER, "ID", true));
-		attributes.push_back(Attribute(Attribute::VARCHAR, "Sentence"));
-
+		
+		// Create the engine. There are no relations to add to it yet
 		Engine* engine = new Engine();
-		engine->create("Sentences", attributes);
-		engine->insert("Sentences", values);
-		engine->insert("Sentences", second);
+		
+		// Create a table
+		vector<Attribute> attributes = 
+		{
+			Attribute(Attribute::INTEGER, "ID", true),
+			Attribute(Attribute::VARCHAR, "first_name"),
+			Attribute(Attribute::VARCHAR, "last_name")
+		};
 
-		vector<int> update;
-		update.push_back(1);
+		engine->create("Names", attributes);
+
+		cout << "!!! 'Names' relation created" << endl << endl;
+
+		// Insert to the relation
+		vector<string> tuple = 
+		{
+			"1",
+			"Bill", 
+			"Nye"
+		};
+
+		engine->insert("Names", tuple);
+
+		tuple = 
+		{
+			"2",
+			"Carll", 
+			"Sagan"
+		};
+
+		engine->insert("Names", tuple);
+
+		cout << "!!! Tuples inserted into 'Names'" << endl << endl;
+
+		// Show a relation
+		cout << "!!! Showing 'Names'" << endl << endl;
+
+		engine->show("Names");
+
+		// Update a relation
+		vector<int> updateIDs = { 1 };
 
 		vector<pair<int, string>> toset;
-		toset.push_back(make_pair(1, string("Yup.")));
-
-		vector<int> deletions;
-		deletions.push_back(0);
-
-		Relation copy = *engine->getRelation("Sentences");
-		copy.setName("originalSentences");
-		engine->addRelation(copy);
-
-		engine->show("Sentences");
-		engine->update("Sentences", toset, update);
-
+		toset.push_back(make_pair(1, string("Carl")));
 		
-		cout << "\nUPDATED SENTENCES\n";
+		engine->update("Names", toset, updateIDs);
 
-		engine->show("Sentences");
-		engine->deleteTuples("Sentences", deletions); 
+		cout << "!!! Updated 'Names'. Set 'first_name' to 'Carl' on tupleID 1" << endl << endl;
 
-		cout << "\nDELETED FROM SENTENCES\n";
+		engine->show("Names");
 
-		engine->show("Sentences");
+		// Delete a tuple
+		vector<int> deleteIDs = { 1 };
+		engine->deleteTuples("Names", deleteIDs);
 
+		cout << "!!! Deleted tuple 0 from 'Names'" << endl << endl;
+		engine->show("Names");
 
-		Relation merge = engine->exprUnion(engine->getRelation("Sentences"), engine->getRelation("originalSentences"));
-		merge.setName("union");
-		engine->addRelation(merge);
+		// Select a relation (make the copy)
+		vector<int> selectIDs = {0};
+		Relation namesCopy = engine->exprSelect(engine->getRelation("Names"), selectIDs);
+		namesCopy.setName("Other");
+		namesCopy.addTuple(tuple);
 
-		cout << "\nUNION OF ORIGINAL SENTENCES AND MOST RECENT SENTENCES\n";
+		tuple = {
+			"4",
+			"Neil",
+			"Tyson"
+		};
+		engine->insert("Names", tuple);
 
-		engine->show("union");
-		engine->show("Sentences");
-
-		Relation diff = engine->exprDifference(engine->getRelation("union"), engine->getRelation("Sentences"));
-		diff.setName("difference");
-		engine->addRelation(diff);
-
-		cout << "\nDIFFERENCES OF UNION AND MOST RECENT SENTENCES\n";
-
-		engine->show("difference");
-
-		engine->show("Sentences");
-
-		Relation product = engine->exprProduct(engine->getRelation("union"), engine->getRelation("originalSentences"));
-		product.setName("product");
-		engine->addRelation(product);
-
-		cout << "\nPRODUCT OF UNION AND MOST ORIGINAL SENTENCES\n";
-
-		engine->show("product");
-
-		engine->show("Sentences");
-		//renaming testing 
-		vector<string> renaming ={"NEWID","NEWSENTENCE"};
-		Relation newName = engine->exprRenaming(engine->getRelation("Sentences"), renaming);
-		newName.setName("NEWRelation");
-		engine->addRelation(newName);
-
-		engine->show("NEWRelation");
-		engine->show("Sentences"); 
+		cout << "!!! Created a 'other' relation (using Select) and added a tuple to this relation and 'names'" << endl << endl;
 		
-		vector<int> selectTest;
-		selectTest.push_back(1);
-		selectTest.push_back(4);
-		selectTest.push_back(2);
+		engine->show("Names");
+		engine->show(&namesCopy);
 
-		Relation select = engine->exprSelect(&product, selectTest);
-		select.setName("selectProduct");
-		engine->addRelation(select);
-		engine->show("selectProduct");
+		// Union
+		Relation unionResult = engine->exprUnion(engine->getRelation("Names"), &namesCopy);
+		unionResult.setName("Union of 'Names' and 'Other'");
 
-		vector<string> toProject = { "originalSentences.Sentence", "union.ID" };
-		Relation projected = engine->exprProject(engine->getRelation("selectProduct"), toProject);
-		projected.setName("projected");
-		engine->addRelation(projected);
-		engine->show("projected");
+		cout << "!!! Computed union of 'Names' and 'Other'" << endl << endl;
 
-		engine->show("selectProduct");
+		engine->show(&unionResult);
+
+		// Difference
+		Relation differenceResult = engine->exprDifference(engine->getRelation("Names"), &namesCopy);
+		differenceResult.setName("Difference of 'Names' and 'Other'");
+
+		cout << "!!! Computed union of 'Names' and 'Other'" << endl << endl;
+
+		engine->show(&differenceResult);
+
+		// Product
+		Relation productResult = engine->exprProduct(engine->getRelation("Names"), &namesCopy);
+		productResult.setName("Product of 'Names' and 'Other'");
+
+		cout << "!!! Computed product of 'Names' and 'Other'" << endl << endl;
+
+		engine->show(&productResult);
+
+		// Project
+		vector<string> attributeNames = {"first_name"};
+
+		Relation projectResult = engine->exprProject(engine->getRelation("Names"), attributeNames);
+		projectResult.setName("Projection of 'Names'");
+
+		cout << "!!! Computed Projection of 'Names'" << endl << endl;
+
+		engine->show(&projectResult);
+
+		// Rename
+		vector<string> newAttributes = {"first"};
+
+		Relation renameResult = engine->exprRenaming(&projectResult, newAttributes);
+		renameResult.setName("Renaming of 'Projection of 'Names''");
+
+		cout << "!!! Computed Renaming of 'Projection of 'Names''" << endl << endl;
+
+		engine->show(&renameResult);
+		
 		//Exiting
 		engine->exit();
 	}
 	catch (exception& e)
 	{
-		cout << "Exception: " <<  e.what() << "\n";
+		cout << "!!! " <<  e.what() << "\n";
 	}
 
 	return 0;

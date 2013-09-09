@@ -32,6 +32,14 @@ void Engine::show(string relationName)
 {
 	Relation* relation = getRelation(relationName);
 
+	show(relation);
+}
+
+/**
+  * Print a relation to the screen (when given a pointer to a relation)
+  */
+void Engine::show(Relation* relation) 
+{
 	cout << "===== SHOW Relation: " << relation->getName() << endl;
 
 	// Loop over the many tuples

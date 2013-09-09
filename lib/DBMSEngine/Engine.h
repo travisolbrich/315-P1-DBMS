@@ -19,30 +19,36 @@ public:
 	void close();
 	void write();
 
-	void show(string relationName);
+	// Commands
 	void create(string relationName, vector<Attribute> attributes);
-	void update(string relationName, vector<pair<int, string>> values, vector<int> tuples);
 	void insert(string relationName, Tuple tuple);
+	void show(string relationName);
+	void show(Relation* relation);
+	void update(string relationName, vector<pair<int, string>> values, vector<int> tuples);
 	void deleteTuples(string relationName, vector<int> tupleIDs);
-	void checkType(Attribute* attribute, string value);
-	void addRelation(Relation relation) { relations.push_back(relation); }
 
-	Relation *getAttributeName(string attributeName);
-	Relation *getRelation(string relationName);
+	// Queries
+	Relation exprSelect(Relation* a, vector<int> tupleIDs);
 	Relation exprUnion(Relation* a, Relation* b);
 	Relation exprDifference(Relation* a, Relation* b);
-	Relation exprProject(Relation* a, vector<string> attributeName);
 	Relation exprProduct(Relation* a, Relation* b);
+	Relation exprProject(Relation* a, vector<string> attributeName);
 	Relation exprRenaming(Relation* a, vector<string> newAttributes); 
-	Relation exprSelect(Relation* a, vector<int> tupleIDs);
-
-	bool isUnionCompatible(Relation* a, Relation* b);
-	bool exists(Relation* haystack, Tuple* needle);
+	
+	// Helpers
+	Relation *getRelation(string relationName);
 
 	void exit();
 
 private:
 	vector<Relation> relations;
+
+	// Helpers
+	Relation *getAttributeName(string attributeName);
+	bool isUnionCompatible(Relation* a, Relation* b);
+	bool exists(Relation* haystack, Tuple* needle);
+	void checkType(Attribute* attribute, string value);
+	void addRelation(Relation relation) { relations.push_back(relation); }
 };
 
 #endif
