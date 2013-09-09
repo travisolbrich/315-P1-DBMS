@@ -1,7 +1,7 @@
 CSCE 315 Project 1: DBMS
 =============
 
-To build the project, simply run `make`. The compiled code will be in `bin/`.
+To build the project, simply run `make`. The compiled code will be in `bin/`. The project is known to work well on the TAMU Sun server.
 
 
 ### Relevant Resources

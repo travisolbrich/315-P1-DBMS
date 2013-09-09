@@ -32,8 +32,8 @@ public:
 	Relation exprDifference(Relation* a, Relation* b);
 	Relation exprProduct(Relation* a, Relation* b);
 	Relation exprProjection(string relationName,string attributeName);
-	
 	Relation exprRenaming(Relation* a, vector<string> newAttributes); 
+	Relation select(Relation* a, vector<int> tupleIDs);
 
 	bool isUnionCompatible(Relation* a, Relation* b);
 	bool exists(Relation* haystack, Tuple* needle);
