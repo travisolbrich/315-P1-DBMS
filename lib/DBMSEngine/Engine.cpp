@@ -256,6 +256,20 @@ Relation Engine::exprProduct(Relation* a, Relation* b)
 	return productRelation;
 }
 
+Relation Engine::select(Relation* a, vector<int> tupleIDs)
+{
+	Relation tempRelation = Relation();
+	tempRelation.setAttributes(*a->getAttributes());
+
+	for(int i=0; i < tupleIDs.size(); i++)
+	{
+		Tuple tuple = *a->getTuple(tupleIDs[i]);
+		tempRelation.addTuple(tuple);
+	}
+
+	return tempRelation;
+}
+
 bool Engine::isUnionCompatible(Relation* a, Relation* b)
 {
 

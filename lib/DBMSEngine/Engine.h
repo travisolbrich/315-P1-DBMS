@@ -31,6 +31,7 @@ public:
 	Relation exprUnion(Relation* a, Relation* b);
 	Relation exprDifference(Relation* a, Relation* b);
 	Relation exprProduct(Relation* a, Relation* b);
+	Relation select(Relation* a, vector<int> tupleIDs);
 
 	bool isUnionCompatible(Relation* a, Relation* b);
 	bool exists(Relation* haystack, Tuple* needle);
