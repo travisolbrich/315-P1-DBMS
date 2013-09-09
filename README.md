@@ -3,6 +3,11 @@ CSCE 315 Project 1: DBMS
 
 To build the project, simply run `make`. The compiled code will be in `bin/`. The project is known to work well on the TAMU Sun server.
 
+### DBMS Engine Code Submission (Sept 9)
+
+Please look at the [example output](output.md). You can also compile the program as shown above and run `bin/project.out`.
+
+We did not implement any comparison code in the select function. Our select function recieves a vector of integers that corresponds with the IDs of tuples in the relation. This vector of integers will be computed in the parser.
 
 ### Relevant Resources
 
@@ -15,7 +20,9 @@ To build the project, simply run `make`. The compiled code will be in `bin/`. Th
 
 Please see the [Commit Log](https://github.com/travisolbrich/315-P1-DBMS/commits/master) for the most up-to-date and detailed development log. The below log will summarize major developments.
 
-* 2013-09-07 Travis finished up union, difference, and product.
+* 2013-09-09 Travis prepared the project for submission.
+* 2013-09-08 Travis, Shane, John, and Adam met to finish the engine.
+* 2013-09-07 Travis finished up union, difference, and product.
 * 2013-09-04 Travis created the Relation data structure.
 * 2013-09-03 Travis started work on the parser.
 * 2013-09-03 Travis finished out the tokenizer.
