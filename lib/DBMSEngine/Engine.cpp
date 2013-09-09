@@ -25,6 +25,9 @@ void Engine::write()
 	throw runtime_error("File I/O is not yet implemented as the parser is incomplete.");
 }
 
+/**
+  * Print a relation to the screen
+  */
 void Engine::show(string relationName) 
 {
 	Relation* relation = getRelation(relationName);
@@ -56,6 +59,9 @@ void Engine::show(string relationName)
 	}
 }
 
+/**
+  * Create a new relation and save it to the relations vector
+  */
 void Engine::create(string relationName, vector<Attribute> attributes) 
 {
 	Relation* relation = new Relation(relationName, attributes);
@@ -63,6 +69,9 @@ void Engine::create(string relationName, vector<Attribute> attributes)
 	relations.push_back(*relation);
 }
 
+/**
+  * Insert a Tuple into the relation
+  */
 void Engine::insert(string relationName, Tuple tuple) 
 {
 	Relation* relation = getRelation(relationName);
@@ -110,7 +119,9 @@ void Engine::update(string relationName, vector<pair<int, string>> newValues, ve
 	}
 }
 
-
+/**
+  * Delete tuples based on given tupleIDs.
+  */
 void Engine::deleteTuples(string relationName, vector<int> tupleIDs) 
 {
 	Relation* relation = getRelation(relationName);
@@ -126,13 +137,16 @@ void Engine::deleteTuples(string relationName, vector<int> tupleIDs)
 	}
 }
 
-void Engine::exit (/* Pass 'exit_var' current state*/)
+/**
+  * Exit the engine
+  */
+void Engine::exit()
 {
-	throw runtime_error("Goodbye, cruel world...");
+	throw runtime_error("Exiting program...");
 }
 
 /**
-	* Search for a relation by name and return a reference to the 
+	* Search for a relation by name and return a pointer to the 
 	* relation.
 	*/
 Relation *Engine::getRelation(string relationName)
@@ -145,23 +159,28 @@ Relation *Engine::getRelation(string relationName)
 	throw runtime_error("Relation not found.");
 }
 
+/**
+  * If the attribute is an integer, ensure we're inserting an integer
+  */
 void Engine::checkType(Attribute* attribute, string value)
 {
 	if(attribute->getType() == Attribute::INTEGER)
+	{
+		string::iterator iterator = value.begin();
+		while(iterator != value.end())
 		{
-			string::iterator iterator = value.begin();
-			while(iterator != value.end())
+			if( ! isdigit(*iterator)) 
 			{
-				if( ! isdigit(*iterator)) 
-				{
-					throw runtime_error("Trying to put a string into an INTEGER");
-				}
-				iterator++;
+				throw runtime_error("Trying to put a string into an INTEGER");
 			}
+			iterator++;
 		}
+	}
 }
 
-
+/**
+  * Compute the union of two relations
+  */
 Relation Engine::exprUnion(Relation* a, Relation* b)
 {
 	// Ensure that the relations are union-compatible
@@ -186,6 +205,9 @@ Relation Engine::exprUnion(Relation* a, Relation* b)
 	return unionRelation;
 }
 
+/**
+  * Compute the difference of two relations
+  */
 Relation Engine::exprDifference(Relation* a, Relation* b)
 {
 	// Ensure that the relations are union-compatible
@@ -210,6 +232,9 @@ Relation Engine::exprDifference(Relation* a, Relation* b)
 	return differenceRelation;
 }
 
+/**
+  * Compute the product of two relations
+  */
 Relation Engine::exprProduct(Relation* a, Relation* b)
 {
 	//Build the product relation
@@ -241,14 +266,17 @@ Relation Engine::exprProduct(Relation* a, Relation* b)
 	{
 		for(int y=0; y < a->getTuples()->size(); y++)
 		{
+			// For every tuple in b, combine each tuple in a
 			vector<string> values = a->getTuple(y)->getValues();			
 			vector<string> toAdd = b->getTuple(i)->getValues();
 
+			// Build the values
 			for(int i=0; i<toAdd.size(); i++)
 			{
 				values.push_back(toAdd[i]);
 			}
 
+			// Add the tuple to the product relation
 			productRelation.addTuple(values);
 		}
 	}
@@ -256,37 +284,30 @@ Relation Engine::exprProduct(Relation* a, Relation* b)
 	return productRelation;
 }
 
-Relation Engine::exprProjection(string relationName,string attributeName)
-{
-	Relation* relation = getRelation(relationName);
-	
-	for(int i=0; i<relation->getAttributes()->size(); i++)
-	{
-		if(relation->getAttribute(i)->getValue() != attributeName)
-		{
-			throw runtime_error("No such Attribute exists."); 
-		}
-	}
-
-}
-
+/**
+  * Rename the attributes in a relation
+  */
 Relation Engine::exprRenaming(Relation *a, vector<string> newAttributes)
 {
 	Relation renamedRelation = *a;	
 
 	 for(int i=0; i < renamedRelation.getAttributes()->size(); i++) 
         {
-                Attribute *attribute = renamedRelation.getAttribute(i);
-                attribute->setValue(newAttributes[i]);
-         
-             // a->setAttributes(newAttributes )
+          Attribute *attribute = renamedRelation.getAttribute(i);
+          attribute->setValue(newAttributes[i]);
         }
 
-	//renamedRelation.setAttributes(newAttributes);
 	return renamedRelation; 
 }
 	
-Relation Engine::select(Relation* a, vector<int> tupleIDs)
+/**
+  * Select only certain rows from a relation.
+  * 
+  * The conditions for the select statement are computed in the parser.
+  * A vector of tuple IDs where the ID is the tuple's position in the vector
+  * is given to select the tuples.
+  */
+Relation Engine::exprSelect(Relation* a, vector<int> tupleIDs)
 {
 	Relation tempRelation = Relation();
 	tempRelation.setAttributes(*a->getAttributes());
@@ -300,6 +321,9 @@ Relation Engine::select(Relation* a, vector<int> tupleIDs)
 	return tempRelation;
 }
 
+/**
+  * Determine if two relations are union compatible
+  */
 bool Engine::isUnionCompatible(Relation* a, Relation* b)
 {
 
@@ -315,6 +339,9 @@ bool Engine::isUnionCompatible(Relation* a, Relation* b)
 	return true;
 }
 
+/**
+  * Determine if a tuple exists in a relation
+  */
 bool Engine::exists(Relation* haystack, Tuple* needle)
 {
 	//Iterate each tuple in haystack
@@ -327,6 +354,9 @@ bool Engine::exists(Relation* haystack, Tuple* needle)
 	return false;
 }
 
+/**
+  * Select only certain attribute colums from a relation.
+  */
 Relation Engine::exprProject(Relation* a, vector<string> attributeName)
 {
 	Relation projectRelation = Relation();
@@ -334,6 +364,7 @@ Relation Engine::exprProject(Relation* a, vector<string> attributeName)
 	vector<Attribute> attributes;
 	vector<int> attributeIDs;
 
+	// Build a vector of attributes matching each element in attributeName
 	for(int i=0; i<attributeName.size(); i++)
 	{
 		for(int j=0; j<a->getAttributes()->size(); j++)
@@ -347,8 +378,10 @@ Relation Engine::exprProject(Relation* a, vector<string> attributeName)
 			}
 		}
 	}
+
 	projectRelation.setAttributes(attributes);
 
+	// Add each tuple to the new relation
 	for(int i=0; i<a->getTuples()->size(); i++)
 	{
 		vector<string> oldValues = a->getTuple(i)->getValues();
@@ -356,11 +389,11 @@ Relation Engine::exprProject(Relation* a, vector<string> attributeName)
 
 		for(int j=0; j<attributeIDs.size(); j++)
 		{
+			// From the old tuple, select each attribute and add it
 			newValues.push_back(oldValues[attributeIDs[j]]);
 		}
 
 		projectRelation.addTuple(newValues);
 	}
 	return projectRelation;
-
 }

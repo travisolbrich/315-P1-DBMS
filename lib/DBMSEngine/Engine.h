@@ -27,15 +27,14 @@ public:
 	void checkType(Attribute* attribute, string value);
 	void addRelation(Relation relation) { relations.push_back(relation); }
 
-	Relation exprProject(Relation* a, vector<string> attributeName);
 	Relation *getAttributeName(string attributeName);
 	Relation *getRelation(string relationName);
 	Relation exprUnion(Relation* a, Relation* b);
 	Relation exprDifference(Relation* a, Relation* b);
+	Relation exprProject(Relation* a, vector<string> attributeName);
 	Relation exprProduct(Relation* a, Relation* b);
-	Relation exprProjection(string relationName,string attributeName);
 	Relation exprRenaming(Relation* a, vector<string> newAttributes); 
-	Relation select(Relation* a, vector<int> tupleIDs);
+	Relation exprSelect(Relation* a, vector<int> tupleIDs);
 
 	bool isUnionCompatible(Relation* a, Relation* b);
 	bool exists(Relation* haystack, Tuple* needle);

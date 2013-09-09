@@ -122,7 +122,7 @@ int main(int argc, char const *argv[])
 		selectTest.push_back(4);
 		selectTest.push_back(2);
 
-		Relation select = engine->select(&product, selectTest);
+		Relation select = engine->exprSelect(&product, selectTest);
 		select.setName("selectProduct");
 		engine->addRelation(select);
 		engine->show("selectProduct");
@@ -134,7 +134,6 @@ int main(int argc, char const *argv[])
 		engine->show("projected");
 
 		engine->show("selectProduct");
-
 		//Exiting
 		engine->exit();
 	}
