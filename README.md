@@ -5,7 +5,7 @@ To build the project, simply run `make`. The compiled code will be in `bin/`. Th
 
 ### DBMS Engine Code Submission (Sept 9)
 
-Please look at the [example output](output.md). You can also compile the program as shown above and run `bin/project.out`.
+Please look at the [example output](output.md). The input is found in `src/main`. You can also compile the program as shown above and run `bin/project.out`.
 
 We did not implement any comparison code in the select function. Our select function recieves a vector of integers that corresponds with the IDs of tuples in the relation. This vector of integers will be computed in the parser.
 
