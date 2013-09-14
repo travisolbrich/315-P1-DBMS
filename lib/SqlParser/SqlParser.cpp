@@ -90,38 +90,67 @@ Relation SqlParser::expr()
 
 	if(token.getType() == Token::IDENTIFIER || token.getType() == Token::LEFTPAREN) 
 	{
-		relation = atomicExpr();
+		return atomicExpr();
 	}
 
 	// SELECT
-
 	if(token.getType() == Token::PROJECT)
 	{
-		if( ! expect(Token::LEFTPAREN)) throw runtime_error("expected LEFTPAREN");
-		increment();
-		
-		// Expect an attribute list
-		vector<string> attributes;
-		while(token.getType() == Token::IDENTIFIER)
-		{
-			attributes.push_back(token.getValue());
-			increment();
-
-			// Now we expect a comma or a )
-			if(token.getType() != Token::COMMA && token.getType() != Token::RIGHTPAREN) throw runtime_error("expected , or )");
-			
-			if(token.getType() == Token::COMMA) increment();
-		}
-		
-		// Expect a atomic expression
-		increment();
-		relation = atomicExpr();
-
-		// Fire the project
-		relation = engine->exprProject(&relation, attributes);
+		return exprProject();
 	}
 
-	return relation;
+	if(token.getType() == Token::RENAME)
+	{
+		return exprRename();
+	}
+
+}
+
+Relation SqlParser::exprProject()
+{
+	// Expect an attribute list
+	vector<string> attributes = attributeList();
+	
+	// Expect a atomic expression	
+	Relation relation = atomicExpr();
+
+	// Fire the project
+	return engine->exprProject(&relation, attributes);
+}
+
+Relation SqlParser::exprRename()
+{
+	// Expect an attribute list
+	vector<string> attributes = attributeList();
+	
+	// Expect a atomic expression	
+	Relation relation = atomicExpr();
+
+	// Fire the project
+	return engine->exprRenaming(&relation, attributes);
+}
+
+vector<string> SqlParser::attributeList()
+{
+	if( ! expect(Token::LEFTPAREN)) throw runtime_error("expected LEFTPAREN");
+
+	increment();
+
+	vector<string> attributes;
+	while(token.getType() == Token::IDENTIFIER)
+	{
+		attributes.push_back(token.getValue());
+		increment();
+
+		// Now we expect a comma or a )
+		if(token.getType() != Token::COMMA && token.getType() != Token::RIGHTPAREN) throw runtime_error("expected , or )");
+		
+		if(token.getType() == Token::COMMA) increment();
+	}
+
+	increment();
+
+	return attributes;
 }
 
 Relation SqlParser::atomicExpr()
