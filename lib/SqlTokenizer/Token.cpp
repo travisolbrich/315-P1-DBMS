@@ -16,6 +16,8 @@ string Token::getTypeName()
 	else if (type == UNION) return "UNION";
 	else if (type == LEFTBRACE) return "LEFTBRACE";
 	else if (type == RIGHTBRACE) return "RIGHTBRACE";
+	else if (type == LEFTPAREN) return "LEFTPAREN";
+	else if (type == RIGHTPAREN) return "RIGHTPAREN";
 	else if (type == LEFTARROW) return "LEFTARROW";
 	else if (type == EQ) return "EQ";
 	else if (type == NEQ) return "NEQ";
@@ -53,5 +55,6 @@ string Token::getTypeName()
 	else if (type == IDENTIFIER) return "IDENTIFIER";
 	else if (type == NUMBER) return "NUMBER";
 	else if (type == SEMICOLON) return "SEMICOLON";
+	else if (type == COMMA) return "COMMA";
 	else return "Error: Unrecognized Token.";
 }

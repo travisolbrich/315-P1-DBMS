@@ -4,25 +4,34 @@
 using namespace std;
 
 #include "../SqlTokenizer/Token.h"
+#include "../DBMSEngine/Engine.h"
 
-#include <iostream>
 #include <string>
 #include <vector>
+#include <iostream>
+#include <utility>
+#include <stdexcept>
 
 class SqlParser
 {
 	public:
-		SqlParser(vector<Token> tokens) : tokens(tokens) {};
+		SqlParser(vector<Token> tokens, Engine* e) : tokens(tokens), engine(e)  {};
 		vector<Token> getTokens() { return tokens; }
 		void parse();
 
 	private: 
 	    vector<Token> tokens;
+	    Engine* engine;
 	    Token token;
 	    int currentID;
 	    void setToken();
-	    void program();
-	    void command();
+	    void increment();
+	    bool program();
+	    bool command();
+	    bool query();
+	    Relation expr();
+	    Relation atomicExpr();
+	    Relation project();
 	    bool expect(Token::TokenTypes type);
 	    void semicolon();
 

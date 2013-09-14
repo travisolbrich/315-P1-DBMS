@@ -15,29 +15,6 @@ int main(int argc, char const *argv[])
 
 	try 
 	{
-		/** Skip the parser for now.
-		string query = "OPEN SELECT people;";
-
-		cout << "Query: " << query << "\n";
-
-		SqlTokenizer* tokenzier = new SqlTokenizer(query);
-
-		vector<Token> tokens = tokenzier->split();
-		cout<<tokens.size()<<" tokens have been collected:\n\n";
-
-		for(int i=0; i < tokens.size(); i++)
-		{
-			cout<<"RECOGNIZED: "<<tokens[i].getTypeName()<<"\n            "<<tokens[i].getValue()<<"\n\n";
-		}
-
-		SqlParser* parser = new SqlParser(tokens);
-
-		parser->parse();
-		**/
-		cout << "==============================" << endl;
-		cout << "Engine" << endl;
-		cout << "==============================" << endl;
-		
 		// Create the engine. There are no relations to add to it yet
 		Engine* engine = new Engine();
 		
@@ -62,6 +39,24 @@ int main(int argc, char const *argv[])
 		};
 
 		engine->insert("Names", tuple);
+
+		string query = "people <- project (first_name, ID) ( Names)";
+
+		cout << "Query: " << query << "\n";
+
+		SqlTokenizer* tokenzier = new SqlTokenizer(query);
+		vector<Token> tokens = tokenzier->split();
+		cout<<tokens.size()<<" tokens have been collected:\n\n";
+
+		SqlParser* parser = new SqlParser(tokens, engine);
+
+		parser->parse();
+		/**
+		cout << "==============================" << endl;
+		cout << "Engine" << endl;
+		cout << "==============================" << endl;
+		
+		
 
 		tuple = 
 		{
@@ -162,12 +157,14 @@ int main(int argc, char const *argv[])
 		
 		//Exiting
 		engine->exit();
+		*/
 	}
 	catch (exception& e)
 	{
 		cout << "!!! " <<  e.what() << "\n";
 	}
-
+	
 	return 0;
+
 }
 

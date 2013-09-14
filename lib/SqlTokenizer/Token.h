@@ -14,7 +14,7 @@ class Token
 						  BOR, BAND, UNION, DIFF, PRODUCT, OPEN, CLOSE, WRITE, EXIT, SHOW, CREATE, 
 						  PKEY, UPDATE, INSERT, VALUES, RELATION, DELETE, WHERE, VARCHAR, INTEGER,
 						  LEFTBRACE, RIGHTBRACE, LEFTARROW, TABLE, PRIMARY, KEY, SET, NUMBER, INTO, 
-						  FROM, SEMICOLON };
+						  FROM, SEMICOLON, LEFTPAREN, RIGHTPAREN, COMMA };
 
 		Token(TokenTypes type, string value) : type(type), value(value) {};
 		Token() {};

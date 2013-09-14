@@ -52,9 +52,9 @@ vector<Token> SqlTokenizer::split()
 			text = readAhead(2);
 			iterator+=2;
 		}
-
+		
 		// Try to match single-character symbols
-		else if (count(singleSymbols, singleSymbols+8, readAhead(1)))
+		else if (count(singleSymbols, singleSymbols+11, readAhead(1)))
 		{
 			text = readAhead(1);
 			iterator++;
@@ -139,6 +139,9 @@ Token SqlTokenizer::recognize(string text)
 	else if (text == "+" )			return Token(Token::UNION, text);
 	else if (text == "{" )			return Token(Token::LEFTBRACE, text);
 	else if (text == "}")			return Token(Token::RIGHTBRACE, text);
+	else if (text == "(" )			return Token(Token::LEFTPAREN, text);
+	else if (text == ")")			return Token(Token::RIGHTPAREN, text);
+	else if (text == ",")			return Token(Token::COMMA, text);
 	else if (text == "<-" )			return Token(Token::LEFTARROW, text);
 	else if (text == ";" )			return Token(Token::SEMICOLON, text);
 	else if (text == "==" )			return Token(Token::EQ, text);

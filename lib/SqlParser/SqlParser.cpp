@@ -2,6 +2,7 @@ using namespace std;
 
 #include "SqlParser.h"
 #include "../SqlTokenizer/Token.h"
+#include "../DBMSEngine/Engine.h"
 
 #include <iostream>
 #include <sstream>
@@ -17,11 +18,18 @@ bool SqlParser::expect(Token::TokenTypes type)
 {
 	if(tokens[currentID + 1].getType() == type)
 	{
-		currentID++;
+		increment();
 		return true;
 	}
 
 	return false;
+}
+
+void SqlParser::increment()
+{
+	if(currentID == tokens.size() - 1) throw runtime_error("Can't increase counter any more.");
+	currentID++;
+	setToken();
 }
 
 void SqlParser::parse()
@@ -37,52 +45,98 @@ void SqlParser::parse()
 	program();
 }
 
-void SqlParser::program()
+bool SqlParser::program()
 {	
 	if(token.getType() == Token::IDENTIFIER)
 	{
 		cout<<"Expect query"<<endl;
+		bool status = query();
+		if ( ! status) cout << "[FAILURE]\n";
 	}
 	else
 	{
 		cout<<"Expect command"<<endl;
 		command();
 	}
+
+	return true;
 }
 
-void SqlParser::command()
+bool SqlParser::query()
+{
+	string relationName = token.getValue();
+
+	// Next thing should be a left arrow
+	if( ! expect(Token::LEFTARROW)) return false;
+
+	increment();
+	Relation relation = expr();
+	engine->show(&relation);
+	return true;
+}
+
+bool SqlParser::command()
 {
 	switch (token.getType())
 	{
-		case Token::OPEN: 
-			cout << "Recognized OPEN command" << endl;
-			cout<< "Expect relation name (identifier) next... ";
-			if( ! expect(Token::IDENTIFIER))
-			{
-				cout << "[BAD]" << endl;	
-				return;			
-			} 
-			cout << "[Good]" << endl;
-			setToken();
+		
+	}
+	return true;
+}
 
-			cout << "Relation Name: " << token.getValue()<<endl;
-			cout << "Opening " << token.getValue() << endl;
-			cout << "Expect semicolon to end... ";
+Relation SqlParser::expr()
+{
+	Relation relation;
 
-			if ( ! expect(Token::SEMICOLON))
-			{
-				cout << "[BAD]" << endl;	
-				return;	
-			}
-			cout << "[Good]" << endl;
-			setToken();
-			semicolon();
+	if(token.getType() == Token::IDENTIFIER || token.getType() == Token::LEFTPAREN) 
+	{
+		relation = atomicExpr();
+	}
+
+	// SELECT
+
+	if(token.getType() == Token::PROJECT)
+	{
+		if( ! expect(Token::LEFTPAREN)) throw runtime_error("expected LEFTPAREN");
+		increment();
+		
+		// Expect an attribute list
+		vector<string> attributes;
+		while(token.getType() == Token::IDENTIFIER)
+		{
+			attributes.push_back(token.getValue());
+			increment();
+
+			// Now we expect a comma or a )
+			if(token.getType() != Token::COMMA && token.getType() != Token::RIGHTPAREN) throw runtime_error("expected , or )");
 			
-			break;
+			if(token.getType() == Token::COMMA) increment();
+		}
+		
+		// Expect a atomic expression
+		increment();
+		relation = atomicExpr();
 
-		default:
-			cout << "Unrecognized Command" << endl;
-			break;
+		// Fire the project
+		relation = engine->exprProject(&relation, attributes);
+	}
+
+	return relation;
+}
+
+Relation SqlParser::atomicExpr()
+{
+
+	if(token.getType() == Token::IDENTIFIER)
+	{
+		return *engine->getRelation(token.getValue());
+	}
+	if(token.getType() == Token::LEFTPAREN)
+	{
+		increment();
+		Relation relation = expr();
+		if(expect(Token::RIGHTPAREN)) return relation;
+		throw runtime_error("exptected RIGHTPAREN");
 	}
 }
 

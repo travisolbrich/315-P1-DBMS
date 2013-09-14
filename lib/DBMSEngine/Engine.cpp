@@ -164,7 +164,7 @@ Relation *Engine::getRelation(string relationName)
 		if (relations[i].getName() == relationName) return &relations[i];
 	}
 
-	throw runtime_error("Relation not found.");
+	throw runtime_error("Relation '" + relationName + "'' not found.");
 }
 
 /**

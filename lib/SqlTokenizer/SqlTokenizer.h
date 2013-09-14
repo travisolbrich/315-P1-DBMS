@@ -22,7 +22,7 @@ class SqlTokenizer
 		string query;
 		string::iterator iterator;
 	    vector<Token> tokens;
-	    string singleSymbols[8] = {"<", ">", "{", "}", "+", "-", "*", ";"};
+	    string singleSymbols[11] = {"<", ">", "{", "}", "+", "-", "*", ";", "(", ")", ","};
 		string doubleSymbols[7] = {"==", "!=", "<=", ">=", "<-", "||", "&&"};
 };
 
