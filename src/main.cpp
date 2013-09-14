@@ -40,7 +40,7 @@ int main(int argc, char const *argv[])
 
 		engine->insert("Names", tuple);
 
-		string query = "people <- rename (id, first, last) ( Names)";
+		string query = "people <- rename (ID, Last, First) ( project (ID, last_name, first_name) Names )";
 
 		cout << "Query: " << query << "\n";
 

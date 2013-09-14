@@ -299,6 +299,8 @@ Relation Engine::exprRenaming(Relation *a, vector<string> newAttributes)
 {
 	Relation renamedRelation = *a;	
 
+	if(a->getAttributes()->size() != newAttributes.size()) throw runtime_error("Number of attributes renaming not correct.");
+
 	 for(int i=0; i < renamedRelation.getAttributes()->size(); i++) 
         {
           Attribute *attribute = renamedRelation.getAttribute(i);
