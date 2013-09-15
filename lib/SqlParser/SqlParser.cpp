@@ -168,10 +168,26 @@ Relation SqlParser::exprUnionParser()
 Relation SqlParser::exprIntersectionPaser(Relation* a,Relation* b)
 {
 	// Ensure that the relations are union-compatible
-	if ( ! isUnionCompatible(a,b))
+	if ( ! engine->isUnionCompatible(a,b))
 	{
 		throw runtime_error("Trying to take the union of non-union-compatible relations.");
 	}
+
+	Relation tempRelation = *a;
+	Relation intersectRelation;
+
+	for( int i =0; i < b->getTuples()->size(); i++)
+	{
+		Tuple* bTuple = b->getTuple(i);
+
+		if( engine->exists(tempRelation, bTuple))
+		{
+			intersectRelation.addTuple(*bTuple);
+		}
+
+	}
+
+	return intersectRelation;
 }
 
 vector<string> SqlParser::attributeList()
