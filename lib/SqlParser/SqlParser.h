@@ -33,6 +33,9 @@ class SqlParser
 	    Relation atomicExpr();
 	    Relation exprProject();
 	    Relation exprRename();
+	    Relation exprProductParser();
+	    Relation exprDifferenceParser();
+	    Relation exprUnionParser();
 	    vector<string> attributeList();
 	    bool expect(Token::TokenTypes type);
 	    void semicolon();

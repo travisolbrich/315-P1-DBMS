@@ -104,6 +104,11 @@ Relation SqlParser::expr()
 		return exprRename();
 	}
 
+	if(token.getType() == Token::SELECT)
+	{
+		return exprSelect();
+	}
+
 }
 
 Relation SqlParser::exprProject()
@@ -128,6 +133,36 @@ Relation SqlParser::exprRename()
 
 	// Fire the project
 	return engine->exprRenaming(&relation, attributes);
+}
+
+Relation SqlParser::exprProductParser()
+{
+	// Expect atomic expressions
+	Relation relationA = atomicExpr();
+	Relation relationB = atomicExpr();
+
+	// Fire the project
+	return engine->exprProduct(&relationA, &relationB);
+}
+
+Relation SqlParser::exprDifferenceParser()
+{
+	// Expect atomic expressions
+	Relation relationA = atomicExpr();
+	Relation relationB = atomicExpr();
+
+	// Fire the project
+	return engine->exprDifference(&relationA, &relationB);
+}
+
+Relation SqlParser::exprUnionParser()
+{
+	// Expect atomic expressions
+	Relation relationA = atomicExpr();
+	Relation relationB = atomicExpr();
+
+	// Fire the project
+	return engine->exprUnion(&relationA, &relationB);
 }
 
 vector<string> SqlParser::attributeList()
