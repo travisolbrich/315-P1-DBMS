@@ -173,15 +173,19 @@ Relation SqlParser::exprIntersectionPaser(Relation* a,Relation* b)
 		throw runtime_error("Trying to take the union of non-union-compatible relations.");
 	}
 
+	// Make a copy of Relation "a", and create return variable of type Relation
 	Relation tempRelation = *a;
 	Relation intersectRelation;
 
 	for( int i =0; i < b->getTuples()->size(); i++)
 	{
+		// Put what is in "b" at position "i" into bTuple
 		Tuple* bTuple = b->getTuple(i);
 
+		// Is the tuple in "b" and also in "a"?
 		if( engine->exists(tempRelation, bTuple))
 		{
+			// If true, put that tuple in intersectRelation
 			intersectRelation.addTuple(*bTuple);
 		}
 
