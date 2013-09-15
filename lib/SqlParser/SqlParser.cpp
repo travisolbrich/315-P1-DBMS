@@ -165,6 +165,15 @@ Relation SqlParser::exprUnionParser()
 	return engine->exprUnion(&relationA, &relationB);
 }
 
+Relation SqlParser::exprIntersectionPaser(Relation* a,Relation* b)
+{
+	// Ensure that the relations are union-compatible
+	if ( ! isUnionCompatible(a,b))
+	{
+		throw runtime_error("Trying to take the union of non-union-compatible relations.");
+	}
+}
+
 vector<string> SqlParser::attributeList()
 {
 	if( ! expect(Token::LEFTPAREN)) throw runtime_error("expected LEFTPAREN");
