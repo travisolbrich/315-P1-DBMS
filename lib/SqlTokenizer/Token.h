@@ -20,6 +20,7 @@ class Token
 		Token() {};
 		TokenTypes getType() { return type; }
 		string getValue() {	return value; }
+		int getNumeric() { return atoi(value.c_str()); }
 		string getTypeName();
 
 	private: 

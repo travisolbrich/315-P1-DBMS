@@ -1,6 +1,7 @@
 using namespace std;
 
 #include "SqlParser.h"
+#include "ConditionParser.h"
 #include "../SqlTokenizer/Token.h"
 #include "../DBMSEngine/Engine.h"
 
@@ -11,7 +12,7 @@ using namespace std;
 void SqlParser::setToken()
 {
 	token = tokens[currentID];
-	cout << endl << "### [" << currentID << "] " << token.getTypeName() << ": " << token.getValue() << endl;
+	//cout << endl << "### [" << currentID << "] " << token.getTypeName() << ": " << token.getValue() << endl;
 }
 
 bool SqlParser::expect(Token::TokenTypes type)
@@ -93,17 +94,68 @@ Relation SqlParser::expr()
 		return atomicExpr();
 	}
 
-	// SELECT
-	if(token.getType() == Token::PROJECT)
+	else if(token.getType() == Token::SELECT)
+	{
+		return exprSelect();
+	}
+
+	else if(token.getType() == Token::PROJECT)
 	{
 		return exprProject();
 	}
 
-	if(token.getType() == Token::RENAME)
+	else if (token.getType() == Token::RENAME)
 	{
 		return exprRename();
 	}
 
+}
+
+Relation SqlParser::exprSelect()
+{
+	// Expect an condition list (Just read it now, parse later)
+	vector<Token> conditions = conditionList();
+	
+	// Expect a atomic expression	
+	Relation relation = atomicExpr();
+
+	ConditionParser* conditionParser = new ConditionParser(conditions, engine, relation);
+	cout << "Number of resulting rows: " << conditionParser->parse().size() << endl;
+	relation = engine->exprSelect(&relation, conditionParser->parse());
+
+	return relation;
+}
+
+
+vector<Token> SqlParser::conditionList()
+{
+	vector<Token> tokens;
+
+	int parenDepth = 1;
+
+	if( ! expect(Token::LEFTPAREN)) throw runtime_error("expected LEFTPAREN");
+
+	while(parenDepth > 0)
+	{
+		increment();
+		if(token.getType() == Token::LEFTPAREN) parenDepth++;
+
+		if(token.getType() == Token::RIGHTPAREN) parenDepth--;
+
+		tokens.push_back(token);
+	}
+
+	tokens.pop_back();
+
+	increment();
+
+	for(int i=0; i < tokens.size(); i++)
+	{
+		cout << " " << tokens[i].getValue();
+	}
+	cout << endl;
+
+	return tokens;
 }
 
 Relation SqlParser::exprProject()

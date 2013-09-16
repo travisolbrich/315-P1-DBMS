@@ -2,6 +2,7 @@
 #define DBMSEngine_Engine_H_
 
 #include "Relation.h"
+#include "../SqlTokenizer/Token.h"
 #include <string>
 #include <vector>
 
