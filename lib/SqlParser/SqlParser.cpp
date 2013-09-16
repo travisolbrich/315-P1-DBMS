@@ -120,7 +120,6 @@ Relation SqlParser::exprSelect()
 	Relation relation = atomicExpr();
 
 	ConditionParser* conditionParser = new ConditionParser(conditions, engine, relation);
-	cout << "Number of resulting rows: " << conditionParser->parse().size() << endl;
 	relation = engine->exprSelect(&relation, conditionParser->parse());
 
 	return relation;
