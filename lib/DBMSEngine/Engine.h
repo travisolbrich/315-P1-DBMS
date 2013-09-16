@@ -38,18 +38,18 @@ public:
 	
 	// Helpers
 	Relation *getRelation(string relationName);
+	void addRelation(Relation relation) { relations.push_back(relation); }
 
 	void exit();
 
-private:
 	vector<Relation> relations;
+private:
 
 	// Helpers
 	Relation *getAttributeName(string attributeName);
 	bool isUnionCompatible(Relation* a, Relation* b);
 	bool exists(Relation* haystack, Tuple* needle);
 	void checkType(Attribute* attribute, string value);
-	void addRelation(Relation relation) { relations.push_back(relation); }
 };
 
 #endif

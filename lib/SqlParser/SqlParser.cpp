@@ -3,6 +3,7 @@ using namespace std;
 #include "SqlParser.h"
 #include "ConditionParser.h"
 #include "../SqlTokenizer/Token.h"
+#include "../DBMSEngine/Attribute.h"
 #include "../DBMSEngine/Engine.h"
 
 #include <iostream>
@@ -12,7 +13,7 @@ using namespace std;
 void SqlParser::setToken()
 {
 	token = tokens[currentID];
-	//cout << endl << "### [" << currentID << "] " << token.getTypeName() << ": " << token.getValue() << endl;
+	cout << endl << "### [" << currentID << "] " << token.getTypeName() << ": " << token.getValue() << endl;
 }
 
 bool SqlParser::expect(Token::TokenTypes type)
@@ -26,11 +27,27 @@ bool SqlParser::expect(Token::TokenTypes type)
 	return false;
 }
 
+bool SqlParser::peek(Token::TokenTypes type)
+{
+	if(canIncrement())
+	{
+		if(tokens[currentID + 1].getType() == type) return true;
+	}
+
+	return false;
+}
+
 void SqlParser::increment()
 {
-	if(currentID == tokens.size() - 1) throw runtime_error("Can't increase counter any more.");
+	if( ! canIncrement()) throw runtime_error("Can't increase counter any more.");
 	currentID++;
 	setToken();
+}
+
+
+bool SqlParser::canIncrement()
+{
+	return ! (currentID == tokens.size() - 1);
 }
 
 void SqlParser::parse()
@@ -50,13 +67,11 @@ bool SqlParser::program()
 {	
 	if(token.getType() == Token::IDENTIFIER)
 	{
-		cout<<"Expect query"<<endl;
 		bool status = query();
 		if ( ! status) cout << "[FAILURE]\n";
 	}
 	else
 	{
-		cout<<"Expect command"<<endl;
 		command();
 	}
 
@@ -66,13 +81,18 @@ bool SqlParser::program()
 bool SqlParser::query()
 {
 	string relationName = token.getValue();
-
 	// Next thing should be a left arrow
 	if( ! expect(Token::LEFTARROW)) return false;
 
 	increment();
+
 	Relation relation = expr();
+	relation.setName(relationName);
+
+	if( ! expect(Token::SEMICOLON)) throw runtime_error("Expected ;");
+
 	engine->show(&relation);
+	engine->addRelation(relation);
 	return true;
 }
 
@@ -80,35 +100,116 @@ bool SqlParser::command()
 {
 	switch (token.getType())
 	{
-		
+		case Token::EXIT:
+			engine->exit();
+			break;
+
+		case Token::SHOW:
+		{	
+			increment();
+			Relation relation = atomicExpr();
+			engine->show(&relation);
+			break;
+		}
+
+		case Token::CREATE:
+			create();
+			break;
 	}
-	return true;
 }
 
 Relation SqlParser::expr()
 {
-	Relation relation;
-
-	if(token.getType() == Token::IDENTIFIER || token.getType() == Token::LEFTPAREN) 
+	switch (token.getType())
 	{
-		return atomicExpr();
+		case Token::LEFTPAREN:
+			return atomicExpr();
+			break;
+
+		case Token::SELECT:
+			return exprSelect();
+			break;
+
+		case Token::PROJECT:
+			return exprProject();
+			break;
+
+		case Token::IDENTIFIER:
+			// If it's just an identifier (followed by ; or ')') then it's a atomic expression
+			cout <<"IDENT SWITCH"<<endl;
+			return atomicExpr();
+			break;
+
+		case Token::RENAME:
+			return exprRename();
+			break;
+	}	
+}
+
+void SqlParser::create()
+{
+	if( ! expect(Token::TABLE)) throw runtime_error("Expected TABLE");
+	if( ! expect(Token::IDENTIFIER)) throw runtime_error("Expected relation name");
+	string relationName = token.getValue();
+
+	// Read in the attributes and types
+	if( ! expect(Token::LEFTPAREN)) throw runtime_error("expected LEFTPAREN");
+
+	increment();
+	vector<Attribute> attributes;
+
+	
+	while(token.getType() != Token::RIGHTPAREN)
+	{
+		string name = token.getValue();
+
+		increment();
+		if( (token.getType() != Token::VARCHAR) && (token.getType() != Token::INTEGER)) throw runtime_error("Expected INTEGER or VARCHAR");
+
+		Attribute::Type type = (token.getType() == Token::VARCHAR) ? Attribute::Type::VARCHAR : Attribute::Type::INTEGER;
+		
+		Attribute attribute;
+		if(type == Attribute::Type::VARCHAR)
+		{
+			int size;
+			if ( ! expect(Token::LEFTPAREN)) throw runtime_error("Expected (");
+			if ( ! expect(Token::NUMBER)) throw runtime_error("Expected size");
+			size = token.getNumeric();
+			if ( ! expect(Token::RIGHTPAREN)) throw runtime_error("Expected )");
+
+			attribute = Attribute(type, name, false, size);
+		}
+		else
+		{
+			attribute = Attribute(type, name);
+		}
+
+		attributes.push_back(attribute);
+
+		if( ! peek(Token::RIGHTPAREN))
+		{
+			if ( ! expect(Token::COMMA)) throw runtime_error("Expected COMMA");
+		}
+		increment();
 	}
 
-	else if(token.getType() == Token::SELECT)
+	if ( ! expect(Token::PRIMARY)) throw runtime_error("Expected PRIMARY");
+	if ( ! expect(Token::KEY)) throw runtime_error("Expected KEY");
+
+	vector<string> keys = attributeList();
+
+	for(int i=0; i < attributes.size(); i++)
 	{
-		return exprSelect();
+		for(int j=0; j < keys.size(); j++)
+		{
+			if(attributes[i].getValue() == keys[j])
+			{
+				attributes[i].setPrimary(true);
+			}
+		}
 	}
 
-	else if(token.getType() == Token::PROJECT)
-	{
-		return exprProject();
-	}
-
-	else if (token.getType() == Token::RENAME)
-	{
-		return exprRename();
-	}
-
+	engine->create(relationName, attributes);
 }
 
 Relation SqlParser::exprSelect()
@@ -124,7 +225,6 @@ Relation SqlParser::exprSelect()
 
 	return relation;
 }
-
 
 vector<Token> SqlParser::conditionList()
 {
@@ -204,20 +304,59 @@ vector<string> SqlParser::attributeList()
 	return attributes;
 }
 
+// Handle union, difference, or product
+Relation SqlParser::combine(Relation relation)
+{
+	Relation left = relation;
+
+	increment();
+	Token operation = token;
+
+	increment();
+	Relation right = atomicExpr();
+
+	switch(operation.getType())
+	{
+		case Token::UNION:
+			return engine->exprUnion(&left, &right);
+			break;
+
+		case Token::DIFF:
+			return engine->exprDifference(&left, &right);
+			break;
+
+		case Token::PRODUCT:
+			return engine->exprProduct(&left, &right);
+			break;
+
+		default:
+			throw runtime_error("Incorrect comparison type.");
+	}
+}
+
 Relation SqlParser::atomicExpr()
 {
+	Relation relation;
 
 	if(token.getType() == Token::IDENTIFIER)
 	{
-		return *engine->getRelation(token.getValue());
+		relation =  *engine->getRelation(token.getValue());
 	}
 	if(token.getType() == Token::LEFTPAREN)
 	{
 		increment();
-		Relation relation = expr();
-		if(expect(Token::RIGHTPAREN)) return relation;
+		relation = expr();
+		if( ! expect(Token::RIGHTPAREN)) 
 		throw runtime_error("exptected RIGHTPAREN");
 	}
+
+	// If the next token is a +*-, do combine
+	if(peek(Token::UNION) || peek(Token::PRODUCT) || peek(Token::DIFF))
+	{
+		relation = combine(relation);
+	}
+
+	return relation;
 }
 
 void SqlParser::semicolon()

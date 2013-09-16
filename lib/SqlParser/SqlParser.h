@@ -34,12 +34,17 @@ class SqlParser
 	    Relation exprSelect();
 	    Relation exprProject();
 	    Relation exprRename();
+	    Relation combine(Relation relation);
+
+	    void create();
 
 	    Relation comparison(Relation* relation);
 
 	    vector<Token> conditionList();
 	    vector<string> attributeList();
 	    bool expect(Token::TokenTypes type);
+	    bool peek(Token::TokenTypes type);
+	    bool canIncrement();
 	    void semicolon();
 
 };

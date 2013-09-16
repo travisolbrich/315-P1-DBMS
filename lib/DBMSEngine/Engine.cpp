@@ -162,9 +162,9 @@ Relation *Engine::getRelation(string relationName)
 	for (int i=0; i < relations.size(); i++)
 	{
 		if (relations[i].getName() == relationName) return &relations[i];
+		
 	}
-
-	throw runtime_error("Relation '" + relationName + "'' not found.");
+	throw runtime_error("Relation '" + relationName + "' not found.");
 }
 
 /**

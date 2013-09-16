@@ -49,18 +49,30 @@ int main(int argc, char const *argv[])
 
 		engine->insert("Names", tuple);
 
-		//string query = "people <- rename (Last, First) ( project (last_name, first_name) (Names) )";
-		string query = "people <- select ((first != \"Billy\" && last == \"Steve\" && first == first) || ID == 43 || ID == 1) (rename (ID, first, last) Names)";
+		tuple = 
+		{
+			"3",
+			"Amanda", 
+			"Zawadzki"
+		};
 
-		cout << "Query: " << query << "\n";
+		engine->insert("Names", tuple);
+
+		//string query = "EXIT";
+		string query = "CREATE TABLE people (name VARCHAR(10), age INTEGER) PRIMARY KEY (name);";
+		//string query = "people <- select ((first_name != \"Billy\" && last_name == \"Steve\" && first_name == first_name) || ID == 43 || ID == 1) ((Names + Names))";
+
+		
 
 		SqlTokenizer* tokenzier = new SqlTokenizer(query);
 		vector<Token> tokens = tokenzier->split();
-		cout<<tokens.size()<<" tokens have been collected:\n\n";
+		
 
 		SqlParser* parser = new SqlParser(tokens, engine);
 
 		parser->parse();
+
+		engine->show("people");
 		/**
 		cout << "==============================" << endl;
 		cout << "Engine" << endl;
