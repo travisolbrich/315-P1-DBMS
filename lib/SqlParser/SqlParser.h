@@ -31,14 +31,30 @@ class SqlParser
 	    bool query();
 	    Relation expr();
 	    Relation atomicExpr();
+	    Relation exprSelect();
 	    Relation exprProject();
 	    Relation exprRename();
+<<<<<<< HEAD
 	    Relation exprProductParser();
 	    Relation exprDifferenceParser();
 	    Relation exprUnionParser();
 	    Relation exprIntersectionParser();
+=======
+	    Relation combine(Relation relation);
+
+	    void create();
+	    void update();
+	    void insert();
+	    void deleteRows();
+
+	    Relation comparison(Relation* relation);
+
+	    vector<Token> conditionList();
+>>>>>>> 5009bb866b3ea6cc78f560d986579a47fd402e67
 	    vector<string> attributeList();
-	    bool expect(Token::TokenTypes type);
+	    void expect(Token::TokenTypes type);
+	    bool peek(Token::TokenTypes type);
+	    bool canIncrement();
 	    void semicolon();
 
 };

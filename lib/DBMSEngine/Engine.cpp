@@ -85,6 +85,9 @@ void Engine::insert(string relationName, Tuple tuple)
 	Relation* relation = getRelation(relationName);
 
 	vector<string> values = tuple.getValues();
+
+	// Ensure that the number of values and attributes is the same
+	if(values.size() != relation->getAttributes()->size()) throw runtime_error("Number of values different from number of attributes");
 	
 	for(int i=0; i<values.size(); i++)
 	{
@@ -162,9 +165,9 @@ Relation *Engine::getRelation(string relationName)
 	for (int i=0; i < relations.size(); i++)
 	{
 		if (relations[i].getName() == relationName) return &relations[i];
-	}
 
-	throw runtime_error("Relation '" + relationName + "'' not found.");
+	}
+	throw runtime_error("Relation '" + relationName + "' not found.");
 }
 
 /**
@@ -254,7 +257,7 @@ Relation Engine::exprProduct(Relation* a, Relation* b)
 	for(int i=0; i < a->getAttributes()->size(); i++)
 	{
 		Attribute attribute = *a->getAttribute(i);
-		attribute.setValue(a->getName() + "." + attribute.getValue());
+		attribute.setValue(attribute.getValue());
 
 		attributes.push_back(attribute);
 	}
@@ -262,7 +265,7 @@ Relation Engine::exprProduct(Relation* a, Relation* b)
 	for(int i=0; i < b->getAttributes()->size(); i++)
 	{
 		Attribute attribute = *b->getAttribute(i);
-		attribute.setValue(b->getName() + "." + attribute.getValue());
+		attribute.setValue(attribute.getValue());
 
 		attributes.push_back(attribute);
 	}

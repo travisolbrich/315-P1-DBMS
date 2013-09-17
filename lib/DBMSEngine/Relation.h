@@ -9,6 +9,7 @@ using namespace std;
 #include <iostream>
 #include <string>
 #include <vector>
+#include <stdexcept>
 
 class Relation
 {
@@ -20,6 +21,7 @@ class Relation
 		string getName() { return name; }
 		vector<Attribute>* getAttributes() { return &attributes; }
 		Attribute* getAttribute(int i) { return &attributes[i]; }
+		int getAttributeIDFromName(string name);
 		vector<Tuple>* getTuples() { return &tuples; }
 		Tuple* getTuple(int id) { return &tuples[id]; }
 

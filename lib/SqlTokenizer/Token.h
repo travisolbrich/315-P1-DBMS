@@ -14,12 +14,13 @@ class Token
 						  BOR, BAND, UNION, DIFF, PRODUCT, OPEN, CLOSE, WRITE, EXIT, SHOW, CREATE, 
 						  PKEY, UPDATE, INSERT, VALUES, RELATION, DELETE, WHERE, VARCHAR, INTEGER,
 						  LEFTBRACE, RIGHTBRACE, LEFTARROW, TABLE, PRIMARY, KEY, SET, NUMBER, INTO, 
-						  FROM, SEMICOLON, LEFTPAREN, RIGHTPAREN, COMMA };
+						  FROM, SEMICOLON, LEFTPAREN, RIGHTPAREN, COMMA, EQUALSIGN};
 
 		Token(TokenTypes type, string value) : type(type), value(value) {};
 		Token() {};
 		TokenTypes getType() { return type; }
 		string getValue() {	return value; }
+		int getNumeric() { return atoi(value.c_str()); }
 		string getTypeName();
 
 	private: 
