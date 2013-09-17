@@ -37,12 +37,15 @@ class SqlParser
 	    Relation combine(Relation relation);
 
 	    void create();
+	    void update();
+	    void insert();
+	    void deleteRows();
 
 	    Relation comparison(Relation* relation);
 
 	    vector<Token> conditionList();
 	    vector<string> attributeList();
-	    bool expect(Token::TokenTypes type);
+	    void expect(Token::TokenTypes type);
 	    bool peek(Token::TokenTypes type);
 	    bool canIncrement();
 	    void semicolon();

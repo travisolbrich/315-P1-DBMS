@@ -19,8 +19,8 @@ vector<Token> SqlTokenizer::split()
 		bool isLiteral = false; 
 		text = "";
 
-		// Ignore whitespace
-		if( *iterator == ' ')
+		// Ignore whitespace and \n
+		if( *iterator == ' ' || *iterator == '\n')
 		{
 			iterator++;
 		}
@@ -54,7 +54,7 @@ vector<Token> SqlTokenizer::split()
 		}
 
 		// Try to match single-character symbols
-		else if (count(singleSymbols, singleSymbols+11, readAhead(1)))
+		else if (count(singleSymbols, singleSymbols+12, readAhead(1)))
 		{
 			text = readAhead(1);
 			iterator++;
@@ -144,6 +144,7 @@ Token SqlTokenizer::recognize(string text)
 	else if (text == ",")			return Token(Token::COMMA, text);
 	else if (text == "<-" )			return Token(Token::LEFTARROW, text);
 	else if (text == ";" )			return Token(Token::SEMICOLON, text);
+	else if (text == "=")			return Token(Token::EQUALSIGN, text);
 	else if (text == "==" )			return Token(Token::EQ, text);
 	else if (text == "!=" )			return Token(Token::NEQ, text);
 	else if (text == "<" )			return Token(Token::LT, text);

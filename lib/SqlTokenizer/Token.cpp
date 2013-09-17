@@ -56,5 +56,6 @@ string Token::getTypeName()
 	else if (type == NUMBER) return "NUMBER";
 	else if (type == SEMICOLON) return "SEMICOLON";
 	else if (type == COMMA) return "COMMA";
+	else if (type == EQUALSIGN) return "EQUALSIGN";
 	else return "Error: Unrecognized Token.";
 }

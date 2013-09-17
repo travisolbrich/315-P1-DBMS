@@ -49,11 +49,6 @@ bool ConditionParser::canIncrement()
 
 vector<int> ConditionParser::parse()
 {
-	cout << "==============================" << endl;
-	cout << "Condition Parser" << endl;
-	cout << "==============================" << endl;
-
-
 	currentID = 0;
 	setToken();
 	return condition();
@@ -112,7 +107,7 @@ vector<int> ConditionParser::conjunction()
 vector<int> ConditionParser::comparison()
 {
 	vector<int> rows;
-
+	
 	// Deal with actual comparisons
 	if( token.getType() == Token::IDENTIFIER || token.getType() == Token::LITERAL || token.getType() == Token::NUMBER)
 	{

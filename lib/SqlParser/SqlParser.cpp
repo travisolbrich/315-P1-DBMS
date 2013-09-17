@@ -13,18 +13,21 @@ using namespace std;
 void SqlParser::setToken()
 {
 	token = tokens[currentID];
-	cout << endl << "### [" << currentID << "] " << token.getTypeName() << ": " << token.getValue() << endl;
+	//cout << endl << "### [" << currentID << "] " << token.getTypeName() << ": " << token.getValue() << endl;
 }
 
-bool SqlParser::expect(Token::TokenTypes type)
+void SqlParser::expect(Token::TokenTypes type)
 {
+	Token against = Token(type, "temp");
+
 	if(tokens[currentID + 1].getType() == type)
 	{
 		increment();
-		return true;
 	}
-
-	return false;
+	else
+	{
+		throw runtime_error("Expected " + against.getTypeName() + ", but got "+ token.getTypeName());
+	}
 }
 
 bool SqlParser::peek(Token::TokenTypes type)
@@ -52,11 +55,6 @@ bool SqlParser::canIncrement()
 
 void SqlParser::parse()
 {
-	cout << "==============================" << endl;
-	cout << "Parser" << endl;
-	cout << "==============================" << endl;
-
-
 	currentID = 0;
 	setToken();
 
@@ -65,10 +63,10 @@ void SqlParser::parse()
 
 bool SqlParser::program()
 {	
+	if(tokens[tokens.size()-1].getType() != Token::SEMICOLON) throw runtime_error("Expected SEMICOLON at end of statement");
 	if(token.getType() == Token::IDENTIFIER)
 	{
-		bool status = query();
-		if ( ! status) cout << "[FAILURE]\n";
+		query();
 	}
 	else
 	{
@@ -82,17 +80,15 @@ bool SqlParser::query()
 {
 	string relationName = token.getValue();
 	// Next thing should be a left arrow
-	if( ! expect(Token::LEFTARROW)) return false;
+	expect(Token::LEFTARROW);
 
 	increment();
 
 	Relation relation = expr();
 	relation.setName(relationName);
 
-	if( ! expect(Token::SEMICOLON)) throw runtime_error("Expected ;");
-
-	engine->show(&relation);
 	engine->addRelation(relation);
+
 	return true;
 }
 
@@ -115,6 +111,18 @@ bool SqlParser::command()
 		case Token::CREATE:
 			create();
 			break;
+
+		case Token::UPDATE:
+			update();
+			break;
+
+		case Token::INSERT:
+			insert();
+			break;
+
+		case Token::DELETE:
+			deleteRows();
+			break;
 	}
 }
 
@@ -135,8 +143,6 @@ Relation SqlParser::expr()
 			break;
 
 		case Token::IDENTIFIER:
-			// If it's just an identifier (followed by ; or ')') then it's a atomic expression
-			cout <<"IDENT SWITCH"<<endl;
 			return atomicExpr();
 			break;
 
@@ -146,14 +152,128 @@ Relation SqlParser::expr()
 	}	
 }
 
+void SqlParser::insert()
+{
+	expect(Token::INTO);
+	expect(Token::IDENTIFIER);
+
+	string relationName = token.getValue();
+
+	expect(Token::VALUES);
+	expect(Token::FROM);
+
+	increment();
+
+	// Token can be either a ( or RELATION
+	if(token.getType() == Token::RELATION)
+	{
+		increment();
+
+		// Inserting from expression
+		Relation relation = expr();
+
+		vector<Tuple> tuples = *relation.getTuples();
+
+		for(int i=0; i<tuples.size(); i++)
+		{
+			engine->insert(relationName, tuples[i]);
+		}
+	}
+	else if(token.getType() == Token::LEFTPAREN)
+	{
+		vector<string> tuple;
+
+		do
+		{
+			increment();
+			tuple.push_back(token.getValue());
+			increment();
+		}
+		while(token.getType() == Token::COMMA);
+
+		if(token.getType() != Token::RIGHTPAREN) throw runtime_error("Expected RIGHTPAREN");
+
+		engine->insert(relationName, tuple);
+	}
+}
+
+void SqlParser::update()
+{
+	expect(Token::IDENTIFIER);
+	string relationName = token.getValue();
+
+	Relation* relation = engine->getRelation(relationName);
+
+	expect(Token::SET);
+
+
+	vector<pair<int, string>> toset;
+	do
+	{
+		expect(Token::IDENTIFIER);
+		int attributeID = relation->getAttributeIDFromName(token.getValue());
+
+		expect(Token::EQUALSIGN);
+
+		increment();
+		if( (token.getType() != Token::NUMBER) && (token.getType() != Token::LITERAL)) throw	 runtime_error("Expected number or literal");
+			
+		// Put in the attribute value pair
+		toset.push_back(make_pair(attributeID, token.getValue()));
+
+		increment();
+	}
+	while(token.getType() == Token::COMMA);
+
+	expect(Token::WHERE);
+	increment();
+
+	// Expect an condition list (Just read it now, parse later)
+	vector<Token> conditions;
+
+	while(canIncrement())
+	{
+		conditions.push_back(token);
+		increment();
+	}
+
+	ConditionParser* conditionParser = new ConditionParser(conditions, engine, *relation);
+	engine->update(relationName, toset, conditionParser->parse());
+}
+
+void SqlParser::deleteRows()
+{
+	expect(Token::FROM);
+	expect(Token::IDENTIFIER);
+	string relationName = token.getValue();
+
+	expect(Token::WHERE);
+	increment();
+
+	// Expect an condition list (Just read it now, parse later)
+	vector<Token> conditions;
+
+	while(canIncrement())
+	{
+		conditions.push_back(token);
+		increment();
+	}
+
+	Relation* relation = engine->getRelation(relationName);
+
+	ConditionParser* conditionParser = new ConditionParser(conditions, engine, *relation);
+	cout << conditionParser->parse().size() << endl;
+	engine->deleteTuples(relationName, conditionParser->parse());
+}
+
 void SqlParser::create()
 {
-	if( ! expect(Token::TABLE)) throw runtime_error("Expected TABLE");
-	if( ! expect(Token::IDENTIFIER)) throw runtime_error("Expected relation name");
+	expect(Token::TABLE);
+	expect(Token::IDENTIFIER);
 	string relationName = token.getValue();
 
 	// Read in the attributes and types
-	if( ! expect(Token::LEFTPAREN)) throw runtime_error("expected LEFTPAREN");
+	expect(Token::LEFTPAREN);
 
 	increment();
 	vector<Attribute> attributes;
@@ -172,10 +292,10 @@ void SqlParser::create()
 		if(type == Attribute::Type::VARCHAR)
 		{
 			int size;
-			if ( ! expect(Token::LEFTPAREN)) throw runtime_error("Expected (");
-			if ( ! expect(Token::NUMBER)) throw runtime_error("Expected size");
+			expect(Token::LEFTPAREN);
+			expect(Token::NUMBER);
 			size = token.getNumeric();
-			if ( ! expect(Token::RIGHTPAREN)) throw runtime_error("Expected )");
+			expect(Token::RIGHTPAREN);
 
 			attribute = Attribute(type, name, false, size);
 		}
@@ -188,13 +308,13 @@ void SqlParser::create()
 
 		if( ! peek(Token::RIGHTPAREN))
 		{
-			if ( ! expect(Token::COMMA)) throw runtime_error("Expected COMMA");
+			expect(Token::COMMA);
 		}
 		increment();
 	}
 
-	if ( ! expect(Token::PRIMARY)) throw runtime_error("Expected PRIMARY");
-	if ( ! expect(Token::KEY)) throw runtime_error("Expected KEY");
+	expect(Token::PRIMARY);
+	expect(Token::KEY);
 
 	vector<string> keys = attributeList();
 
@@ -232,7 +352,7 @@ vector<Token> SqlParser::conditionList()
 
 	int parenDepth = 1;
 
-	if( ! expect(Token::LEFTPAREN)) throw runtime_error("expected LEFTPAREN");
+	expect(Token::LEFTPAREN);
 
 	while(parenDepth > 0)
 	{
@@ -247,12 +367,6 @@ vector<Token> SqlParser::conditionList()
 	tokens.pop_back();
 
 	increment();
-
-	for(int i=0; i < tokens.size(); i++)
-	{
-		cout << " " << tokens[i].getValue();
-	}
-	cout << endl;
 
 	return tokens;
 }
@@ -283,7 +397,7 @@ Relation SqlParser::exprRename()
 
 vector<string> SqlParser::attributeList()
 {
-	if( ! expect(Token::LEFTPAREN)) throw runtime_error("expected LEFTPAREN");
+	expect(Token::LEFTPAREN);
 
 	increment();
 
@@ -346,8 +460,8 @@ Relation SqlParser::atomicExpr()
 	{
 		increment();
 		relation = expr();
-		if( ! expect(Token::RIGHTPAREN)) 
-		throw runtime_error("exptected RIGHTPAREN");
+		expect(Token::RIGHTPAREN);
+		return relation;
 	}
 
 	// If the next token is a +*-, do combine

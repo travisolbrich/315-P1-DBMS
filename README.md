@@ -3,6 +3,12 @@ CSCE 315 Project 1: DBMS
 
 To build the project, simply run `make`. The compiled code will be in `bin/`. The project is known to work well on the TAMU Sun server.
 
+### Parser Code Submission (Sept 16)
+
+Please look at the [example input](ParserInput.md) and the [example output](PaserOutput.md). The input code was pasted directly into the terminal. The correct answer is given.
+
+OPEN, CLOSE, and WRITE are not yet implemented.
+
 ### DBMS Engine Code Submission (Sept 9)
 
 Please look at the [example output](output.md). The input is found in `src/main.cpp`. You can also compile the program as shown above and run `bin/project.out`.
@@ -20,6 +26,8 @@ We did not implement any comparison code in the select function. Our select func
 
 Please see the [Commit Log](https://github.com/travisolbrich/315-P1-DBMS/commits/master) for the most up-to-date and detailed development log. The below log will summarize major developments.
 
+* 2013-09-16 Travis finished the parser.
+* 2013-09-15 Travis, Shane, John, and Adam met to finish the parser.
 * 2013-09-09 Travis prepared the project for submission.
 * 2013-09-08 Travis, Shane, John, and Adam met to finish the engine.
 * 2013-09-07 Travis finished up union, difference, and product.
