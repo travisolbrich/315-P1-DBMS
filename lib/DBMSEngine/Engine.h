@@ -16,9 +16,9 @@ public:
 	Engine(vector<Relation> relations) : relations(relations) {};
 	Engine() {};
 
-	void open();
-	void close();
-	void write();
+	void open(string relation);
+	void close(string relation);
+	void write(string relation);
 
 	// Commands
 	void create(string relationName, vector<Attribute> attributes);

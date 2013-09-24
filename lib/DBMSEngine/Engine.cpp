@@ -1,4 +1,6 @@
 #include "Engine.h"
+#include "../SqlTokenizer/SqlTokenizer.h"
+#include "../SqlParser/SqlParser.h"
 
 #include <vector>
 #include <string>
@@ -6,21 +8,47 @@
 #include <iostream>
 #include <utility>
 #include <algorithm>
+#include <fstream>
 
 using namespace std;
  
 
-void Engine::open() 
+void Engine::open(string relation) 
 {
-		throw runtime_error("File I/O is not yet implemented as the parser is incomplete.");
+	string line;
+	string filename = relation + ".db";
+	ifstream dbFile (filename);
+
+	if(dbFile.is_open())
+	{
+		while(getline(dbFile,line))
+		{	
+			if(line != "")
+			{
+				cout << line << endl;
+				SqlTokenizer* tokenzier = new SqlTokenizer(line);
+				vector<Token> tokens = tokenzier->split();
+			
+				SqlParser* parser = new SqlParser(tokens, this);
+				parser->parse();
+				
+			}		
+		}
+		dbFile.close();
+	}
+	else
+	{
+		throw runtime_error("File not found.");
+	}
+
 }
 
-void Engine::close() 
+void Engine::close(string relation) 
 {
 	throw runtime_error("File I/O is not yet implemented as the parser is incomplete.");
 }
 
-void Engine::write() 
+void Engine::write(string relation) 
 {
 	throw runtime_error("File I/O is not yet implemented as the parser is incomplete.");
 }

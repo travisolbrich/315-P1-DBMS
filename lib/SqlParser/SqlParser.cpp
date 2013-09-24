@@ -108,6 +108,13 @@ bool SqlParser::command()
 			break;
 		}
 
+		case Token::OPEN:
+		{
+			expect(Token::IDENTIFIER);
+			engine->open(token.getValue());
+			break;
+		}
+
 		case Token::CREATE:
 			create();
 			break;
