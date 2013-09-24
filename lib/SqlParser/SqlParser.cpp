@@ -115,6 +115,20 @@ bool SqlParser::command()
 			break;
 		}
 
+		case Token::WRITE:
+		{
+			expect(Token::IDENTIFIER);
+			engine->write(token.getValue());
+			break;
+		}
+
+		case Token::CLOSE:
+		{
+			expect(Token::IDENTIFIER);
+			engine->close(token.getValue());
+			break;
+		}
+
 		case Token::CREATE:
 			create();
 			break;

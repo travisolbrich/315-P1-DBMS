@@ -1,4 +1,5 @@
 #include "Engine.h"
+#include "Attribute.h"
 #include "../SqlTokenizer/SqlTokenizer.h"
 #include "../SqlParser/SqlParser.h"
 
@@ -13,7 +14,7 @@
 using namespace std;
  
 
-void Engine::open(string relation) 
+void Engine::open(string relation) 	
 {
 	string line;
 	string filename = relation + ".db";
@@ -25,13 +26,11 @@ void Engine::open(string relation)
 		{	
 			if(line != "")
 			{
-				cout << line << endl;
 				SqlTokenizer* tokenzier = new SqlTokenizer(line);
 				vector<Token> tokens = tokenzier->split();
 			
 				SqlParser* parser = new SqlParser(tokens, this);
-				parser->parse();
-				
+				parser->parse();				
 			}		
 		}
 		dbFile.close();
@@ -43,15 +42,92 @@ void Engine::open(string relation)
 
 }
 
-void Engine::close(string relation) 
-{
-	throw runtime_error("File I/O is not yet implemented as the parser is incomplete.");
-}
-
 void Engine::write(string relation) 
 {
-	throw runtime_error("File I/O is not yet implemented as the parser is incomplete.");
+	string filename = relation + ".db";
+	ofstream outFile;
+	outFile.open(filename, ios::out | ios::trunc);	
+	outFile.close();
 }
+
+void Engine::close(string relationName) 
+{
+	string filename = relationName + ".db";
+	ofstream outFile;
+	outFile.open(filename, ios::out | ios::trunc);	
+	
+	Relation* relation = getRelation(relationName);
+
+	// Create the table
+	outFile << "CREATE TABLE " << relationName << " (";
+
+	vector<Attribute>* attributes  = relation->getAttributes();
+	vector<string> keys;
+	for(int i=0; i<attributes->size(); i++)
+	{
+		Attribute* attribute = relation->getAttribute(i);
+
+		outFile << attribute->getValue() << " " << attribute->getTypeName();
+		if(attribute->getType() == Attribute::VARCHAR)
+		{
+			outFile << "(" << attribute->getSize() << ")";
+		}
+		if(i<attributes->size() - 1)
+		{
+			outFile << ", ";
+		}
+		if(attribute->isPrimary())
+		{
+			keys.push_back(attribute->getValue());
+		}
+	}
+	outFile << ") PRIMARY KEY (";
+
+	for(int i=0; i<keys.size(); i++)
+	{
+		outFile << keys[i];
+		if(i < keys.size() - 1)
+		{
+			outFile << ", ";
+		}
+	}
+	outFile << ");" << endl;
+	
+	// Write the data
+	// Loop over the many tuples
+	for (int i=0; i < relation->getTuples()->size(); i++)
+	{
+		Tuple* tuple = relation->getTuple(i);
+
+		outFile << "INSERT INTO " << relationName << " VALUES FROM (";
+
+		// Loop over each value in the tuple
+		for (int x=0; x < tuple->getValues().size(); x++)
+		{
+			Attribute* attribute = relation->getAttribute(x);
+
+			if(attribute->getType() == Attribute::VARCHAR)
+			{
+				outFile << "\"" << tuple->getValues()[x] << "\"";
+			}
+			else
+			{
+				outFile << tuple->getValues()[x];
+			}
+
+			if(x < tuple->getValues().size() - 1)
+			{
+				outFile << ", ";
+			}
+		}
+
+		outFile << ");" << endl;
+		
+	}
+
+	outFile.close();
+}
+
 
 /**
   * Print a relation to the screen
