@@ -3,6 +3,11 @@ CSCE 315 Project 1: DBMS
 
 To build the project, simply run `make`. The compiled code will be in `bin/`. The project is known to work well on the TAMU Sun server.
 
+### Integration Submission (Sept 23)
+Integration was already complete in the previous submission; please see the notes below for examples. 
+
+Database files will be read and written to on the path that `bin/project.out` is run from.
+
 ### Parser Code Submission (Sept 16)
 
 Please look at the [example input](ParserInput.md) and the [example output](PaserOutput.md). The input code was pasted directly into the terminal. The correct answer is given.
@@ -26,6 +31,7 @@ We did not implement any comparison code in the select function. Our select func
 
 Please see the [Commit Log](https://github.com/travisolbrich/315-P1-DBMS/commits/master) for the most up-to-date and detailed development log. The below log will summarize major developments.
 
+* 2013-09-23 Travis finished file IO.
 * 2013-09-16 Travis finished the parser.
 * 2013-09-15 Travis, Shane, John, and Adam met to finish the parser.
 * 2013-09-09 Travis prepared the project for submission.
