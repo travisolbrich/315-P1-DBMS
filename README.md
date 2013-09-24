@@ -5,7 +5,7 @@ To build the project, simply run `make`. The compiled code will be in `bin/`. Th
 
 ### Parser Code Submission (Sept 16)
 
-Please look at the [example input](ParserInput.md) and the [example output](ParserOutput.md). The input code was pasted directly into the terminal. The correct answer is given.
+Please look at the [example input](ParserInput.md) and the [example output](PaserOutput.md). The input code was pasted directly into the terminal. The correct answer is given.
 
 OPEN, CLOSE, and WRITE are not yet implemented.
 
