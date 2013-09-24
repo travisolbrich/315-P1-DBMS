@@ -237,6 +237,13 @@ void SqlParser::update()
 		increment();
 	}
 
+<<<<<<< HEAD
+	if(token.getType() == Token::SELECT)
+	{
+		return exprSelect();
+	}
+
+=======
 	ConditionParser* conditionParser = new ConditionParser(conditions, engine, *relation);
 	engine->update(relationName, toset, conditionParser->parse());
 }
@@ -369,6 +376,7 @@ vector<Token> SqlParser::conditionList()
 	increment();
 
 	return tokens;
+>>>>>>> 5009bb866b3ea6cc78f560d986579a47fd402e67
 }
 
 Relation SqlParser::exprProject()
@@ -393,6 +401,65 @@ Relation SqlParser::exprRename()
 
 	// Fire the project
 	return engine->exprRenaming(&relation, attributes);
+}
+
+Relation SqlParser::exprProductParser()
+{
+	// Expect atomic expressions
+	Relation relationA = atomicExpr();
+	Relation relationB = atomicExpr();
+
+	// Fire the project
+	return engine->exprProduct(&relationA, &relationB);
+}
+
+Relation SqlParser::exprDifferenceParser()
+{
+	// Expect atomic expressions
+	Relation relationA = atomicExpr();
+	Relation relationB = atomicExpr();
+
+	// Fire the project
+	return engine->exprDifference(&relationA, &relationB);
+}
+
+Relation SqlParser::exprUnionParser()
+{
+	// Expect atomic expressions
+	Relation relationA = atomicExpr();
+	Relation relationB = atomicExpr();
+
+	// Fire the project
+	return engine->exprUnion(&relationA, &relationB);
+}
+
+Relation SqlParser::exprIntersectionPaser(Relation* a,Relation* b)
+{
+	// Ensure that the relations are union-compatible
+	if ( ! engine->isUnionCompatible(a,b))
+	{
+		throw runtime_error("Trying to take the union of non-union-compatible relations.");
+	}
+
+	// Make a copy of Relation "a", and create return variable of type Relation
+	Relation tempRelation = *a;
+	Relation intersectRelation;
+
+	for( int i =0; i < b->getTuples()->size(); i++)
+	{
+		// Put what is in "b" at position "i" into bTuple
+		Tuple* bTuple = b->getTuple(i);
+
+		// Is the tuple in "b" and also in "a"?
+		if( engine->exists(tempRelation, bTuple))
+		{
+			// If true, put that tuple in intersectRelation
+			intersectRelation.addTuple(*bTuple);
+		}
+
+	}
+
+	return intersectRelation;
 }
 
 vector<string> SqlParser::attributeList()
