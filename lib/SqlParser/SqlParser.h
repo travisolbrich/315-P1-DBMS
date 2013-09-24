@@ -34,12 +34,6 @@ class SqlParser
 	    Relation exprSelect();
 	    Relation exprProject();
 	    Relation exprRename();
-<<<<<<< HEAD
-	    Relation exprProductParser();
-	    Relation exprDifferenceParser();
-	    Relation exprUnionParser();
-	    Relation exprIntersectionParser();
-=======
 	    Relation combine(Relation relation);
 
 	    void create();
@@ -50,7 +44,6 @@ class SqlParser
 	    Relation comparison(Relation* relation);
 
 	    vector<Token> conditionList();
->>>>>>> 5009bb866b3ea6cc78f560d986579a47fd402e67
 	    vector<string> attributeList();
 	    void expect(Token::TokenTypes type);
 	    bool peek(Token::TokenTypes type);
