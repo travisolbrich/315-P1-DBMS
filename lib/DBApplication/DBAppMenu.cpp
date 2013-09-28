@@ -6,11 +6,22 @@
 #include <vector>
 
 using namespace std;
+int menu = 0;
+int submenu = 0;
 
 int main(int argc, char const *argv[])
 {
-	while(cin)
+	while(true)
 	{
+	cout << "<<<<< Main Menu >>>>> /n/n/n";
+	cout << "Menu Options: /n
+			1) Location table /n
+			2) Sale table /n
+			3) Employee table /n
+			4) Role table /n
+			5) Report functions /n
+			99) EXIT /n";
+	cin >> menu;
 		switch (menu)
 		{
 			case 0:		//main menu
@@ -18,21 +29,30 @@ int main(int argc, char const *argv[])
 				cout << "<<<<< Main Menu >>>>> /n/n/n";
 				cout << "Menu Options: /n
 						1) Location table /n
-						2) Sale table
+						2) Sale table /n
 						3) Employee table /n
 						4) Role table /n
 						5) Report functions /n
-						9) Back/previous option/n "
-
+						9) Back / Previous Option /n
+						99) EXIT /n";
+				cin >> menu;
 				break;
 
 			case 1:		//location
 				//Link: 0,2,3,11, 9(back)
-
+				cout << "<<<<< Location Sub-Menu >>>>> /n/n/n";
+				cout << "Menu Options: /n
+						0) Return to Main Menu /n
+						1) Sale Table /n
+						2) Employee Table /n
+						11) Location View /n";
+				cin >> submenu;
+				break;
 				switch(submenu)
 				{
 					case 0:	//main
-
+						menu = submenu;
+						break;
 					case 2: //sale
 
 					case 3: //emp
@@ -104,6 +124,9 @@ int main(int argc, char const *argv[])
 
 			case 41: 	//viewRole
 				//view: open, close, exit, show, project, back
+			case 99;
+				return false;
+				break;
 		}
 	}	
 }
