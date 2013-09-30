@@ -11,7 +11,11 @@
 using namespace std;
 
 
-
+void location(){};
+void sales(){};
+void employee(){};
+void role(){};
+void reports(){};
 
 
 #endif
