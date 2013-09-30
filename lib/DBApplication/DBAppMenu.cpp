@@ -7,6 +7,7 @@
 #include <iostream>
 
 using namespace std;
+
 int menu = 0;
 int submenu = 0;
 
@@ -28,6 +29,9 @@ int main(int argc, char const *argv[])
 
 		switch (menu)
 		{
+/*------------------------------------------------------------------------------*/
+/* Main Menu Options (0-5, 9) */
+/*------------------------------------------------------------------------------*/
 			case 0:		//main menu
 				//link: 1,2,3,4,5, 9(back)
 				cout << "<<<<< Main Menu >>>>> \n\n\n";
@@ -192,15 +196,25 @@ int main(int argc, char const *argv[])
 						menu = submenu;
 						break;
 
-					case 54:
+					case 54: 	// '-' difference
+						menu = submenu;
+						break;
 
-					case 55:
+					case 55: 	// '+' union
+						menu = submenu;
+						break;
 
-					case 56:
+					case 56:	// '*' product
+						menu = submenu;
+						break;
 
-					case 57:
+					case 57:	// select
+						menu = submenu;
+						break;
 
-					case 58:
+					case 58:	// project
+						menu = submenu;
+						break;
 
 				}
 
@@ -208,7 +222,15 @@ int main(int argc, char const *argv[])
 
 			case 9:		//back function
 				//Back-step through stack
-				//stack-1
+				//stack-1 : pop end of stack and reset menu to the new end()
+
+			case 99:	//exit
+				return false;
+				break;
+
+/*------------------------------------------------------------------------------*/
+/* Sub-Menu Options (11, 21-23, 31, 41) */
+/*------------------------------------------------------------------------------*/
 
 			case 11:	//viewLoc
 				//view: open, close, show, project, back, exit
@@ -227,9 +249,20 @@ int main(int argc, char const *argv[])
 
 			case 41: 	//viewRole
 				//view: open, close, exit, show, project, back
-			case 99:
-				return false;
-				break;
+
+/*------------------------------------------------------------------------------*/
+/* Report functions */
+/*------------------------------------------------------------------------------*/
+			case 54: 	// '-' difference
+
+			case 55: 	// '+' union
+
+			case 56:	// '*' product
+
+			case 57:	// select
+
+			case 58:	// project
+
 		}
 	}	
 }
