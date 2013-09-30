@@ -264,5 +264,98 @@ int main(int argc, char const *argv[])
 			case 58:	// project
 
 		}
+	
+	
 	}	
 }
+
+void DBAppMenu::MainMenu(){
+			cout << "<<<<< Main Menu >>>>> \n\n\n";
+			cout << "Menu Options: \n"
+				<<"1) Location table \n"
+				<<"2) Sale table \n"
+				<<"3) Employee table \n"
+				<<"4) Role table \n"
+				<<"5) Report functions \n"
+				<<"9) Back / Previous Option \n"
+				<<"99) EXIT \n";
+
+		cin >> menu;
+		cin >> submenu;
+			switch(submenu)
+				{
+					case 1: //loc
+						menu = submenu;
+						break;
+
+					case 2: //sales
+						menu = submenu;
+						break;
+
+					case 3: //employee
+						menu = submenu;
+						break;
+
+					case 4: //role
+						menu = submenu;
+						break;
+
+					case 5: //reports
+						menu = submenu;
+						break;
+					
+					case 9: //BACK
+						menu = submenu;
+						break;
+
+					case 99: //EXIT
+						return false;
+						break;	
+				}
+
+				break;
+		}
+
+void DBAppMenu::sales(){		//sale
+				//Link: 0,1,3,21,22,23, 9(back)
+				cout << "<<<<< Sale Sub-Menu >>>>> \n\n\n";
+				cout << "Menu Options: \n"
+						<< "0)  Return to Main Menu \n"
+						<< "1)  Location Table \n"
+						<< "3)  Employee Table \n"
+						<< "21) Sale - View \n"
+						<< "22) Sale - Add Menu \n"
+						<< "23) Sale - Edit Menu \n";
+
+
+				cin >> submenu;
+
+				switch(submenu)
+				{
+					case 0:	//main
+						menu = submenu;
+						break;
+
+					case 1: //loc
+						menu = submenu;
+						break;
+
+					case 3: //emp
+						menu = submenu;
+						break;
+
+					case 21: //saleView
+						menu = submenu;
+						break;
+
+					case 22: //saleAdd
+						menu = submenu;
+						break;
+
+					case 23: //saleEdit
+						menu = submenu;
+						break;
+				}
+
+				break;
+		}
