@@ -1,11 +1,11 @@
 CC=g++
-FLAGS=-std=c++11
+FLAGS=-std=c++11 -g
 BUILDDIR=build
 
 all: project
 
-project: $(BUILDDIR)/main.o $(BUILDDIR)/SqlTokenizer.o $(BUILDDIR)/Token.o $(BUILDDIR)/SqlParser.o $(BUILDDIR)/Engine.o $(BUILDDIR)/ConditionParser.o $(BUILDDIR)/Relation.o
-	$(CC) $(FLAGS) $(BUILDDIR)/main.o $(BUILDDIR)/SqlTokenizer.o $(BUILDDIR)/Token.o $(BUILDDIR)/SqlParser.o $(BUILDDIR)/Engine.o $(BUILDDIR)/ConditionParser.o $(BUILDDIR)/Relation.o -o bin/project.out
+project: $(BUILDDIR)/main.o $(BUILDDIR)/SqlTokenizer.o $(BUILDDIR)/Token.o $(BUILDDIR)/DBMS.o $(BUILDDIR)/SqlParser.o $(BUILDDIR)/Engine.o $(BUILDDIR)/ConditionParser.o $(BUILDDIR)/Relation.o
+	$(CC) $(FLAGS) $(BUILDDIR)/main.o $(BUILDDIR)/SqlTokenizer.o $(BUILDDIR)/Token.o $(BUILDDIR)/DBMS.o $(BUILDDIR)/SqlParser.o $(BUILDDIR)/Engine.o $(BUILDDIR)/ConditionParser.o $(BUILDDIR)/Relation.o -o bin/project.out
 
 $(BUILDDIR)/main.o: src/main.cpp
 	$(CC) $(FLAGS) -c src/main.cpp -o $(BUILDDIR)/main.o
@@ -28,7 +28,8 @@ $(BUILDDIR)/Engine.o: lib/DBMSEngine/Engine.cpp
 $(BUILDDIR)/Relation.o: lib/DBMSEngine/Relation.cpp
 	$(CC) $(FLAGS) -c lib/DBMSEngine/Relation.cpp -o $(BUILDDIR)/Relation.o
 
-
+$(BUILDDIR)/DBMS.o: lib/DBMS/DBMS.cpp
+	$(CC) $(FLAGS) -c lib/DBMS/DBMS.cpp -o $(BUILDDIR)/DBMS.o
 
 clean: 
 	-rm -rf build/* 
