@@ -21,7 +21,7 @@ The database app itself will facilitate querying the database for pertinent info
 
 ### Database
 
-![Database](img/Database.png)
+![Database](img/Database_updated.png)
 
 One location has many earning reports submitted for it. Many employees are employed at one location. Many employees participate in many sales, and these sales are all run through one location. Finally, many employees have many different roles in the company.
 
@@ -83,3 +83,14 @@ Risks of the DB App would include user input. Since we will be using command lin
 ### Design Considerations
 
 As discussed in the previous section dealing with the Database Application, the decision was made to focus on the implementation from a sales personnel perspective. The ability for the sales team to add, edit and review the sales table is critical for their mission to be successful. This was taken in to account when deciding how to implement certain functions which authorize the manipulation of database entries. Therefore, the only entries that are able to edited and manipulated are in the sales table. This ultimately implies that the location, employee, and role tables will not be modified as the sales personnel will not be hiring or promoting new employees nor are they authorized to implement changes to personnel in terms of where they work or which location is considered to be their home branch.
+
+### Work Load Distribution
+
+The work loads were very fluid amongst the group member with the exception of Travis who consistently delegated sub-projects and reviewed submitted code. Shane brought some great perspective and work arounds for his own, John's and Adam's portions of each major update. John contributed consistently on documentation and worked on the Database Engine and Database Application's menu system with Shane and Adam. Adam provided great input on various aspects of the projects delegated down by Travis. Overall, the group seemed to share enthusiasm and interest in the project.
+
+Travis	:	73.70%
+Shane	:	11.90%
+John	:	12.66%
+Adam	:	1.74%
+
+These percentages are taken from total contributions on our teams Git Repository. Total commits are 6368 (both + and -). Percentage is taken from the individuals total commits divided by the groups total commits.
