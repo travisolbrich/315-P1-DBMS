@@ -94,3 +94,8 @@ John	:	12.66%
 Adam	:	1.74%
 
 These percentages are taken from total contributions on our teams Git Repository. Total commits are 6368 (both + and -). Percentage is taken from the individuals total commits divided by the groups total commits.
+
+### Development Log
+
+In order to see the development log for this project, follow the link:
+https://github.com/travisolbrich/315-P1-DBMS
