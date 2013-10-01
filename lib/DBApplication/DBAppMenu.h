@@ -6,7 +6,7 @@
 #include <string>
 #include <vector>
 
-#include "../DBMSEngine/Engine.h"
+//#include "../DBMSEngine/Engine.h"
 
 using namespace std;
 
@@ -14,12 +14,13 @@ class DBAppMenu
 {
 
 	private:
-		void MainMenu(){};
-		void location(){};
-		void sales(){};
-		void employee(){};
-		void role(){};
-		void reports(){};
+		void MainMenu();
+		void location();
+		void sales();
+		void employee();
+		void role();
+		void reports();
 };
+
 
 #endif
