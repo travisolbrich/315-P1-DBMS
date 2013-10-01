@@ -51,11 +51,8 @@ void DBAppMenu::MainMenu(){
 						break;
 
 					case 99: //EXIT
-						return false;
 						break;	
 				}
-
-				break;
 		}
 
 void DBAppMenu::location()
@@ -125,8 +122,6 @@ void DBAppMenu::sales(){		//sale
 						menu = submenu;
 						break;
 				}
-
-				break;
 		}
 
 void DBAppMenu::employee()
