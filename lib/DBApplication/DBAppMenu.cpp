@@ -219,114 +219,21 @@ void DBAppMenu::reports()
 
 int main(int argc, char const *argv[])
 {
+
 	while(true)
 	{
-		cout << "<<<<< Main Menu >>>>> \n\n\n";
-		cout << "Menu Options: \n"
-				<<"1) Location table \n"
-				<<"2) Sale table \n"
-				<<"3) Employee table \n"
-				<<"4) Role table \n"
-				<<"5) Report functions \n"
-				<<"9) Back / Previous Option \n"
-				<<"99) EXIT \n";
+		//call MainMenu at top of loop
 
-		cin >> menu;
+		//MainMenu() receives input --> submenu / exit
 
-		switch (menu)
-		{
-/*------------------------------------------------------------------------------*/
-/* Main Menu Options (0-5, 9) */
-/*------------------------------------------------------------------------------*/
-			case 0:		//main menu
-				//link: 1,2,3,4,5, 9(back)
-				cout << "<<<<< Main Menu >>>>> \n\n\n";
-				cout << "Menu Options: \n"
-						<<"1)  Location table \n"
-						<<"2)  Sale table \n"
-						<<"3)  Employee table \n"
-						<<"4)  Role table \n"
-						<<"5)  Report functions \n"
-						<<"9)  Back / Previous Option \n"
-						<<"99) EXIT \n";
+		//Call appropriate submenu Location, Sales, Employee, Roles, Reports
 
-				cin >> menu;
-				break;
+		//submenus receive input --> commands sent to inteface / DBEngine
 
-			case 1:		//location
-				//Link: 0,2,3,11, 9(back)
-				location();
-				break;
+		//display return values from DBEngine
 
-			case 2:		//sale
-				//Link: 0,1,3,21,22,23, 9(back)
-				DBAppMenu::sales();
-				break;
+		//display submenu
 
-			case 3:		//employee
-				//Link: 0,1,2,31, 9(back)
-				DBAppMenu::employee();
-				break;
+	}
 
-			case 4:		//role
-				//Link: 0,41, 9(back)
-				DBAppMenu::role();
-				break;
-
-			case 5:		//report
-				//Link: 9(back)
-				//functions: '-', '+', '*', select, project, back, exit
-				DBAppMenu::reports();
-				break;
-
-			case 9:		//back function
-				//Back-step through stack
-				//stack-1 : pop end of stack and reset menu to the new end()
-
-			case 99:	//exit
-				return false;
-				break;
-
-/*------------------------------------------------------------------------------*/
-/* Sub-Menu Options (11, 21-23, 31, 41) */
-/*------------------------------------------------------------------------------*/
-
-			case 11:	//viewLoc
-				//view: open, close, show, project, back, exit
-
-			case 21:	//viewSale
-				//view: open, close, show, project, back, exit
-
-			case 22:	//addSale
-				//add: write, createTable, update, back, exit
-
-			case 23:	//editSale
-				//edit: delete, insertInto, show, back, exit
-
-			case 31:	//viewEmp
-				//view: open, close, show, project, back, exit
-
-			case 41: 	//viewRole
-				//view: open, close, exit, show, project, back
-
-/*------------------------------------------------------------------------------*/
-/* Report functions */
-/*------------------------------------------------------------------------------*/
-			case 54: 	// '-' difference
-
-			case 55: 	// '+' union
-
-			case 56:	// '*' product
-
-			case 57:	// select
-
-			case 58:	// project
-			break;
-
-		}
-	
-	
-	}	
 }
-
-
