@@ -7,6 +7,7 @@
 #include "../lib/DBMSEngine/Relation.h"
 #include "../lib/DBMSEngine/Engine.h"
 #include "../lib/DBMS/DBMS.h"
+#include "../lib/DBSeeder/Seeder.h"
 
 void program();
 void getSymbol();
@@ -15,6 +16,11 @@ int main(int argc, char const *argv[])
 {
 		// Create the engine. There are no relations to add to it yet
 		DBMS* dbms = new DBMS();
+
+		// Call the seeder
+		Seeder* seeder = new Seeder(dbms);
+		seeder->seed();
+
 
 		while(true)
 		{
