@@ -62,16 +62,16 @@ void DBAppMenu::location()
 {
 	cout << "<<<<< Location Sub-Menu >>>>> \n\n\n";
 	cout << "Menu Options: \n"
-		<< "0)  Return to Main Menu \n"
+		<< "1)  Return to Main Menu \n"
 		<< "2)  Sale Table \n"
 		<< "3)  Employee Table \n"
-		<< "11) Location View \n";
+		<< "4) Location View \n";
 
 		cin >> submenu;
 
 				switch(submenu)
 				{
-					case 0:	//main						
+					case 1:	//main						
 						break;
 
 					case 2: //sale
@@ -81,7 +81,7 @@ void DBAppMenu::location()
 					case 3: //emp
 						break;
 
-					case 11: //locView
+					case 4: //locView
 						break;
 				}
 }
@@ -133,25 +133,25 @@ void DBAppMenu::employee()
 {
 	cout << "<<<<< Employee Sub-Menu >>>>> \n\n\n";
 				cout << "Menu Options: \n"
-						<< "0)  Return to Main Menu \n"
-						<< "1)  Location Table \n"
-						<< "2)  Sale Table \n"
-						<< "31) Location View \n";
+						<< "1)  Return to Main Menu \n"
+						<< "2)  Location Table \n"
+						<< "3)  Sale Table \n"
+						<< "4) Location View \n";
 
 				cin >> submenu;
 
 				switch(submenu)
 				{
-					case 0:	//main
+					case 1:	//main
 						break;
 
-					case 1: //loc
+					case 2: //loc
 						break;
 
-					case 2: //sale
+					case 3: //sale
 						break;
 
-					case 31: //empView
+					case 4: //empView
 						break;
 				}
 }
@@ -160,17 +160,17 @@ void DBAppMenu::role()
 {
 	cout << "<<<<< Role Sub-Menu >>>>> \n\n\n";
 	cout << "Menu Options: \n"
-			<< "0)  Return to Main Menu \n"
-			<< "41) Role View \n";
+			<< "1)  Return to Main Menu \n"
+			<< "2) Role View \n";
 
 	cin >> submenu;
 
 	switch(submenu)
 	{
-		case 0:	//main	
+		case 1:	//main	
 			break;
 
-		case 41: //roleView
+		case 2: //roleView
 			break;
 	}
 }
@@ -179,38 +179,39 @@ void DBAppMenu::reports()
 {
 		cout << "<<<<< Report Sub-Menu >>>>> \n\n\n";
 		cout << "Menu Options: \n"
-				<< "0)  Return to Main Menu \n"
-				<< "54) Call Difference function \n"
-				<< "55) Call Union function \n"
-				<< "56) Call Product function \n"
-				<< "57) Call Select function \n"
-				<< "58) Call Project function \n";
+				<< "1)  Return to Main Menu \n"
+				<< "2) Call Difference function \n"
+				<< "3) Call Union function \n"
+				<< "4) Call Product function \n"
+				<< "5) Call Select function \n"
+				<< "6) Call Project function \n";
 
 				cin >> submenu;
 
 				switch(submenu)
 				{
-					case 0:
-						
+					case 1:
+							// return to MainMenu
 						break;
 
-					case 54: 	// '-' difference
-						
+					case 2:
+						 	// '-' difference
 						break;
 
-					case 55: 	// '+' union
-						
+					case 3:
+						 	// '+' union
 						break;
 
-					case 56:	// '*' product
-						
+					case 4:	
+							// '*' product
 						break;
 
-					case 57:	// select
-					
+					case 5:	
+							// select
 						break;
 
-					case 58:	// project
+					case 6:	
+							// project
 						break;
 
 				}
