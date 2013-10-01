@@ -89,13 +89,18 @@ As discussed in the previous section dealing with the Database Application, the 
 The work loads were very fluid amongst the group member with the exception of Travis who consistently delegated sub-projects and reviewed submitted code. Shane brought some great perspective and work arounds for his own, John's and Adam's portions of each major update. John contributed consistently on documentation and worked on the Database Engine and Database Application's menu system with Shane and Adam. Adam provided great input on various aspects of the projects delegated down by Travis. Overall, the group seemed to share enthusiasm and interest in the project.
 
 Travis	:	73.70%
+
 Shane	:	11.90%
+
 John	:	12.66%
+
 Adam	:	1.74%
+
 
 These percentages are taken from total contributions on our teams Git Repository. Total commits are 6368 (both + and -). Percentage is taken from the individuals total commits divided by the groups total commits.
 
 ### Development Log
 
 In order to see the development log for this project, follow the link:
+
 https://github.com/travisolbrich/315-P1-DBMS
