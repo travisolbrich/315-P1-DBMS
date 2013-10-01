@@ -44,7 +44,7 @@ This is the fourth major module in the DBMS engine. The focus in the design of t
 ### Database App
 
 ### User I/O
-A command line based menu system will be created to allow employees to manage sale data in the system through an intuitive interface.
+A command line based menu system has been created to allow employees to manage sale data in the system through an intuitive interface. We have chosen to focus on the sales aspect of the implementation. This decision was made after the design phase had concluded. The reason for this was that the focus of the program became its use by sales personnel and as such they would not need access or the ability to edit certain aspects of the Database.
 
 ### Business Logic
 This process will compute earnings totals and carry out other calculations based on the data in the database.
@@ -77,3 +77,9 @@ Implementing a DBMS system in general can be quite expensive and time consuming 
 A second risk would be complexity. DBMS are complex pieces of software that use highly intricate algorithms developed over decades as noted in the project description. Of course, in this project we will be simplifying so this will not be as great of a concern, but there will still be a cost related to time and knowledge constraints.
 
 Risks of the DB App would include user input. Since we will be using command line interface, the user could accidentally press random keys and symbols so error catching is essential. The chance of a faulty user command or query that slips through the safeguards could potentially cause corruption within the engine as well as corruption of data. With such a risk, a high level of input safeguards and controls are necessary to put into place.
+
+## Post-Production Notes
+
+### Design Considerations
+
+As discussed in the previous section dealing with the Database Application, the decision was made to focus on the implementation from a sales personnel perspective. The ability for the sales team to add, edit and review the sales table is critical for their mission to be successful. This was taken in to account when deciding how to implement certain functions which authorize the manipulation of database entries. Therefore, the only entries that are able to edited and manipulated are in the sales table. This ultimately implies that the location, employee, and role tables will not be modified as the sales personnel will not be hiring or promoting new employees nor are they authorized to implement changes to personnel in terms of where they work or which location is considered to be their home branch.
