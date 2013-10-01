@@ -83,3 +83,8 @@ Risks of the DB App would include user input. Since we will be using command lin
 ### Design Considerations
 
 As discussed in the previous section dealing with the Database Application, the decision was made to focus on the implementation from a sales personnel perspective. The ability for the sales team to add, edit and review the sales table is critical for their mission to be successful. This was taken in to account when deciding how to implement certain functions which authorize the manipulation of database entries. Therefore, the only entries that are able to edited and manipulated are in the sales table. This ultimately implies that the location, employee, and role tables will not be modified as the sales personnel will not be hiring or promoting new employees nor are they authorized to implement changes to personnel in terms of where they work or which location is considered to be their home branch.
+
+##Development Log
+
+In order to see the development log for this project, follow the link:
+https://github.com/travisolbrich/315-P1-DBMS
