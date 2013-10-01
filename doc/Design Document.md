@@ -44,7 +44,7 @@ This is the fourth major module in the DBMS engine. The focus in the design of t
 ### Database App
 
 ### User I/O
-A command line based menu system will be created to allow employees to manage data in the system through an intuitive interface.
+A command line based menu system has been created to allow employees to manage sale data in the system through an intuitive interface. We have chosen to focus on the sales aspect of the implementation. This decision was made after the design phase had concluded. The reason for this was that the focus of the program became its use by sales personnel and as such they would not need access or the ability to edit certain aspects of the Database.
 
 ### Business Logic
 This process will compute earnings totals and carry out other calculations based on the data in the database.
