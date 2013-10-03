@@ -6,7 +6,7 @@
 
 
 void Seeder::seed()
-{
+{	
 	int result;
 
 	// See if the locations file exists
@@ -86,10 +86,10 @@ void Seeder::seed()
 	if(result == 1)
 	{
 		// Create location table
-		dbms->execute("CREATE TABLE employee_sale (id INTEGER, employee_id INTEGER, sale_id INTEGER) PRIMARY KEY (id);");
-		dbms->execute("INSERT INTO employee_sale VALUES FROM (1, 1, 1);");
-		dbms->execute("INSERT INTO employee_sale VALUES FROM (2, 3, 1);");
-		dbms->execute("INSERT INTO employee_sale VALUES FROM (3, 4, 2);");
-		dbms->execute("INSERT INTO employee_sale VALUES FROM (4, 4, 3);");
+		dbms->execute("CREATE TABLE employee_sale (employee_id INTEGER, sale_id INTEGER) PRIMARY KEY (id);");
+		dbms->execute("INSERT INTO employee_sale VALUES FROM (1, 1);");
+		dbms->execute("INSERT INTO employee_sale VALUES FROM (3, 1);");
+		dbms->execute("INSERT INTO employee_sale VALUES FROM (4, 2);");
+		dbms->execute("INSERT INTO employee_sale VALUES FROM (4, 3);");
 	}
 }

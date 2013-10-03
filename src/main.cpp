@@ -8,32 +8,38 @@
 #include "../lib/DBMSEngine/Engine.h"
 #include "../lib/DBMS/DBMS.h"
 #include "../lib/DBSeeder/Seeder.h"
+#include "../lib/DBApplication/DBApp.h"
 
 void program();
 void getSymbol();
 
 int main(int argc, char const *argv[])
 {
-		// Create the engine. There are no relations to add to it yet
-		DBMS* dbms = new DBMS();
+	// Create the engine. There are no relations to add to it yet
+	DBMS* dbms = new DBMS();
 
-		// Call the seeder
-		Seeder* seeder = new Seeder(dbms);
-		seeder->seed();
+	// Call the seeder
+	Seeder* seeder = new Seeder(dbms);
+	seeder->seed();	
 
+	// Call the app
+	DBApp* app = new DBApp(dbms);
+	app->mainMenu();
 
-		while(true)
-		{
-			string query;
-			cout << "sql> ";
-			getline(cin,query,';');
-			query = query + ";"; // The cin gets rid of the ;
+	// Write and close everything
+	dbms->execute("WRITE locations;");
+	dbms->execute("WRITE sales;");
+	dbms->execute("WRITE employees;");
+	dbms->execute("WRITE roles;");
+	dbms->execute("WRITE employee_role;");	
+	dbms->execute("WRITE employee_sale;");
 
-			int status = dbms->execute(query);
-
-			// Done
-			if (status == 2) return 0;
-		}
+	dbms->execute("CLOSE locations;");
+	dbms->execute("CLOSE sales;");
+	dbms->execute("CLOSE employees;");
+	dbms->execute("CLOSE roles;");
+	dbms->execute("CLOSE employee_role;");	
+	dbms->execute("CLOSE employee_sale;");
 	
 	return 0;
 

@@ -87,6 +87,7 @@ bool SqlParser::query()
 	Relation relation = expr();
 	relation.setName(relationName);
 
+	engine->removeRelation(relationName);
 	engine->addRelation(relation);
 
 	return true;
@@ -246,7 +247,8 @@ void SqlParser::update()
 	}
 	while(token.getType() == Token::COMMA);
 
-	expect(Token::WHERE);
+	if(token.getType() != Token::WHERE) throw runtime_error("Expected WHERE");
+
 	increment();
 
 	// Expect an condition list (Just read it now, parse later)
@@ -283,7 +285,6 @@ void SqlParser::deleteRows()
 	Relation* relation = engine->getRelation(relationName);
 
 	ConditionParser* conditionParser = new ConditionParser(conditions, engine, *relation);
-	cout << conditionParser->parse().size() << endl;
 	engine->deleteTuples(relationName, conditionParser->parse());
 }
 

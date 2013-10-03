@@ -128,6 +128,14 @@ void Engine::close(string relationName)
 	outFile.close();
 }
 
+void Engine::removeRelation(string relation)
+{
+	for (int i=0; i<relations.size(); i++)
+	{
+		if(relations[i].getName() == relation) relations.erase(relations.begin()+i);
+	}
+}
+
 
 /**
   * Print a relation to the screen

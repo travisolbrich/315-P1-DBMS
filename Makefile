@@ -4,8 +4,8 @@ BUILDDIR=build
 
 all: project
 
-project: $(BUILDDIR)/main.o $(BUILDDIR)/SqlTokenizer.o $(BUILDDIR)/Token.o $(BUILDDIR)/Seeder.o $(BUILDDIR)/DBMS.o $(BUILDDIR)/SqlParser.o $(BUILDDIR)/Engine.o $(BUILDDIR)/ConditionParser.o $(BUILDDIR)/Relation.o
-	$(CC) $(FLAGS) $(BUILDDIR)/main.o $(BUILDDIR)/SqlTokenizer.o $(BUILDDIR)/Token.o $(BUILDDIR)/Seeder.o $(BUILDDIR)/DBMS.o $(BUILDDIR)/SqlParser.o $(BUILDDIR)/Engine.o $(BUILDDIR)/ConditionParser.o $(BUILDDIR)/Relation.o -o bin/project.out
+project: $(BUILDDIR)/main.o $(BUILDDIR)/SqlTokenizer.o $(BUILDDIR)/Token.o $(BUILDDIR)/DBApp.o $(BUILDDIR)/Seeder.o $(BUILDDIR)/DBMS.o $(BUILDDIR)/SqlParser.o $(BUILDDIR)/Engine.o $(BUILDDIR)/ConditionParser.o $(BUILDDIR)/Relation.o
+	$(CC) $(FLAGS) $(BUILDDIR)/main.o $(BUILDDIR)/SqlTokenizer.o $(BUILDDIR)/Token.o $(BUILDDIR)/DBApp.o $(BUILDDIR)/Seeder.o $(BUILDDIR)/DBMS.o $(BUILDDIR)/SqlParser.o $(BUILDDIR)/Engine.o $(BUILDDIR)/ConditionParser.o $(BUILDDIR)/Relation.o -o bin/project.out
 
 $(BUILDDIR)/main.o: src/main.cpp
 	$(CC) $(FLAGS) -c src/main.cpp -o $(BUILDDIR)/main.o
@@ -33,6 +33,9 @@ $(BUILDDIR)/DBMS.o: lib/DBMS/DBMS.cpp
 
 $(BUILDDIR)/Seeder.o: lib/DBSeeder/Seeder.cpp
 	$(CC) $(FLAGS) -c lib/DBSeeder/Seeder.cpp -o $(BUILDDIR)/Seeder.o
+
+$(BUILDDIR)/DBApp.o: lib/DBApplication/DBApp.cpp
+	$(CC) $(FLAGS) -c lib/DBApplication/DBApp.cpp -o $(BUILDDIR)/DBApp.o
 
 clean: 
 	-rm -rf build/* 

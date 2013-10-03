@@ -34,3 +34,8 @@ int DBMS::execute(string query)
 
 	return 0;
 }
+
+Relation DBMS::relation(string relation)
+{
+	return *engine->getRelation(relation);
+}

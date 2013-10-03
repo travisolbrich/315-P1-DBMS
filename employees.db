@@ -1,0 +1,7 @@
+CREATE TABLE employees (id INTEGER, location_id INTEGER, first_name VARCHAR(30), last_name VARCHAR(30)) PRIMARY KEY (id);
+INSERT INTO employees VALUES FROM (1, 1, "Zalmon", "Xavier");
+INSERT INTO employees VALUES FROM (2, 1, "Walganus", "Parwiz");
+INSERT INTO employees VALUES FROM (3, 1, "Garrick", "Maddox");
+INSERT INTO employees VALUES FROM (4, 2, "Aubery", "Herman");
+INSERT INTO employees VALUES FROM (5, 3, "Rudolph", "Hardy");
+INSERT INTO employees VALUES FROM (6, 3, "Lesley", "Milton");

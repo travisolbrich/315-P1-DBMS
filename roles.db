@@ -1,0 +1,4 @@
+CREATE TABLE roles (id INTEGER, role_name VARCHAR(30)) PRIMARY KEY (id);
+INSERT INTO roles VALUES FROM (1, "Manager");
+INSERT INTO roles VALUES FROM (2, "Owner");
+INSERT INTO roles VALUES FROM (3, "Employee");

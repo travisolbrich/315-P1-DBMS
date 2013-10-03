@@ -1,0 +1,6 @@
+CREATE TABLE employee_sale (employee_id INTEGER, sale_id INTEGER) PRIMARY KEY ();
+INSERT INTO employee_sale VALUES FROM (1, 1);
+INSERT INTO employee_sale VALUES FROM (3, 1);
+INSERT INTO employee_sale VALUES FROM (4, 2);
+INSERT INTO employee_sale VALUES FROM (4, 3);
+INSERT INTO employee_sale VALUES FROM (6, 4);

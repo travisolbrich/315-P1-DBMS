@@ -1,0 +1,11 @@
+CREATE TABLE employee_role (id INTEGER, employee_id INTEGER, role_id INTEGER) PRIMARY KEY (id);
+INSERT INTO employee_role VALUES FROM (1, 1, 1);
+INSERT INTO employee_role VALUES FROM (2, 1, 2);
+INSERT INTO employee_role VALUES FROM (3, 2, 3);
+INSERT INTO employee_role VALUES FROM (4, 3, 3);
+INSERT INTO employee_role VALUES FROM (5, 4, 1);
+INSERT INTO employee_role VALUES FROM (6, 4, 2);
+INSERT INTO employee_role VALUES FROM (1, 4, 3);
+INSERT INTO employee_role VALUES FROM (2, 5, 1);
+INSERT INTO employee_role VALUES FROM (3, 5, 2);
+INSERT INTO employee_role VALUES FROM (1, 6, 3);

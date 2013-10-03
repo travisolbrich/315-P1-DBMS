@@ -1,0 +1,4 @@
+CREATE TABLE sales (id INTEGER, location_id INTEGER, client VARCHAR(30)) PRIMARY KEY (id);
+INSERT INTO sales VALUES FROM (2, 2, "Blinn");
+INSERT INTO sales VALUES FROM (3, 2, "BISD");
+INSERT INTO sales VALUES FROM (4, 3, "University of Houston");

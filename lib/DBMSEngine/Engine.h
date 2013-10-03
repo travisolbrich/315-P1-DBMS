@@ -39,6 +39,7 @@ public:
 	// Helpers
 	Relation *getRelation(string relationName);
 	void addRelation(Relation relation) { relations.push_back(relation); }
+	void removeRelation(string name);
 
 	void exit();
 

@@ -1,0 +1,277 @@
+travis@t420-ubuntu:~/school/csce315/315-P1-DBMS$ bin/project.out 
+<<<<< Main Menu >>>>> 
+
+Menu Options: 
+1) View Locations 
+2) View Employees 
+3) Manage/View Sales 
+0) EXIT (you may need to exit a few times) 
+1
+
+Locations: 
+College Station, Texas (3 employees)
+Bryan, Texas (1 employees)
+Houston, Texas (2 employees)
+
+<<<<< Main Menu >>>>> 
+
+Menu Options: 
+1) View Locations 
+2) View Employees 
+3) Manage/View Sales 
+0) EXIT (you may need to exit a few times) 
+2
+
+Employees: 
+Zalmon Xavier (College Station, Texas)
+Roles: [ Manager Owner ]
+
+Walganus Parwiz (College Station, Texas)
+Roles: [ Employee ]
+
+Garrick Maddox (College Station, Texas)
+Roles: [ Employee ]
+
+Aubery Herman (Bryan, Texas)
+Roles: [ Manager Owner Employee ]
+
+Rudolph Hardy (Houston, Texas)
+Roles: [ Manager Owner ]
+
+Lesley Milton (Houston, Texas)
+Roles: [ Employee ]
+
+
+People who are only employees:
+===== SHOW Relation: onlyEmployees
+      VARCHAR first_name: Walganus
+      VARCHAR last_name: Parwiz
+
+      VARCHAR first_name: Garrick
+      VARCHAR last_name: Maddox
+
+      VARCHAR first_name: Lesley
+      VARCHAR last_name: Milton
+
+<<<<< Main Menu >>>>> 
+
+Menu Options: 
+1) View Locations 
+2) View Employees 
+3) Manage/View Sales 
+0) EXIT (you may need to exit a few times) 
+3
+
+<<<<< Sales Menu >>>>> 
+
+Menu Options: 
+1) View Sales 
+2) Delete Sales 
+3) Add Sales 
+4) Update Sales 
+5) View sales for certain locations only 
+0) EXIT 
+1
+
+===== SHOW Relation: salesReport
+[KEY] INTEGER id: 2
+      VARCHAR client: Blinn
+      VARCHAR city: Bryan
+      VARCHAR state: Texas
+
+[KEY] INTEGER id: 3
+      VARCHAR client: BISD
+      VARCHAR city: Bryan
+      VARCHAR state: Texas
+
+[KEY] INTEGER id: 4
+      VARCHAR client: Test Client
+      VARCHAR city: Houston
+      VARCHAR state: Texas
+
+<<<<< Sales Menu >>>>> 
+
+Menu Options: 
+1) View Sales 
+2) Delete Sales 
+3) Add Sales 
+4) Update Sales 
+5) View sales for certain locations only 
+0) EXIT 
+2
+
+
+Which sale to delete? (See sale IDs by using the View Sales option. Type -1 to stop)
+
+Sale ID> 4
+
+Sale ID> -1
+<<<<< Sales Menu >>>>> 
+
+Menu Options: 
+1) View Sales 
+2) Delete Sales 
+3) Add Sales 
+4) Update Sales 
+5) View sales for certain locations only 
+0) EXIT 
+1
+
+===== SHOW Relation: salesReport
+[KEY] INTEGER id: 2
+      VARCHAR client: Blinn
+      VARCHAR city: Bryan
+      VARCHAR state: Texas
+
+[KEY] INTEGER id: 3
+      VARCHAR client: BISD
+      VARCHAR city: Bryan
+      VARCHAR state: Texas
+
+<<<<< Sales Menu >>>>> 
+
+Menu Options: 
+1) View Sales 
+2) Delete Sales 
+3) Add Sales 
+4) Update Sales 
+5) View sales for certain locations only 
+0) EXIT 
+3
+
+===== SHOW Relation: locations
+[KEY] INTEGER id: 1
+      VARCHAR city: College Station
+      VARCHAR state: Texas
+
+[KEY] INTEGER id: 2
+      VARCHAR city: Bryan
+      VARCHAR state: Texas
+
+[KEY] INTEGER id: 3
+      VARCHAR city: Houston
+      VARCHAR state: Texas
+
+
+Location ID?
+3
+
+Client?
+U of H
+locationEmployees <- (select (location_id == 3) employees);
+===== SHOW Relation: locationEmployees
+[KEY] INTEGER id: 5
+      INTEGER location_id: 3
+      VARCHAR first_name: Rudolph
+      VARCHAR last_name: Hardy
+
+[KEY] INTEGER id: 6
+      INTEGER location_id: 3
+      VARCHAR first_name: Lesley
+      VARCHAR last_name: Milton
+
+Employee who was involved with sale (enter ID, or -1 if done)
+-1
+===== SHOW Relation: salesReport
+[KEY] INTEGER id: 2
+      VARCHAR client: Blinn
+      VARCHAR city: Bryan
+      VARCHAR state: Texas
+
+[KEY] INTEGER id: 3
+      VARCHAR client: BISD
+      VARCHAR city: Bryan
+      VARCHAR state: Texas
+
+[KEY] INTEGER id: 4
+      VARCHAR client: U of H
+      VARCHAR city: Houston
+      VARCHAR state: Texas
+
+<<<<< Sales Menu >>>>> 
+
+Menu Options: 
+1) View Sales 
+2) Delete Sales 
+3) Add Sales 
+4) Update Sales 
+5) View sales for certain locations only 
+0) EXIT 
+4
+
+
+Which sale to update? {See sale IDs by using the View Sales option. Type -1 to quit)
+4
+
+===== SHOW Relation: 
+[KEY] INTEGER id: 4
+      INTEGER location_id: 3
+      VARCHAR client: U of H
+
+Enter the new client and press enter
+University of Houston
+UPDATE sales SET client = "University of Houston" WHERE id == 4;===== SHOW Relation: 
+[KEY] INTEGER id: 4
+      INTEGER location_id: 3
+      VARCHAR client: University of Houston
+
+<<<<< Sales Menu >>>>> 
+
+Menu Options: 
+1) View Sales 
+2) Delete Sales 
+3) Add Sales 
+4) Update Sales 
+5) View sales for certain locations only 
+0) EXIT 
+5
+
+===== SHOW Relation: locations
+[KEY] INTEGER id: 1
+      VARCHAR city: College Station
+      VARCHAR state: Texas
+
+[KEY] INTEGER id: 2
+      VARCHAR city: Bryan
+      VARCHAR state: Texas
+
+[KEY] INTEGER id: 3
+      VARCHAR city: Houston
+      VARCHAR state: Texas
+
+Enter the location IDs for the sales you'd like to see. Press enter after each location, -1 to finish
+===== SHOW Relation: saleSelection
+Location ID > 
+1
+Location ID > 
+2
+Location ID > 
+-1
+===== SHOW Relation: saleSelection
+[KEY] INTEGER id: 2
+      INTEGER location_id: 2
+      VARCHAR client: Blinn
+
+[KEY] INTEGER id: 3
+      INTEGER location_id: 2
+      VARCHAR client: BISD
+
+<<<<< Sales Menu >>>>> 
+
+Menu Options: 
+1) View Sales 
+2) Delete Sales 
+3) Add Sales 
+4) Update Sales 
+5) View sales for certain locations only 
+0) EXIT 
+0
+
+<<<<< Main Menu >>>>> 
+
+Menu Options: 
+1) View Locations 
+2) View Employees 
+3) Manage/View Sales 
+0) EXIT (you may need to exit a few times) 
+0
