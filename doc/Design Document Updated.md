@@ -1,6 +1,8 @@
 Design Document
 ===============
 
+The majority of this project has been developed on unix/linux machines.
+
 ## Purpose of Project
 
 The system is designed for use by a company with multiple locations. The database will maintain a tracking of employee earnings throughout the entire company. Such a database is necessary due to poor data management by other systems that the company has previously used. Employee earnings will be efficiently tracked based on multiple attributes including but not limited to: name, actualized earnings, and location. By using this system, a company will have unparalleled precision when reviewing earning reports despite a heavy influx of reports due to their large number of locations.
